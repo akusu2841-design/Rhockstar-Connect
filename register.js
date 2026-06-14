@@ -13,7 +13,7 @@ form.addEventListener("submit", function(e){
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
 
   if(name.length < 3){
-    alert("Name must be at least 3 characters.");
+    alert("Please use a valid name.");
     return;
   }
 
