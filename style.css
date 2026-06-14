@@ -94,34 +94,62 @@ body{
 
 /* ================= HAMBURGER ================= */
 
-@media (max-width:768px){
+.hamburger {
+  display: none;
+  font-size: 30px;
+  font-weight: bold;
+  color: #38bdf8;
+  cursor: pointer;
 
-  .hamburger{
-    display:block;
+  padding: 8px 14px;
+  border-radius: 10px;
+
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.15);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.hamburger:active {
+  transform: scale(0.95);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .hamburger {
+    display: block;
   }
 
-  .nav-links{
-    position:absolute;
-    top:80px;
-    right:-100%;
-    width:250px;
+  .nav-links {
+    position: absolute;
+    top: 80px;
+    right: -100%;
 
-    background:#0f172a;
-    border:1px solid rgba(139,92,246,0.3);
+    width: 250px;
+    padding: 20px;
 
-    border-radius:12px;
-    padding:20px;
+    background: #0f172a;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
 
-    transition:0.3s ease;
+    transition: right 0.3s ease;
   }
 
-  .nav-links ul{
-    flex-direction:column;
-    gap:15px;
+  .nav-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    list-style: none;
   }
 
-  .nav-links.active{
-    right:20px;
+  .nav-links.active {
+    right: 20px;
   }
 }
 /* ================= HERO ================= */
