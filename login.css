@@ -103,14 +103,20 @@ gap:3px;
   box-shadow:0 0 12px rgba(56,189,248,.4);
 }
 
-button{
+/* ================= LOGIN BUTTON ================= */
+
+#loginBtn{
   margin-top:10px;
   padding:14px;
 
   border:none;
   border-radius:50px;
 
-  background:linear-gradient(
-    135deg,
-    #38bdf8,
-    #8b5cf6)
+  background:linear-gradient(135deg,#38bdf8,#8b5cf6)
+}
+
+
+
+
+
+
