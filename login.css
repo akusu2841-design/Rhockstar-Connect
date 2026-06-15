@@ -1,4 +1,4 @@
-      /* ================= RESET ================= */
+/* ================= RESET ================= */
 
 *{
   margin:0;
@@ -21,6 +21,7 @@ body{
 
   padding:20px;
 }
+
 /* ================= LINKS ================= */
 
 a{
@@ -34,64 +35,52 @@ a{
 a:hover{
   color:#8b5cf6;
 }
-}
+
 /* ================= LOGIN CARD ================= */
 
 .loginPage{
- width:100px;
- max-width:500px;
+  width:100%;
+  max-width:500px;
 
- background:#111827;
- color:white;
-  
- padding:8px;
- margin-top:20px;
-  
- border-radius:20px;
- border:1px solid white;
- 
- box-shadow:0 0 15px rgba(59,130,246,0.4);
-  
+  background:#111827;
+
+  padding:35px;
+  margin-top:20px;
+
+  border-radius:20px;
+  border:1px solid rgba(139,92,246,.3);
+
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
 /* ================= TITLE ================= */
 
-.loginpage h2{
-      margin-bottom:20px;
-      font-align:center;
-      font-size: 4rem;
-      color:#38bdf8;
+.loginPage h2{
+  text-align:center;
+  margin-bottom:25px;
+
+  color:#38bdf8;
+  font-size:2rem;
 }
 
 /* ================= FORM ================= */
 
- #loginForm{
- display:flex;
- flex-direction:column;
- }
+#loginForm{
+  display:flex;
+  flex-direction:column;
+}
 
 #loginForm label{
-color:#38bdf8;
-font-weight:bold;
-margin-bottom:6px;
-}
-.checkbox-group{
-display:flex;
-align-items:center;
-gap:3px;
-
-display:block;
-
-margin-top:-5px;
-margin-bottom:15px;
-
-font-size:.85rem;
-line-height:1.6;
+  color:#38bdf8;
+  font-weight:bold;
+  margin-bottom:6px;
 }
 
-#loginForm input{
+/* ================= INPUTS ================= */
 
- width:100%;
+#loginForm input[type="text"],
+#loginForm input[type="password"]{
+  width:100%;
   padding:14px;
 
   margin-bottom:15px;
@@ -106,9 +95,33 @@ line-height:1.6;
   transition:.3s ease;
 }
 
-#loginForm input:focus{
+#loginForm input[type="text"]:focus,
+#loginForm input[type="password"]:focus{
   border-color:#38bdf8;
   box-shadow:0 0 12px rgba(56,189,248,.4);
+}
+
+/* ================= CHECKBOXES ================= */
+
+.checkbox-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  margin-bottom:12px;
+}
+
+.checkbox-group label{
+  color:white;
+  font-weight:normal;
+  margin:0;
+  cursor:pointer;
+}
+
+.checkbox-group input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  cursor:pointer;
 }
 
 /* ================= LOGIN BUTTON ================= */
@@ -120,9 +133,13 @@ line-height:1.6;
   border:none;
   border-radius:50px;
 
-  background:linear-gradient(135deg,#38bdf8,#8b5cf6);
+  background:linear-gradient(
+    135deg,
+    #38bdf8,
+    #8b5cf6
+  );
 
- color:white;
+  color:white;
   font-size:1rem;
   font-weight:bold;
 
@@ -130,14 +147,42 @@ line-height:1.6;
   transition:.3s ease;
 }
 
-loginBtn:hover{
+#loginBtn:hover{
   transform:translateY(-3px);
 
   box-shadow:
     0 10px 25px rgba(56,189,248,.3),
     0 10px 25px rgba(139,92,246,.3);
+}
 
+/* ================= MESSAGE ================= */
 
+#message{
+  text-align:center;
+  margin-top:15px;
+  font-weight:bold;
+}
 
+/* ================= FOOTER TEXT ================= */
 
+.loginPage p{
+  text-align:center;
+  margin-top:15px;
+}
 
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+  .loginPage{
+    padding:25px;
+  }
+
+  .loginPage h2{
+    font-size:1.6rem;
+  }
+
+  #loginBtn{
+    width:100%;
+  }
+}
