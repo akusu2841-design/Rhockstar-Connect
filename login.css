@@ -77,9 +77,9 @@ margin-bottom:6px;
 }
 .checkbox-group{
 display:flex;
-font-size:10px;
+font-size:12px;
 align-items:center;
-gap:8px;
+gap:3px;
 }
 #loginForm input{
 
@@ -102,3 +102,15 @@ gap:8px;
   border-color:#38bdf8;
   box-shadow:0 0 12px rgba(56,189,248,.4);
 }
+
+button{
+  margin-top:10px;
+  padding:14px;
+
+  border:none;
+  border-radius:50px;
+
+  background:linear-gradient(
+    135deg,
+    #38bdf8,
+    #8b5cf6)
