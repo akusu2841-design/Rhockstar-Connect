@@ -1,0 +1,63 @@
+      /* ================= RESET ================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+/* ================= BODY ================= */
+
+body{
+  min-height:100vh;
+  background:#0f172a;
+  color:white;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  padding:20px;
+}
+/* ================= LINKS ================= */
+
+a{
+  color:#38bdf8;
+  text-decoration:none;
+  font-weight:bold;
+  margin:8px;
+  transition:.3s ease;
+}
+
+a:hover{
+  color:#8b5cf6;
+}
+}
+/* ================= LOGIN CARD ================= */
+
+.loginPage{
+ width:100px;
+ max-width:500;
+
+ background:#111827;
+ color:white;
+  
+ padding:8px
+ margin-top:20px;
+  
+ border-radius:20px
+ border:1px solid whitw;
+ 
+ box-shadow:0 0 15px rgba(59,130,246,0.4);
+
+  
+  
+}
+
+
+
+
+
+
