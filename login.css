@@ -57,9 +57,9 @@ a:hover{
 /* ================= TITLE ================= */
 
 .loginpage h2{
-      margin-bottom:50px;
+      margin-bottom:20px;
       font-align:center;
-      font-size: 2rem;
+      font-size: 4rem;
       color:#38bdf8;
 }
 
@@ -77,10 +77,18 @@ margin-bottom:6px;
 }
 .checkbox-group{
 display:flex;
-font-size:12px;
 align-items:center;
 gap:3px;
+
+display:block;
+
+margin-top:-5px;
+margin-bottom:15px;
+
+font-size:.85rem;
+line-height:1.6;
 }
+
 #loginForm input{
 
  width:100%;
@@ -113,8 +121,21 @@ gap:3px;
   border-radius:50px;
 
   background:linear-gradient(135deg,#38bdf8,#8b5cf6);
+
+ color:white;
+  font-size:1rem;
+  font-weight:bold;
+
+  cursor:pointer;
+  transition:.3s ease;
 }
 
+loginBtn:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 10px 25px rgba(56,189,248,.3),
+    0 10px 25px rgba(139,92,246,.3);
 
 
 
