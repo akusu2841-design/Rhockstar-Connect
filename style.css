@@ -1,4 +1,4 @@
-/* ================= GENERAL ================= */
+/* ================= RESET ================= */
 
 *{
   margin:0;
@@ -7,30 +7,37 @@
   font-family:Arial,sans-serif;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   background:#0f172a;
-  color:#ffffff;
+  color:white;
   min-height:100vh;
+  overflow-x:hidden;
 }
 
 /* ================= NAVBAR ================= */
 
 .navbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
 
   padding:18px 8%;
-  background:rgba(15,23,42,0.95);
 
-  border-bottom:1px solid rgba(139,92,246,0.25);
-
-  position:sticky;
-  top:0;
-  z-index:1000;
-
+  background:rgba(15,23,42,.95);
   backdrop-filter:blur(12px);
+
+  border-bottom:1px solid rgba(139,92,246,.25);
 }
+
+/* ================= LOGO ================= */
 
 .logo{
   display:flex;
@@ -41,14 +48,16 @@ body{
 .logo img{
   width:50px;
   height:50px;
+
   border-radius:50%;
   object-fit:cover;
+
   border:2px solid #38bdf8;
 }
 
 .logo h2{
   font-size:1.4rem;
-  color:#ffffff;
+  font-weight:700;
 }
 
 .logo h2::first-letter{
@@ -58,8 +67,8 @@ body{
 /* ================= NAV LINKS ================= */
 
 .nav-links ul{
-  list-style:none;
   display:flex;
+  list-style:none;
   gap:20px;
 }
 
@@ -72,12 +81,11 @@ body{
 
   font-weight:600;
 
-  transition:0.3s ease;
+  transition:.3s ease;
 }
 
 .nav-links a:hover{
   background:#8b5cf6;
-  color:white;
   transform:translateY(-2px);
 }
 
@@ -89,50 +97,169 @@ body{
 }
 
 .nav-links a[href="register.html"]:hover{
-  background:#ffffff;
+  background:white;
+  color:#0f172a;
 }
 
 /* ================= HAMBURGER ================= */
 
-.hamburger {
-  display: none;
-  font-size: 30px;
-  font-weight: bold;
-  color: #38bdf8;
-  cursor: pointer;
+.hamburger{
+  display:none;
 
-  padding: 8px 14px;
-  border-radius: 10px;
+  font-size:30px;
+  color:#38bdf8;
 
-  transition: all 0.3s ease;
+  cursor:pointer;
+  user-select:none;
+
+  transition:.3s ease;
 }
 
-.hamburger:hover {
-  color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.15);
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+.hamburger:hover{
+  color:#8b5cf6;
 }
 
-.hamburger:active {
-  transform: scale(0.95);
+/* ================= HERO ================= */
+
+.hero{
+  min-height:calc(100vh - 85px);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  padding:40px 20px;
+
+  position:relative;
+}
+
+/* Glow Background */
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+
+  width:350px;
+  height:350px;
+
+  background:#8b5cf6;
+
+  filter:blur(180px);
+  opacity:.15;
+
+  top:50px;
+  left:-100px;
+
+  z-index:-1;
+}
+
+.hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:350px;
+  height:350px;
+
+  background:#38bdf8;
+
+  filter:blur(180px);
+  opacity:.15;
+
+  bottom:0;
+  right:-100px;
+
+  z-index:-1;
+}
+
+/* ================= HERO TEXT ================= */
+
+.hero h1{
+  font-size:4rem;
+  max-width:900px;
+
+  line-height:1.1;
+  margin-bottom:20px;
+
+  background:linear-gradient(
+    90deg,
+    #38bdf8,
+    white,
+    #8b5cf6
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  max-width:700px;
+
+  font-size:1.2rem;
+  line-height:1.7;
+
+  color:#d1d5db;
+
+  margin-bottom:35px;
+}
+
+/* ================= BUTTON ================= */
+
+#joinBtn{
+  border:none;
+  outline:none;
+
+  padding:16px 40px;
+
+  font-size:1rem;
+  font-weight:bold;
+
+  color:white;
+
+  cursor:pointer;
+
+  border-radius:50px;
+
+  background:linear-gradient(
+    135deg,
+    #38bdf8,
+    #8b5cf6
+  );
+
+  box-shadow:
+    0 10px 25px rgba(56,189,248,.25),
+    0 10px 25px rgba(139,92,246,.25);
+
+  transition:.3s ease;
+}
+
+#joinBtn:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 15px 35px rgba(56,189,248,.4),
+    0 15px 35px rgba(139,92,246,.4);
 }
 
 /* ================= MOBILE ================= */
 
-@media (max-width: 768px){
+@media (max-width:768px){
 
   .navbar{
     padding:15px 20px;
   }
 
-  .logo h2{
-    font-size:1rem;
+  .logo img{
+    width:42px;
+    height:42px;
   }
 
-  .logo img{
-    width:40px;
-    height:40px;
+  .logo h2{
+    font-size:1rem;
   }
 
   .hamburger{
@@ -141,14 +268,18 @@ body{
 
   .nav-links{
     position:absolute;
+
     top:75px;
     right:-100%;
 
-    width:220px;
+    width:230px;
+
     background:#111827;
 
     padding:20px;
+
     border-radius:12px;
+    border:1px solid rgba(139,92,246,.3);
 
     transition:right .3s ease;
   }
@@ -163,18 +294,15 @@ body{
   }
 
   .hero{
-    min-height:80vh;
     padding:20px;
   }
 
   .hero h1{
-    font-size:2.2rem;
-    line-height:1.2;
+    font-size:2.4rem;
   }
 
   .hero p{
     font-size:1rem;
-    max-width:100%;
   }
 
   #joinBtn{
