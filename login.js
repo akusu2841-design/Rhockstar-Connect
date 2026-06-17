@@ -31,7 +31,7 @@ loginForm.addEventListener("submit", (e) => {
 
   setTimeout(() => {
     // fake success condition....
-    if (password.length >= 4) {
+    if (password.length >= 8) {
 
       message.style.color = "lightgreen";
       message.textContent = "Login successful! Redirecting...";
