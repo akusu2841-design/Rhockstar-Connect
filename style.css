@@ -73,6 +73,18 @@ body{
   color:var(--blue);
 }
 
+/* ================= ABOUT ================= */
+  
+.about{
+  min-height:85vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:60px 20px;
+}
+  
 /* ================= HERO ================= */
 .hero{
   min-height:85vh;
