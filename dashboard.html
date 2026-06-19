@@ -1,54 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rhockstar Connect Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhockstar Connect Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
-
 <body>
 
-<header class="welcome-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
 
-  <div class="profile-section">
+        <div class="logo">
+            <h2 id="site-name">Rhockstar Connect</h2>
+        </div>
 
-    <img
-      src="images/default-avatar.png"
-      alt="Profile Picture"
-      id="profilePic"
-    >
+        <nav>
+            <ul>
+                <li><a href="#dashboard" id="dashboard-link">Dashboard</a></li>
+                <li><a href="#profile" id="profile-link">My Profile</a></li>
+                <li><a href="#nfeed" id="feed-link">News Feed</a></li>
+                <li><a href="#messages" id="messages-link">Messages</a></li>
+                <li><a href="#connections" id="connections-link">Connections</a></li>
+                <li><a href="#jobs" id="jobs-link">Jobs</a></li>
+                <li><a href="#notification" id="notifications-link">Notifications</a></li>
+                <li><a href="#settings" id="settings-link">Settings</a></li>
+                <li><a href="#logout" id="logout-link">Logout</a></li>
+            </ul>
+        </nav>
 
-    <h2>Hello, Elijah</h2>
+    </aside>
 
-    <p class="username">@elijahpeter</p>
+    <!-- Main Content -->
+    <main class="dashboard">
 
-    <input
-      type="file"
-      id="uploadPic"
-      accept="image/*"
-    >
+        <!-- Top Bar -->
+        <header class="topbar">
 
-  </div>
+            <div>
+                <h1 id="welcome-message">Welcome Back, User 👋</h1>
+                <p id="current-date">Friday, June 19, 2026</p>
+            </div>
 
-</header>
+            <div class="search-box">
+                <input
+                    type="search"
+                    id="search-input"
+                    placeholder="Search users, jobs, posts..."
+                >
+            </div>
 
-<main>
+        </header>
 
-  <section class="dashboard-content">
+        <!-- Profile Summary -->
+        <section class="profile-summary">
 
-    <h2>Welcome to Rhockstar Connect</h2>
+            <img
+                id="profile-picture"
+                src="images/profile.jpg"
+                alt="Profile Picture"
+            >
 
-    <p>
-      Connect with friends, share updates, discover opportunities,
-      and grow your network.
-    </p>
+            <div>
+                <h2 id="profile-name">Elijah Peter</h2>
+                <p id="profile-title">Web Developer & Digital Creator</p>
+                <p id="profile-bio">
+                    Building connections, opportunities, and communities.
+                </p>
+            </div>
 
-  </section>
+        </section>
 
-</main>
+        <!-- Statistics -->
+        <section class="stats">
 
-<script src="dashboard.js"></script>
+            <div class="card">
+                <h3>Connections</h3>
+                <p id="connections-count">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Messages</h3>
+                <p id="messages-count">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Profile Views</h3>
+                <p id="profile-views-count">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Job Matches</h3>
+                <p id="job-matches-count">0</p>
+            </div>
+
+        </section>
+
+        <!-- Create Post -->
+        <section class="create-post">
+
+            <h2>Create Post</h2>
+
+            <textarea
+                id="post-content"
+                placeholder="What's happening today?"
+            ></textarea>
+
+            <button id="post-btn">
+                Post
+            </button>
+
+        </section>
+
+        <!-- Feed -->
+        <section class="feed">
+
+            <h2>Recent Posts</h2>
+
+            <div id="feed-container">
+
+                <article class="post">
+                    <h3>User Name</h3>
+                    <p>This is a sample post.</p>
+                    <small>Just now</small>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- Suggested Connections -->
+        <section class="suggestions">
+
+            <h2>People You May Know</h2>
+
+            <div id="suggestions-container">
+
+                <div class="suggestion-card">
+                    <h4>Jane Smith</h4>
+                    <button class="connect-btn">
+                        Connect
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Notifications -->
+        <section class="notifications">
+
+            <h2>
+                Notifications
+                (<span id="notification-count">0</span>)
+            </h2>
+
+            <div id="notification-container">
+
+                <p>No new notifications.</p>
+
+            </div>
+
+        </section>
+
+        <!-- Messages Preview -->
+        <section class="messages-preview">
+
+            <h2>Recent Messages</h2>
+
+            <div id="messages-container">
+
+                <p>No messages yet.</p>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>
