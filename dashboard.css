@@ -18,9 +18,7 @@ body{
  text-decoration: none; 
  cursor: pointer;
  overflow: auto;
- position: relative;
- position: absolute;
- text-align:center;
+ position: fixed;
 }
 
 
