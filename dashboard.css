@@ -17,8 +17,8 @@ body{
  flex:1;
  text-decoration: none; 
  cursor: pointer;
- overflow: hidden;
- position: fixed;
+ overflow: auto;
+ position: relative;
 }
 
 
