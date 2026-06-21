@@ -55,4 +55,7 @@ body{
     transition:.3s ease;
 }
 
-
+.sidebar ul li a:hover{
+background:#1e293b;
+    color:#38bdf8;
+}
