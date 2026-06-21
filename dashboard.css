@@ -2,24 +2,18 @@ body{
  min-height:100vh;
  background:#0f172a;
  color:white;
-
- display:flex;
- padding:20px;
- margin-bottom:20px;
- font-size:1.8rem;
- border-radius:10px;
- transition:.3s ease;
-  
+ display:flex; 
 }
 
 .dashboard{
  flex:1;
- text-decoration: none; 
- cursor: pointer;
  overflow: auto;
  position: relative;
+ padding:30px
 }
-
+.sidebar{
+ 
+}
 
 
 
