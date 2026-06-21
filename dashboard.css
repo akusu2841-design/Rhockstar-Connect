@@ -16,7 +16,7 @@ body{
  width:260px;
  height:100vh;
  background:#111827;
- 
+ overflow-y:auto;
  position:fixed;
  top:0;
  left:0;
