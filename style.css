@@ -230,9 +230,7 @@ button:hover{
   }
 
   .nav-links{
-    position:absolute;
-    top:70px;
-    right:-100%;
+    position:relative
     background:var(--card);
     width:220px;
     padding:20px;
