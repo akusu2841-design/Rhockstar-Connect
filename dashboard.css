@@ -310,6 +310,10 @@ body.sidebar-open::before{
     z-index:1500;
 }
 
+    .hamburger{
+    display:none;
+}
+
 /* ================= RESPONSIVE ================= */
 
 /* Tablet */
