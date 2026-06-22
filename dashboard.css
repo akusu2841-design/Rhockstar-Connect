@@ -7,8 +7,7 @@ body{
 
 .dashboard{
  flex:1;
- margin-left:270px;
- text-align:center;
+ margin-left:280px;
  padding: 25px;
  overflow: auto;
  position: relative;
