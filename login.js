@@ -7,7 +7,7 @@ const rememberMe = document.getElementById("rememberMe");
 const loginBtn = document.getElementById("loginBtn");
 
 /* ================= LOAD REMEMBERED EMAIL ================= */
-const savedEmail = localStorage.getItem("rhockstarUser");
+const savedEmail = localStorage.getItem("rememberedEmail");
 
 if (savedEmail) {
   emailInput.value = savedEmail;
@@ -23,53 +23,78 @@ showPassword.addEventListener("change", () => {
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const email = emailInput.value.trim();
+  const email = emailInput.value.trim().toLowerCase();
   const password = passwordInput.value.trim();
 
-  // Basic validation
   if (!email || !password) {
     message.style.color = "red";
     message.textContent = "Please fill in all fields.";
     return;
   }
 
-  // Loading state
   loginBtn.textContent = "Logging in...";
   loginBtn.disabled = true;
 
   setTimeout(() => {
-    // Example login check
+    // Demo password validation
     if (password.length >= 8) {
 
-      message.style.color = "lightgreen";
-      message.textContent = "Login successful! Redirecting...";
+      let users =
+        JSON.parse(localStorage.getItem("rhockstarUsers")) || [];
 
-      // Save current logged-in user
-      const currentUser = {
-        email: email,
-        loginTime: new Date().toISOString()
-      };
-
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify(currentUser)
+      // Check if user exists
+      let user = users.find(
+        (u) => u.email.toLowerCase() === email
       );
 
-      // Remember email if checkbox checked
-      if (rememberMe.checked) {
-        localStorage.setItem("rhockstarUser", email);
-      } else {
-        localStorage.removeItem("rhockstarUser");
+      // Create user if not found
+      if (!user) {
+        user = {
+          id: Date.now(),
+          name: email.split("@")[0],
+          email: email,
+          password: password, // demo only
+          title: "Member",
+          bio: "Welcome to Rhockstar.",
+          profileImage:
+            "https://ui-avatars.com/api/?name=" +
+            encodeURIComponent(email.split("@")[0]) +
+            "&background=0D8ABC&color=fff",
+          joinedAt: new Date().toISOString()
+        };
+
+        users.push(user);
+        localStorage.setItem(
+          "rhockstarUsers",
+          JSON.stringify(users)
+        );
       }
 
-      // Redirect to dashboard
+      // Save current logged-in user
+      localStorage.setItem(
+        "rhockstarUser",
+        JSON.stringify(user)
+      );
+
+      // Remember email
+      if (rememberMe.checked) {
+        localStorage.setItem("rememberedEmail", email);
+      } else {
+        localStorage.removeItem("rememberedEmail");
+      }
+
+      message.style.color = "lightgreen";
+      message.textContent =
+        "Login successful! Redirecting...";
+
       setTimeout(() => {
         window.location.href = "dashboard.html";
       }, 1500);
 
     } else {
       message.style.color = "red";
-      message.textContent = "Incorrect password. Must be at least 8 characters.";
+      message.textContent =
+        "Password must be at least 8 characters.";
 
       loginBtn.textContent = "Login";
       loginBtn.disabled = false;
