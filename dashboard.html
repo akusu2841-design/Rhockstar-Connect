@@ -1,210 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rhockstar Connect Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rhockstar Connect Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
 
-        <div class="logo">
-            <h2 id="site-name">Rhockstar Connect</h2>
-        </div>
-
-        <nav>
-            <ul>
-                <li><a href="#dashboard" id="dashboard-link">Dashboard</a></li>
-                <li><a href="#profile" id="profile-link">My Profile</a></li>
-                <li><a href="#nfeed" id="feed-link">News Feed</a></li>
-                <li><a href="#messages" id="messages-link">Messages</a></li>
-                <li><a href="#connections" id="connections-link">Connections</a></li>
-                <li><a href="#jobs" id="jobs-link">Jobs</a></li>
-                <li><a href="#notification" id="notifications-link">Notifications</a></li>
-                <li><a href="#settings" id="settings-link">Settings</a></li>
-                <li><a href="#logout" id="logout-link">Logout</a></li>
-            </ul>
-        </nav>
-
-    </aside>
-
-    <!-- Main Content -->
-    <main class="dashboard">
-
-        <!-- Top Bar -->
-        <header class="topbar">
-
-            <div>
-                <h1 id="welcome-message">Welcome Back, User 👋</h1>
-                <p id="current-date">Friday, June 19, 2026</p>
-            </div>
-
-            <div class="search-box">
-                <input
-                    type="search"
-                    id="search-input"
-                    placeholder="Search users, jobs, posts..."
-                >
-            </div>
-
-         <header class="topbar">
-
-  <div class="welcome">
-    <h1 id="welcome-message">Welcome Back, Elijah 👋</h1>
-    <p id="current-date">Monday, June 22, 2026</p>
-  </div>
-
-  <div class="topbar-right">
-
-    <div class="notification">
-      🔔
-      <span id="notification-count">3</span>
+    <div class="logo">
+      <h2 id="site-name">Rhockstar Connect</h2>
     </div>
 
-    <input
-      type="search"
-      id="search-input"
-      placeholder="Search users, posts..."
-    >
+    <nav>
+      <ul>
+        <li><a href="#dashboard" id="dashboard-link">Dashboard</a></li>
+        <li><a href="#profile" id="profile-link">My Profile</a></li>
+        <li><a href="#feed" id="feed-link">News Feed</a></li>
+        <li><a href="#messages" id="messages-link">Messages</a></li>
+        <li><a href="#connections" id="connections-link">Connections</a></li>
+        <li><a href="#jobs" id="jobs-link">Jobs</a></li>
+        <li><a href="#notifications" id="notifications-link">Notifications</a></li>
+        <li><a href="#settings" id="settings-link">Settings</a></li>
+        <li><a href="#logout" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
 
-    <img
-      src="images/profile.jpg"
-      alt="Profile Picture"
-      id="top-profile"
-    >
+  </aside>
 
-  </div>
+  <!-- ================= MAIN DASHBOARD ================= -->
+  <main class="dashboard" id="dashboard">
 
-</header>
+    <!-- ================= TOP BAR ================= -->
+    <header class="topbar">
 
-        <!-- Profile Summary -->
-        <section class="profile-summary">
+      <div class="welcome">
+        <h1 id="welcome-message">
+          Welcome Back, Elijah 👋
+        </h1>
 
-            <img
-                id="profile-picture"
-                src="images/profile.jpg"
-                alt="Profile Picture"
-            >
+        <p id="current-date">
+          Monday, June 22, 2026
+        </p>
+      </div>
 
-            <div>
-                <h2 id="profile-name">Elijah Peter</h2>
-                <p id="profile-title">Web Developer & Digital Creator</p>
-                <p id="profile-bio">
-                    Building connections, opportunities, and communities.
-                </p>
-            </div>
+      <div class="topbar-right">
 
-        </section>
+        <div class="notification">
+          🔔
+          <span id="top-notification-count">
+            3
+          </span>
+        </div>
 
-        <!-- Statistics -->
-        <section class="stats">
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search users, jobs, posts..."
+        >
 
-            <div class="card">
-                <h3>Connections</h3>
-                <p id="connections-count">0</p>
-            </div>
+        <img
+          src="images/profile.jpg"
+          alt="Profile Picture"
+          id="top-profile"
+        >
 
-            <div class="card">
-                <h3>Messages</h3>
-                <p id="messages-count">0</p>
-            </div>
+      </div>
 
-            <div class="card">
-                <h3>Profile Views</h3>
-                <p id="profile-views-count">0</p>
-            </div>
+    </header>
 
-            <div class="card">
-                <h3>Job Matches</h3>
-                <p id="job-matches-count">0</p>
-            </div>
+    <!-- ================= PROFILE ================= -->
+    <section class="profile-summary" id="profile">
 
-        </section>
+      <img
+        id="profile-picture"
+        src="images/profile.jpg"
+        alt="Profile Picture"
+      >
 
-        <!-- Create Post -->
-        <section class="create-post">
+      <div>
 
-            <h2>Create Post</h2>
+        <h2 id="profile-name">
+          Elijah Peter
+        </h2>
 
-            <textarea
-                id="post-content"
-                placeholder="What's happening today?"
-            ></textarea>
+        <p id="profile-title">
+          Web Developer & Digital Creator
+        </p>
 
-            <button id="post-btn">
-                Post
-            </button>
+        <p id="profile-bio">
+          Building connections, opportunities, and communities.
+        </p>
 
-        </section>
+      </div>
 
-        <!-- Feed -->
-        <section class="feed">
+    </section>
 
-            <h2>Recent Posts</h2>
+    <!-- ================= STATISTICS ================= -->
+    <section class="stats">
 
-            <div id="feed-container">
+      <div class="card">
+        <h3>Connections</h3>
+        <p id="connections-count">0</p>
+      </div>
 
-                <article class="post">
-                    <h3>User Name</h3>
-                    <p>This is a sample post.</p>
-                    <small>Just now</small>
-                </article>
+      <div class="card">
+        <h3>Messages</h3>
+        <p id="messages-count">0</p>
+      </div>
 
-            </div>
+      <div class="card">
+        <h3>Profile Views</h3>
+        <p id="profile-views-count">0</p>
+      </div>
 
-        </section>
+      <div class="card">
+        <h3>Job Matches</h3>
+        <p id="job-matches-count">0</p>
+      </div>
 
-        <!-- Suggested Connections -->
-        <section class="suggestions">
+    </section>
 
-            <h2>People You May Know</h2>
+    <!-- ================= CREATE POST ================= -->
+    <section class="create-post">
 
-            <div id="suggestions-container">
+      <h2>Create Post</h2>
 
-                <div class="suggestion-card">
-                    <h4>Jane Smith</h4>
-                    <button class="connect-btn">
-                        Connect
-                    </button>
-                </div>
+      <textarea
+        id="post-content"
+        placeholder="What's happening today?"
+      ></textarea>
 
-            </div>
+      <button id="post-btn">
+        Post
+      </button>
 
-        </section>
+    </section>
 
-        <!-- Notifications -->
-        <section class="notifications">
+    <!-- ================= FEED ================= -->
+    <section class="feed" id="feed">
 
-            <h2>
-                Notifications
-                (<span id="notification-count">0</span>)
-            </h2>
+      <h2>Recent Posts</h2>
 
-            <div id="notification-container">
+      <div id="feed-container">
 
-                <p>No new notifications.</p>
+        <article class="post">
 
-            </div>
+          <h3>User Name</h3>
 
-        </section>
+          <p>
+            This is a sample post.
+          </p>
 
-        <!-- Messages Preview -->
-        <section class="messages-preview">
+          <small>
+            Just now
+          </small>
 
-            <h2>Recent Messages</h2>
+        </article>
 
-            <div id="messages-container">
+      </div>
 
-                <p>No messages yet.</p>
+    </section>
 
-            </div>
+    <!-- ================= SUGGESTIONS ================= -->
+    <section class="suggestions" id="connections">
 
-        </section>
+      <h2>People You May Know</h2>
 
-    </main>
+      <div id="suggestions-container">
+
+        <div class="suggestion-card">
+
+          <h4>Jane Smith</h4>
+
+          <button class="connect-btn">
+            Connect
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <section class="notifications" id="notifications">
+
+      <h2>
+        Notifications
+        (<span id="notification-section-count">0</span>)
+      </h2>
+
+      <div id="notification-container">
+
+        <p>
+          No new notifications.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- ================= MESSAGES ================= -->
+    <section class="messages-preview" id="messages">
+
+      <h2>
+        Recent Messages
+      </h2>
+
+      <div id="messages-container">
+
+        <p>
+          No messages yet.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- ================= JOBS ================= -->
+    <section class="jobs" id="jobs">
+
+      <h2>
+        Recommended Jobs
+      </h2>
+
+      <div id="jobs-container">
+
+        <p>
+          No job recommendations yet.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section class="settings" id="settings">
+
+      <h2>
+        Settings
+      </h2>
+
+      <p>
+        Customize your profile and account preferences here.
+      </p>
+
+    </section>
+
+    <!-- ================= LOGOUT ================= -->
+    <section id="logout">
+    </section>
+
+  </main>
+
+  <script src="dashboard.js"></script>
 
 </body>
 </html>
