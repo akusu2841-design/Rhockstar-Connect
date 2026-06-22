@@ -26,7 +26,7 @@ form.addEventListener("submit", function(e){
       "• One number\n" +
       "• One special character"
     );
-    redirect(window.href="login.html)";
+      window.location.href = "login.html";
   }
 
   alert("Registration successful!");
