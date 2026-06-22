@@ -6,6 +6,14 @@ const showPassword = document.getElementById("showPassword");
 const rememberMe = document.getElementById("rememberMe");
 const loginBtn = document.getElementById("loginBtn");
 
+/* ================= LOAD REMEMBERED EMAIL ================= */
+const savedEmail = localStorage.getItem("rhockstarUser");
+
+if (savedEmail) {
+  emailInput.value = savedEmail;
+  rememberMe.checked = true;
+}
+
 /* ================= SHOW / HIDE PASSWORD ================= */
 showPassword.addEventListener("change", () => {
   passwordInput.type = showPassword.checked ? "text" : "password";
@@ -18,41 +26,53 @@ loginForm.addEventListener("submit", (e) => {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
-  // basic validation
+  // Basic validation
   if (!email || !password) {
     message.style.color = "red";
     message.textContent = "Please fill in all fields.";
     return;
   }
 
-  // fake loading effect
+  // Loading state
   loginBtn.textContent = "Logging in...";
   loginBtn.disabled = true;
 
   setTimeout(() => {
-    // fake success condition....
+    // Example login check
     if (password.length >= 8) {
 
       message.style.color = "lightgreen";
       message.textContent = "Login successful! Redirecting...";
 
-      // save remember me 
+      // Save current logged-in user
+      const currentUser = {
+        email: email,
+        loginTime: new Date().toISOString()
+      };
+
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(currentUser)
+      );
+
+      // Remember email if checkbox checked
       if (rememberMe.checked) {
         localStorage.setItem("rhockstarUser", email);
+      } else {
+        localStorage.removeItem("rhockstarUser");
       }
 
-      // redirect to homepage
+      // Redirect to dashboard
       setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "dashboard.html";
       }, 1500);
 
     } else {
       message.style.color = "red";
-      message.textContent = "Incorrect password.";
+      message.textContent = "Incorrect password. Must be at least 8 characters.";
+
+      loginBtn.textContent = "Login";
+      loginBtn.disabled = false;
     }
-
-    loginBtn.textContent = "Login";
-    loginBtn.disabled = false;
-
   }, 1000);
 });
