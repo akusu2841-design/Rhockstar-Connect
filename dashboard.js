@@ -1,19 +1,65 @@
+// ================= CHECK LOGIN =================
+const user = JSON.parse(localStorage.getItem("rhockstarUser"));
+
+if (!user) {
+  window.location.href = "login.html";
+}
+
+// ================= LOAD USER DATA =================
+function loadUser() {
+  document.getElementById("welcome-message").textContent =
+    `Welcome Back, ${user.name} 👋`;
+
+  document.getElementById("profile-name").textContent =
+    user.name;
+
+  document.getElementById("profile-title").textContent =
+    user.title;
+
+  document.getElementById("profile-bio").textContent =
+    user.bio;
+
+  document.getElementById("top-profile").src =
+    user.profileImage;
+
+  document.getElementById("profile-picture").src =
+    user.profileImage;
+}
+
+loadUser();
+
 // ================= DATE =================
 const currentDate = document.getElementById("current-date");
 
-const today = new Date();
-
-const options = {
+currentDate.textContent = new Date().toLocaleDateString("en-US", {
   weekday: "long",
   year: "numeric",
   month: "long",
   day: "numeric"
-};
+});
 
-currentDate.textContent = today.toLocaleDateString(
-  "en-US",
-  options
-);
+// ================= NOTIFICATIONS =================
+let notifications = 0;
+
+const notificationContainer = document.getElementById("notification-container");
+const topNotificationCount = document.getElementById("top-notification-count");
+const sectionNotificationCount = document.getElementById("notification-section-count");
+
+function addNotification(message) {
+  notifications++;
+
+  topNotificationCount.textContent = notifications;
+  sectionNotificationCount.textContent = notifications;
+
+  if (notificationContainer.innerHTML.includes("No new notifications.")) {
+    notificationContainer.innerHTML = "";
+  }
+
+  const p = document.createElement("p");
+  p.textContent = message;
+
+  notificationContainer.prepend(p);
+}
 
 // ================= CREATE POST =================
 const postBtn = document.getElementById("post-btn");
@@ -23,8 +69,8 @@ const feedContainer = document.getElementById("feed-container");
 postBtn.addEventListener("click", () => {
   const text = postContent.value.trim();
 
-  if (text === "") {
-    alert("Please write something before posting.");
+  if (!text) {
+    alert("Write something before posting.");
     return;
   }
 
@@ -32,7 +78,7 @@ postBtn.addEventListener("click", () => {
   post.classList.add("post");
 
   post.innerHTML = `
-    <h3>Elijah Peter</h3>
+    <h3>${user.name}</h3>
     <p>${text}</p>
     <small>Just now</small>
   `;
@@ -43,145 +89,67 @@ postBtn.addEventListener("click", () => {
   addNotification("You created a new post.");
 });
 
-// ================= NOTIFICATIONS =================
-const notificationContainer =
-  document.getElementById("notification-container");
-
-const notificationCount =
-  document.getElementById("notification-section-count");
-
-const topNotificationCount =
-  document.getElementById("top-notification-count");
-
-let notifications = 0;
-
-function addNotification(message) {
-  notifications++;
-
-  notificationCount.textContent = notifications;
-  topNotificationCount.textContent = notifications;
-
-  if (
-    notificationContainer.innerHTML.includes(
-      "No new notifications."
-    )
-  ) {
-    notificationContainer.innerHTML = "";
-  }
-
-  const p = document.createElement("p");
-  p.textContent = message;
-
-  notificationContainer.prepend(p);
-}
-
 // ================= CONNECTIONS =================
-const connectButtons =
-  document.querySelectorAll(".connect-btn");
-
-const connectionsCount =
-  document.getElementById("connections-count");
-
 let connections = 0;
 
-connectButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    if (button.textContent === "Connected") {
-      return;
-    }
+const connectionCount = document.getElementById("connections-count");
+
+document.querySelectorAll(".connect-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.disabled) return;
 
     connections++;
-    connectionsCount.textContent = connections;
+    connectionCount.textContent = connections;
 
-    button.textContent = "Connected";
-    button.disabled = true;
+    btn.textContent = "Connected";
+    btn.disabled = true;
 
-    addNotification("You made a new connection.");
+    addNotification("New connection added.");
   });
 });
 
-// ================= PROFILE VIEWS =================
-const profileViews =
-  document.getElementById("profile-views-count");
+// ================= PROFILE EDIT =================
+const editBtn = document.getElementById("edit-profile-btn");
 
-let views = 1;
-profileViews.textContent = views;
+editBtn.addEventListener("click", () => {
+  const newName = prompt("Enter new name:", user.name);
+  const newTitle = prompt("Enter new title:", user.title);
+  const newBio = prompt("Enter new bio:", user.bio);
 
-// ================= JOB MATCHES =================
-const jobMatches =
-  document.getElementById("job-matches-count");
+  if (!newName) return;
 
-let jobs = 5;
-jobMatches.textContent = jobs;
+  user.name = newName;
+  user.title = newTitle || user.title;
+  user.bio = newBio || user.bio;
 
-// ================= MESSAGES =================
-const messagesCount =
-  document.getElementById("messages-count");
+  localStorage.setItem("rhockstarUser", JSON.stringify(user));
 
-let messages = 0;
-messagesCount.textContent = messages;
+  loadUser();
+
+  addNotification("Profile updated successfully.");
+});
 
 // ================= SEARCH =================
-const searchInput =
-  document.getElementById("search-input");
+const searchInput = document.getElementById("search-input");
 
 searchInput.addEventListener("keyup", () => {
-  const search = searchInput.value.toLowerCase();
+  const value = searchInput.value.toLowerCase();
 
-  const sections =
-    document.querySelectorAll(
-      ".post, .suggestion-card, .card"
-    );
-
-  sections.forEach((item) => {
-    const text =
-      item.textContent.toLowerCase();
-
-    if (text.includes(search)) {
-      item.style.display = "";
-    } else {
-      item.style.display = "none";
-    }
+  document.querySelectorAll(".post, .card, .suggestion-card").forEach((el) => {
+    el.style.display = el.textContent.toLowerCase().includes(value)
+      ? ""
+      : "none";
   });
-});
-
-// ================= EDIT PROFILE =================
-const editProfileBtn =
-  document.getElementById("edit-profile-btn");
-
-editProfileBtn.addEventListener("click", () => {
-  const name = prompt(
-    "Enter your new name:"
-  );
-
-  if (name && name.trim() !== "") {
-    document.getElementById(
-      "profile-name"
-    ).textContent = name;
-
-    document.getElementById(
-      "welcome-message"
-    ).textContent =
-      `Welcome Back, ${name} 👋`;
-
-    addNotification(
-      "Your profile was updated."
-    );
-  }
 });
 
 // ================= LOGOUT =================
-const logout =
-  document.getElementById("logout-link");
-
-logout.addEventListener("click", (e) => {
+document.getElementById("logout-link").addEventListener("click", (e) => {
   e.preventDefault();
 
-  const confirmLogout =
-    confirm("Are you sure you want to logout?");
+  const confirmLogout = confirm("Are you sure you want to logout?");
 
   if (confirmLogout) {
-    alert("Logged out successfully.");
-    window.location.href = "index.html";
+    localStorage.removeItem("rhockstarUser");
+    window.location.href = "login.html";
   }
 });
