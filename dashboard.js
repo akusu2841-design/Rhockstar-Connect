@@ -1,3 +1,23 @@
+//hamburger 
+const hamburger = document.querySelector(".hamburger");
+const sidebar = document.querySelector(".sidebar");
+const body = document.body;
+const links = document.querySelectorAll(".sidebar ul li a");
+
+// open/close hamburger
+hamburger.addEventListener("click", () => {
+    sidebar.classList.toggle("show");
+    body.classList.toggle("sidebar-open");
+});
+
+// AUTO-CLOSE when any link is clicked (mobile only behavior)
+links.forEach(link => {
+    link.addEventListener("click", () => {
+        sidebar.classList.remove("show");
+        body.classList.remove("sidebar-open");
+    });
+});
+
 // ================= LOGIN CHECK =================
 const user = JSON.parse(localStorage.getItem("rhockstarUser"));
 
