@@ -8,7 +8,7 @@ if (!user) {
 // ================= LOAD USER DATA =================
 function loadUser() {
   document.getElementById("welcome-message").textContent =
-    `Welcome Back, ${user.name} 👋`;
+    `Hello, ${user.name} 👋`;
 
   document.getElementById("profile-name").textContent =
     user.name;
