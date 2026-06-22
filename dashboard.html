@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rhockstar Connect Dashboard">
   <title>Rhockstar Connect Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
 </head>
@@ -26,7 +27,7 @@
         <li><a href="#jobs" id="jobs-link">Jobs</a></li>
         <li><a href="#notifications" id="notifications-link">Notifications</a></li>
         <li><a href="#settings" id="settings-link">Settings</a></li>
-        <li><a href="#logout" id="logout-link">Logout</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
       </ul>
     </nav>
 
@@ -52,9 +53,7 @@
 
         <div class="notification">
           🔔
-          <span id="top-notification-count">
-            3
-          </span>
+          <span id="top-notification-count">3</span>
         </div>
 
         <input
@@ -77,12 +76,12 @@
     <section class="profile-summary" id="profile">
 
       <img
-        id="profile-picture"
         src="images/profile.jpg"
         alt="Profile Picture"
+        id="profile-picture"
       >
 
-      <div>
+      <div class="profile-info">
 
         <h2 id="profile-name">
           Elijah Peter
@@ -96,29 +95,33 @@
           Building connections, opportunities, and communities.
         </p>
 
+        <button id="edit-profile-btn">
+          Edit Profile
+        </button>
+
       </div>
 
     </section>
 
     <!-- ================= STATISTICS ================= -->
-    <section class="stats">
+    <section class="stats" id="statistics">
 
-      <div class="card">
+      <div class="card" id="connections-card">
         <h3>Connections</h3>
         <p id="connections-count">0</p>
       </div>
 
-      <div class="card">
+      <div class="card" id="messages-card">
         <h3>Messages</h3>
         <p id="messages-count">0</p>
       </div>
 
-      <div class="card">
+      <div class="card" id="profile-views-card">
         <h3>Profile Views</h3>
         <p id="profile-views-count">0</p>
       </div>
 
-      <div class="card">
+      <div class="card" id="job-matches-card">
         <h3>Job Matches</h3>
         <p id="job-matches-count">0</p>
       </div>
@@ -126,7 +129,7 @@
     </section>
 
     <!-- ================= CREATE POST ================= -->
-    <section class="create-post">
+    <section class="create-post" id="create-post">
 
       <h2>Create Post</h2>
 
@@ -148,12 +151,14 @@
 
       <div id="feed-container">
 
-        <article class="post">
+        <article class="post" id="post-1">
 
-          <h3>User Name</h3>
+          <h3>Elijah Peter</h3>
 
           <p>
-            This is a sample post.
+            Welcome to Rhockstar Connect! 🚀
+            This is where I share ideas,
+            opportunities, and connect with amazing people.
           </p>
 
           <small>
@@ -166,7 +171,7 @@
 
     </section>
 
-    <!-- ================= SUGGESTIONS ================= -->
+    <!-- ================= CONNECTIONS ================= -->
     <section class="suggestions" id="connections">
 
       <h2>People You May Know</h2>
@@ -177,7 +182,10 @@
 
           <h4>Jane Smith</h4>
 
-          <button class="connect-btn">
+          <button
+            class="connect-btn"
+            id="connect-jane-btn"
+          >
             Connect
           </button>
 
@@ -252,9 +260,10 @@
 
     </section>
 
-    <!-- ================= LOGOUT ================= -->
-    <section id="logout">
-    </section>
+    <!-- ================= LOGOUT BUTTON ================= -->
+    <button id="logout-btn">
+      Logout
+    </button>
 
   </main>
 
