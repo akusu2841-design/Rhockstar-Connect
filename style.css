@@ -68,7 +68,7 @@ body{
 }
 
 .primary-btn{
-  background:var(--violet);
+  background:var(--violet-dark);
   color:white;
 }
 
