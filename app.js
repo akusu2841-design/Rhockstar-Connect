@@ -1,18 +1,40 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
   // ==============================
-  // LOCAL STORAGE KEYS
+  // STORAGE KEYS
   // ==============================
   const USERS_KEY = "rhockstar_users";
   const SESSION_KEY = "rhockstar_session";
+  const PROFILE_KEY = "userProfile";
 
   // ==============================
-  // GET ELEMENTS
+  // GET ELEMENTS (SAFE)
   // ==============================
   const welcomeMessage = document.getElementById("welcome-message");
 
+  const editBtn = document.getElementById("editBtn");
+  const form = document.getElementById("profile-edit-form");
+  const cancelBtn = document.getElementById("cancelBtn");
+
+  const nameEl = document.getElementById("display-name");
+  const usernameEl = document.getElementById("display-username");
+  const bioEl = document.getElementById("display-bio");
+  const skillsEl = document.getElementById("display-skills");
+  const locationEl = document.getElementById("display-location");
+
+  const profilePic = document.getElementById("profile-pic");
+
+  const nameInput = document.getElementById("edit-name");
+  const emailInput = document.getElementById("edit-email");
+  const bioInput = document.getElementById("edit-bio");
+  const skillsInput = document.getElementById("edit-skills");
+  const locationInput = document.getElementById("edit-location");
+
+  const logoutBtn = document.getElementById("logout-link");
+
   // ==============================
-  // LOAD USERS
+  // USERS FUNCTIONS
   // ==============================
   function getUsers() {
     return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
@@ -35,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==============================
-  // SIGN UP FUNCTION
+  // SIGNUP
   // ==============================
   const registerBtn = document.getElementById("register-btn");
 
@@ -47,32 +69,24 @@ document.addEventListener("DOMContentLoaded", function () {
       const email = document.getElementById("reg-email").value.trim();
       const password = document.getElementById("reg-password").value.trim();
 
-      if (!name || !email || !password) {
-        alert("All fields are required");
-        return;
-      }
+      if (!name || !email || !password) return alert("All fields required");
 
       let users = getUsers();
 
-      const userExists = users.find(u => u.email === email);
-
-      if (userExists) {
-        alert("User already exists");
-        return;
+      if (users.find(u => u.email === email)) {
+        return alert("User already exists");
       }
 
-      const newUser = { name, email, password };
-      users.push(newUser);
-
+      users.push({ name, email, password });
       saveUsers(users);
 
-      alert("Account created successfully!");
+      alert("Account created!");
       window.location.href = "login.html";
     });
   }
 
   // ==============================
-  // LOGIN FUNCTION
+  // LOGIN
   // ==============================
   const loginBtn = document.getElementById("login-btn");
 
@@ -83,24 +97,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value.trim();
 
-      const users = getUsers();
+      const user = getUsers().find(u => u.email === email && u.password === password);
 
-      const user = users.find(u => u.email === email && u.password === password);
-
-      if (!user) {
-        alert("Invalid email or password");
-        return;
-      }
+      if (!user) return alert("Invalid login");
 
       setSession(user);
 
-      alert("Login successful!");
       window.location.href = "index.html";
     });
   }
 
   // ==============================
-  // LOAD USER SESSION (WELCOME MESSAGE)
+  // SESSION WELCOME
   // ==============================
   const sessionUser = getSession();
 
@@ -111,21 +119,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==============================
   // LOGOUT
   // ==============================
-  const logoutBtn = document.getElementById("logout-link");
-
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
-
       clearSession();
-
-      alert("Logged out successfully!");
       window.location.href = "login.html";
     });
   }
 
   // ==============================
-  // SHOW / HIDE PASSWORD
+  // PASSWORD TOGGLE
   // ==============================
   const togglePassword = document.getElementById("toggle-password");
 
@@ -133,118 +136,118 @@ document.addEventListener("DOMContentLoaded", function () {
     togglePassword.addEventListener("click", function () {
       const passInput = document.getElementById("login-password");
 
-      if (passInput.type === "password") {
-        passInput.type = "text";
-        this.textContent = "Hide";
-      } else {
-        passInput.type = "password";
-        this.textContent = "Show";
-      }
+      passInput.type = passInput.type === "password" ? "text" : "password";
+      this.textContent = passInput.type === "password" ? "Show" : "Hide";
     });
   }
 
   // ==============================
-  // AUTO REDIRECT IF NOT LOGGED IN
+  // PROFILE LOAD
   // ==============================
-  const protectedPages = ["index.html"];
+  function loadProfile() {
+    const data = JSON.parse(localStorage.getItem(PROFILE_KEY));
 
-  if (protectedPages.includes(window.location.pathname.split("/").pop())) {
-    if (!sessionUser) {
-      window.location.href = "login.html";
+    if (!data) return;
+
+    if (nameEl) nameEl.textContent = data.name || "Your Name?";
+    if (usernameEl) usernameEl.textContent = "@" + (data.username || "username");
+    if (bioEl) bioEl.textContent = data.bio || "";
+    if (skillsEl) skillsEl.textContent = data.skills || "";
+    if (locationEl) locationEl.textContent = data.location || "";
+
+    if (profilePic && data.profilePic) {
+      profilePic.src = data.profilePic;
     }
   }
 
-});
+  // ==============================
+  // PROFILE FORM OPEN
+  // ==============================
+  if (editBtn) {
+    editBtn.addEventListener("click", () => {
 
+      const data = JSON.parse(localStorage.getItem(PROFILE_KEY)) || {};
 
+      nameInput.value = data.name || "";
+      emailInput.value = data.email || "";
+      bioInput.value = data.bio || "";
+      skillsInput.value = data.skills || "";
+      locationInput.value = data.location || "";
 
-
-// ================= ELEMENTS =================
-const editBtn = document.getElementById("editBtn");
-const form = document.getElementById("profile-edit-form");
-const cancelBtn = document.getElementById("cancelBtn");
-
-const nameEl = document.getElementById("display-name");
-const usernameEl = document.getElementById("display-username");
-const bioEl = document.getElementById("display-bio");
-const skillsEl = document.getElementById("display-skills");
-const locationEl = document.getElementById("display-location");
-
-const profilePic = document.getElementById("profile-pic");
-
-// INPUTS
-const nameInput = document.getElementById("edit-name");
-const emailInput = document.getElementById("edit-email");
-const bioInput = document.getElementById("edit-bio");
-const skillsInput = document.getElementById("edit-skills");
-const locationInput = document.getElementById("edit-location");
-
-// ================= STORAGE KEY =================
-const STORAGE_KEY = "userProfile";
-
-// ================= LOAD PROFILE =================
-function loadProfile() {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
-  if (!data) return;
-
-  nameEl.textContent = data.name || "Your Name?";
-  usernameEl.textContent = "@" + (data.username || "username");
-  bioEl.textContent = data.bio || "Say something about yourself.";
-  skillsEl.textContent = data.skills || "List your skills.";
-  locationEl.textContent = data.location || "Where is your current location?";
-
-  if (data.profilePic) {
-    profilePic.src = data.profilePic;
+      form.style.display = "flex";
+    });
   }
-}
 
-// ================= SAVE PROFILE =================
-function saveProfile(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
+  // ==============================
+  // CANCEL FORM
+  // ==============================
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      form.style.display = "none";
+    });
+  }
 
-// ================= OPEN FORM =================
-editBtn.addEventListener("click", () => {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  // ==============================
+  // SAVE PROFILE
+  // ==============================
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  nameInput.value = data.name || "";
-  emailInput.value = data.email || "";
-  bioInput.value = data.bio || "";
-  skillsInput.value = data.skills || "";
-  locationInput.value = data.location || "";
+      const old = JSON.parse(localStorage.getItem(PROFILE_KEY)) || {};
 
-  form.style.display = "flex";
-});
+      const updated = {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        bio: bioInput.value.trim(),
+        skills: skillsInput.value.trim(),
+        location: locationInput.value.trim(),
+        username: old.username || "username",
+        profilePic: old.profilePic || (profilePic ? profilePic.src : "")
+      };
 
-// ================= CANCEL =================
-cancelBtn.addEventListener("click", () => {
-  form.style.display = "none";
-});
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(updated));
 
-// ================= SAVE FORM =================
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+      loadProfile();
 
-  const oldData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      form.style.display = "none";
 
-  const newData = {
-    name: nameInput.value.trim() || oldData.name || "",
-    email: emailInput.value.trim() || oldData.email || "",
-    bio: bioInput.value.trim() || oldData.bio || "",
-    skills: skillsInput.value.trim() || oldData.skills || "",
-    location: locationInput.value.trim() || oldData.location || "",
-    username: oldData.username || "username",
-    profilePic: oldData.profilePic || profilePic.src
-  };
+      alert("Profile updated!");
+    });
+  }
 
-  saveProfile(newData);
+  // ==============================
+  // PAGE SWITCH SYSTEM (IMPORTANT)
+  // ==============================
+  const pages = document.querySelectorAll(".page");
+  const links = document.querySelectorAll("[data-page]");
+
+  function showPage(id) {
+
+    pages.forEach(p => p.classList.remove("active"));
+
+    const target = document.getElementById(id);
+
+    if (target) target.classList.add("active");
+  }
+
+  links.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const page = this.getAttribute("data-page");
+
+      if (page) showPage(page);
+    });
+  });
+
+  // ==============================
+  // AUTO INIT
+  // ==============================
   loadProfile();
 
-  form.style.display = "none";
+  if (sessionUser && document.getElementById("app")) {
+    showPage("dashboard");
+  }
 
-  alert("Profile updated successfully!");
 });
-
-// ================= INIT =================
-window.addEventListener("DOMContentLoaded", loadProfile);
