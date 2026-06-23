@@ -159,143 +159,92 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// ================= ELEMENTS =================
+const editBtn = document.getElementById("editBtn");
+const form = document.getElementById("profile-edit-form");
+const cancelBtn = document.getElementById("cancelBtn");
 
+const nameEl = document.getElementById("display-name");
+const usernameEl = document.getElementById("display-username");
+const bioEl = document.getElementById("display-bio");
+const skillsEl = document.getElementById("display-skills");
+const locationEl = document.getElementById("display-location");
 
+const profilePic = document.getElementById("profile-pic");
 
+// INPUTS
+const nameInput = document.getElementById("edit-name");
+const emailInput = document.getElementById("edit-email");
+const bioInput = document.getElementById("edit-bio");
+const skillsInput = document.getElementById("edit-skills");
+const locationInput = document.getElementById("edit-location");
 
+// ================= STORAGE KEY =================
+const STORAGE_KEY = "userProfile";
 
+// ================= LOAD PROFILE =================
+function loadProfile() {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-/* ================= USERS ================= */
-let currentUser = null;
+  if (!data) return;
 
-/* ================= SIGNUP ================= */
-function signup(){
-  const name = document.getElementById("signup-name").value;
-  const email = document.getElementById("signup-email").value;
-  const pass = document.getElementById("signup-pass").value;
+  nameEl.textContent = data.name || "Your Name?";
+  usernameEl.textContent = "@" + (data.username || "username");
+  bioEl.textContent = data.bio || "Say something about yourself.";
+  skillsEl.textContent = data.skills || "List your skills.";
+  locationEl.textContent = data.location || "Where is your current location?";
 
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  users.push({
-    name,
-    email,
-    pass,
-    posts:[]
-  });
-
-  localStorage.setItem("users", JSON.stringify(users));
-
-  alert("Account created!");
-}
-
-/* ================= LOGIN ================= */
-function login(){
-  const email = document.getElementById("login-email").value;
-  const pass = document.getElementById("login-pass").value;
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  const user = users.find(u => u.email === email && u.pass === pass);
-
-  if(!user){
-    alert("Invalid login");
-    return;
+  if (data.profilePic) {
+    profilePic.src = data.profilePic;
   }
-
-  currentUser = user;
-
-  localStorage.setItem("activeUser", JSON.stringify(user));
-
-  document.getElementById("auth").style.display = "none";
-  document.getElementById("app").style.display = "block";
-
-  loadProfile();
-  renderPosts();
-  showPage("dashboard");
 }
 
-/* ================= LOGOUT ================= */
-function logout(){
-  localStorage.removeItem("activeUser");
-  location.reload();
+// ================= SAVE PROFILE =================
+function saveProfile(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-/* ================= PROFILE ================= */
-function loadProfile(){
-  const user = JSON.parse(localStorage.getItem("activeUser"));
+// ================= OPEN FORM =================
+editBtn.addEventListener("click", () => {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 
-  if(!user) return;
+  nameInput.value = data.name || "";
+  emailInput.value = data.email || "";
+  bioInput.value = data.bio || "";
+  skillsInput.value = data.skills || "";
+  locationInput.value = data.location || "";
 
-  document.getElementById("p-name").innerText = user.name;
-  document.getElementById("p-email").innerText = user.email;
-}
-
-/* ================= POSTS ================= */
-function addPost(){
-  const text = document.getElementById("post-text").value;
-
-  let users = JSON.parse(localStorage.getItem("users"));
-  let active = JSON.parse(localStorage.getItem("activeUser"));
-
-  users = users.map(u=>{
-    if(u.email === active.email){
-      u.posts.push(text);
-      active = u;
-    }
-    return u;
-  });
-
-  localStorage.setItem("users", JSON.stringify(users));
-  localStorage.setItem("activeUser", JSON.stringify(active));
-
-  renderPosts();
-}
-
-/* render posts */
-function renderPosts(){
-  const user = JSON.parse(localStorage.getItem("activeUser"));
-  const box = document.getElementById("post-list");
-
-  box.innerHTML = "";
-
-  user.posts.forEach(p=>{
-    box.innerHTML += `<div class="post">${p}</div>`;
-  });
-}
-
-/* ================= PAGE SWITCH ================= */
-function showPage(pageId){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  document.getElementById(pageId).classList.add("active");
-}
-
-/* sidebar click */
-document.querySelectorAll(".sidebar a").forEach(link=>{
-  link.addEventListener("click", function(e){
-    e.preventDefault();
-
-    const page = this.getAttribute("data-page");
-
-    if(page){
-      showPage(page);
-    }
-  });
+  form.style.display = "flex";
 });
 
-/* ================= AUTO LOGIN ================= */
-window.onload = function(){
-  const user = localStorage.getItem("activeUser");
+// ================= CANCEL =================
+cancelBtn.addEventListener("click", () => {
+  form.style.display = "none";
+});
 
-  if(user){
-    document.getElementById("auth").style.display = "none";
-    document.getElementById("app").style.display = "block";
+// ================= SAVE FORM =================
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    loadProfile();
-    renderPosts();
-    showPage("dashboard");
-  }
-};
+  const oldData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
+  const newData = {
+    name: nameInput.value.trim() || oldData.name || "",
+    email: emailInput.value.trim() || oldData.email || "",
+    bio: bioInput.value.trim() || oldData.bio || "",
+    skills: skillsInput.value.trim() || oldData.skills || "",
+    location: locationInput.value.trim() || oldData.location || "",
+    username: oldData.username || "username",
+    profilePic: oldData.profilePic || profilePic.src
+  };
+
+  saveProfile(newData);
+  loadProfile();
+
+  form.style.display = "none";
+
+  alert("Profile updated successfully!");
+});
+
+// ================= INIT =================
+window.addEventListener("DOMContentLoaded", loadProfile);
