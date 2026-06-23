@@ -155,3 +155,147 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+
+
+
+
+
+
+
+
+
+
+/* ================= USERS ================= */
+let currentUser = null;
+
+/* ================= SIGNUP ================= */
+function signup(){
+  const name = document.getElementById("signup-name").value;
+  const email = document.getElementById("signup-email").value;
+  const pass = document.getElementById("signup-pass").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  users.push({
+    name,
+    email,
+    pass,
+    posts:[]
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Account created!");
+}
+
+/* ================= LOGIN ================= */
+function login(){
+  const email = document.getElementById("login-email").value;
+  const pass = document.getElementById("login-pass").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const user = users.find(u => u.email === email && u.pass === pass);
+
+  if(!user){
+    alert("Invalid login");
+    return;
+  }
+
+  currentUser = user;
+
+  localStorage.setItem("activeUser", JSON.stringify(user));
+
+  document.getElementById("auth").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  loadProfile();
+  renderPosts();
+  showPage("dashboard");
+}
+
+/* ================= LOGOUT ================= */
+function logout(){
+  localStorage.removeItem("activeUser");
+  location.reload();
+}
+
+/* ================= PROFILE ================= */
+function loadProfile(){
+  const user = JSON.parse(localStorage.getItem("activeUser"));
+
+  if(!user) return;
+
+  document.getElementById("p-name").innerText = user.name;
+  document.getElementById("p-email").innerText = user.email;
+}
+
+/* ================= POSTS ================= */
+function addPost(){
+  const text = document.getElementById("post-text").value;
+
+  let users = JSON.parse(localStorage.getItem("users"));
+  let active = JSON.parse(localStorage.getItem("activeUser"));
+
+  users = users.map(u=>{
+    if(u.email === active.email){
+      u.posts.push(text);
+      active = u;
+    }
+    return u;
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("activeUser", JSON.stringify(active));
+
+  renderPosts();
+}
+
+/* render posts */
+function renderPosts(){
+  const user = JSON.parse(localStorage.getItem("activeUser"));
+  const box = document.getElementById("post-list");
+
+  box.innerHTML = "";
+
+  user.posts.forEach(p=>{
+    box.innerHTML += `<div class="post">${p}</div>`;
+  });
+}
+
+/* ================= PAGE SWITCH ================= */
+function showPage(pageId){
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
+
+  document.getElementById(pageId).classList.add("active");
+}
+
+/* sidebar click */
+document.querySelectorAll(".sidebar a").forEach(link=>{
+  link.addEventListener("click", function(e){
+    e.preventDefault();
+
+    const page = this.getAttribute("data-page");
+
+    if(page){
+      showPage(page);
+    }
+  });
+});
+
+/* ================= AUTO LOGIN ================= */
+window.onload = function(){
+  const user = localStorage.getItem("activeUser");
+
+  if(user){
+    document.getElementById("auth").style.display = "none";
+    document.getElementById("app").style.display = "block";
+
+    loadProfile();
+    renderPosts();
+    showPage("dashboard");
+  }
+};
