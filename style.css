@@ -223,6 +223,10 @@ footer p{
   }
 }
 
+/* ================= APP ================= */
+#app{
+  display:none;
+}
 /* ================= DASHBOARD LAYOUT ================= */
 #dashboard-section{
   display:flex;
