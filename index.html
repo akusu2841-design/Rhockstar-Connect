@@ -12,7 +12,6 @@
 
   <!-- NAVBAR -->
   <header class="navbar">
-
     <div class="logo">
       <img src="images/logo.jpg" alt="Rhockstar Connect Logo">
       <h2>Rhockstar Connect</h2>
@@ -28,30 +27,25 @@
         <li><a href="register.html">Sign Up</a></li>
       </ul>
     </nav>
-
   </header>
 
   <main>
 
     <!-- HERO -->
     <section class="hero" id="home">
-
       <h1>Meaningful Connections Begin Here</h1>
 
       <p>
         Join a growing community where people connect for friendships,
-        professional networking, career growth, collaborations, and new
-        opportunities. Rhockstar Connect brings people together in one secure
-        and engaging platform.
+        professional networking, career growth, collaborations, and new opportunities.
+        Rhockstar Connect brings people together in one secure and engaging platform.
       </p>
 
-      <button id="joinBtn">Join Rhockstar Connect</button>
-
+      <button id="joinBtn" type="button">Join Rhockstar Connect</button>
     </section>
 
     <!-- FEATURES -->
     <section class="features">
-
       <h2>Welcome to Rhockstar Connect</h2>
 
       <div class="feature-card">
@@ -73,12 +67,10 @@
         <h3>Safe Community</h3>
         <p>Enjoy a secure and welcoming environment built for genuine connections.</p>
       </div>
-
     </section>
 
     <!-- ABOUT -->
     <section class="about" id="about">
-
       <h2>About Rhockstar Connect</h2>
 
       <p>
@@ -96,7 +88,160 @@
       <p>
         We believe every connection has the potential to create new opportunities, inspire growth, and build lasting relationships.
       </p>
+    </section>
 
+    <!-- ================= DASHBOARD SECTION ================= -->
+    <section id="dashboard-section">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="logo">
+          <h2 id="site-name">Rhockstar Connect</h2>
+        </div>
+
+        <nav>
+          <ul>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#profile">My Profile</a></li>
+            <li><a href="#members">Members Directory</a></li>
+            <li><a href="#feed">News Feed</a></li>
+            <li><a href="#messages">Messages</a></li>
+            <li><a href="#connections">Connections</a></li>
+            <li><a href="#jobs">Jobs</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#" id="logout-link">Logout</a></li>
+          </ul>
+        </nav>
+
+      </aside>
+
+      <!-- MAIN DASHBOARD -->
+      <section class="dashboard" id="dashboard">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+          <div class="welcome">
+            <h1 id="welcome-message">Hello, Elijah 👋</h1>
+            <p id="current-date">Monday, June 22, 2026</p>
+          </div>
+
+          <div class="topbar-right">
+
+            <div class="notification">
+              🔔 <span id="top-notification-count">3</span>
+            </div>
+
+            <input type="search" id="search-input" placeholder="Search users, jobs, posts...">
+
+            <img src="images/profile.jpg" alt="Profile Picture" id="top-profile">
+
+          </div>
+        </header>
+
+        <!-- PROFILE -->
+        <section class="profile-summary" id="profile">
+
+          <img src="images/profile.jpg" alt="Profile Picture" id="profile-picture">
+
+          <div class="profile-info">
+            <h2 id="profile-name">Elijah Peter</h2>
+            <p id="profile-title">Web Developer & Digital Creator</p>
+            <p id="profile-bio">Building connections, opportunities, and communities.</p>
+            <button id="edit-profile-btn" type="button">Edit Profile</button>
+          </div>
+
+        </section>
+
+        <!-- STATS -->
+        <section class="stats" id="statistics">
+
+          <div class="card">
+            <h3>Connections</h3>
+            <p id="connections-count">0</p>
+          </div>
+
+          <div class="card">
+            <h3>Messages</h3>
+            <p id="messages-count">0</p>
+          </div>
+
+          <div class="card">
+            <h3>Profile Views</h3>
+            <p id="profile-views-count">0</p>
+          </div>
+
+          <div class="card">
+            <h3>Job Matches</h3>
+            <p id="job-matches-count">0</p>
+          </div>
+
+        </section>
+
+        <!-- CREATE POST -->
+        <section class="create-post">
+          <h2>Create Post</h2>
+
+          <textarea id="post-content" placeholder="What's happening today?"></textarea>
+          <button id="post-btn" type="button">Post</button>
+        </section>
+
+        <!-- FEED -->
+        <section class="feed" id="feed">
+          <h2>Recent Posts</h2>
+
+          <div id="feed-container">
+            <article class="post">
+              <h3>Elijah Peter</h3>
+              <p>
+                Welcome to Rhockstar Connect! 🚀 This is where I share ideas,
+                opportunities, and connect with amazing people.
+              </p>
+              <small>Just now</small>
+            </article>
+          </div>
+        </section>
+
+        <!-- CONNECTIONS -->
+        <section class="suggestions" id="connections">
+          <h2>People You May Know</h2>
+
+          <div class="suggestion-card">
+            <h4>Jane Smith</h4>
+            <button class="connect-btn" type="button">Connect</button>
+          </div>
+        </section>
+
+        <!-- NOTIFICATIONS -->
+        <section class="notifications" id="notifications">
+          <h2>Notifications (<span id="notification-section-count">0</span>)</h2>
+
+          <div id="notification-container">
+            <p>No new notifications.</p>
+          </div>
+        </section>
+
+        <!-- MESSAGES -->
+        <section class="messages-preview" id="messages">
+          <h2>Recent Messages</h2>
+
+          <div id="messages-container">
+            <p>No messages yet.</p>
+          </div>
+        </section>
+
+        <!-- JOBS -->
+        <section class="jobs" id="jobs">
+          <h2>Recommended Jobs</h2>
+
+          <div id="jobs-container">
+            <p>No job recommendations yet.</p>
+          </div>
+        </section>
+
+      </section>
     </section>
 
   </main>
