@@ -130,9 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       window.location.href = "index.html";
 
-      if (sessionUser) {
-  app.style.display = "block";
-}
     });
   }
 
