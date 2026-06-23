@@ -3,28 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rhockstar Connect - App</title>
+  <title>Rhockstar Connect</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= AUTH LAYER ================= -->
-<div id="auth"></div>
-
-<!-- ================= MAIN APP (PROTECTED) ================= -->
-<div id="app" style="display:none;">
+<!-- ================= MAIN APP ================= -->
+<div id="app">
 
   <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar">
 
     <div class="logo">
-      <h2 id="site-name">Rhockstar Connect</h2>
+      <h2>Rhockstar Connect</h2>
     </div>
 
     <nav>
       <ul>
+        <li><a href="#" data-page="home">Home</a></li>
         <li><a href="#" data-page="dashboard">Dashboard</a></li>
         <li><a href="#" data-page="profile">Profile</a></li>
         <li><a href="#" data-page="feed">Feed</a></li>
@@ -33,8 +31,127 @@
         <li><a href="#" data-page="jobs">Jobs</a></li>
         <li><a href="#" data-page="notifications">Notifications</a></li>
         <li><a href="#" data-page="settings">Settings</a></li>
-        <li><a href="#" id="logout-link">Logout</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
       </ul>
+    </nav>
+
+  </aside>
+
+  <!-- ================= MAIN AREA ================= -->
+  <main class="main">
+
+    <!-- ================= TOPBAR ================= -->
+    <header class="topbar">
+
+      <h3 id="welcome">Welcome 👋</h3>
+
+      <input type="search" placeholder="Search..." />
+
+      <div class="topbar-profile">
+        <img src="images/profile.jpg" alt="profile">
+      </div>
+
+    </header>
+
+    <!-- ================= HOME (LANDING INSIDE APP) ================= -->
+    <section id="home" class="page active">
+
+      <div class="hero">
+
+        <h1>Welcome to Rhockstar Connect 🚀</h1>
+        <p>Build your network, share posts, and grow your career.</p>
+
+        <div class="hero-buttons">
+          <button>Create Post</button>
+          <button>Explore People</button>
+        </div>
+
+        <div class="hero-stats">
+
+          <div>
+            <strong>0</strong>
+            <span>Users</span>
+          </div>
+
+          <div>
+            <strong>0</strong>
+            <span>Posts</span>
+          </div>
+
+          <div>
+            <strong>0</strong>
+            <span>Jobs</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= DASHBOARD ================= -->
+    <section id="dashboard" class="page">
+
+      <h2>Dashboard</h2>
+      <p>Your activity overview appears here.</p>
+
+    </section>
+
+    <!-- ================= PROFILE ================= -->
+    <section id="profile" class="page">
+
+      <div class="profile-header">
+        <img src="images/profile.jpg" alt="profile">
+        <h2>Your Name</h2>
+        <p>@username</p>
+      </div>
+
+      <div class="profile-body">
+        <h3>About</h3>
+        <p>Your bio here...</p>
+      </div>
+
+    </section>
+
+    <!-- ================= FEED ================= -->
+    <section id="feed" class="page">
+      <h2>Feed</h2>
+      <p>Posts will appear here.</p>
+    </section>
+
+    <!-- ================= MESSAGES ================= -->
+    <section id="messages" class="page">
+      <h2>Messages</h2>
+    </section>
+
+    <!-- ================= CONNECTIONS ================= -->
+    <section id="connections" class="page">
+      <h2>Connections</h2>
+    </section>
+
+    <!-- ================= JOBS ================= -->
+    <section id="jobs" class="page">
+      <h2>Jobs</h2>
+    </section>
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <section id="notifications" class="page">
+      <h2>Notifications</h2>
+    </section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>      </ul>
     </nav>
 
   </aside>
