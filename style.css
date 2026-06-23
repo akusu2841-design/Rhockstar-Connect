@@ -99,7 +99,7 @@ body{
 }
 
 .card{
-  background:var(--card);
+  background:linear-gradient(135deg,#38bdf8,#8b5cf6);
   padding:30px;
   border-radius:12px;
 }
