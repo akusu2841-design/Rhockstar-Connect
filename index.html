@@ -3,327 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rhockstar Connect helps people connect for relationships, jobs, networking, and opportunities.">
-  <title>Rhockstar Connect</title>
+  <title>Rhockstar Connect - App</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<!-- ================= AUTH LAYER ================= -->
 <div id="auth"></div>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="logo">
-      <img src="images/logo.jpg" alt="Rhockstar Connect Logo">
-      <h2>Rhockstar Connect</h2>
-    </div>
-
-    <div class="hamburger" id="hamburger">☰</div>
-
-    <nav class="nav-links" id="navLinks">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Sign Up</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <h1>Meaningful Connections Begin Here</h1>
-
-      <p>
-        Join a growing community where people connect for friendships,
-        professional networking, career growth, collaborations, and new opportunities.
-        Rhockstar Connect brings people together in one secure and engaging platform.
-      </p>
-
-      <button id="joinBtn" type="button">Join Rhockstar Connect</button>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features">
-      <h2>Welcome to Rhockstar Connect</h2>
-
-      <div class="feature-card">
-        <h3>Build Relationships</h3>
-        <p>Create meaningful friendships and connect with people who share your interests.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Professional Networking</h3>
-        <p>Expand your career opportunities by connecting with professionals and employers.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Share & Engage</h3>
-        <p>Post updates, share photos, interact with others, and grow your online presence.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Safe Community</h3>
-        <p>Enjoy a secure and welcoming environment built for genuine connections.</p>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="about" id="about">
-      <h2>About Rhockstar Connect</h2>
-
-      <p>
-        Rhockstar Connect is a modern social networking platform designed to bring people together through meaningful connections, friendships, professional networking, and opportunities.
-      </p>
-
-      <p>
-        Our mission is to create a safe and engaging community where individuals can interact, share experiences, build relationships, and grow both personally and professionally.
-      </p>
-
-      <p>
-        Whether you are looking to expand your network, discover career opportunities, collaborate on projects, or simply connect with like-minded people, Rhockstar Connect provides the tools and environment to help you succeed.
-      </p>
-
-      <p>
-        We believe every connection has the potential to create new opportunities, inspire growth, and build lasting relationships.
-      </p>
-    </section>
-
-    <!-- ================= APP ================= -->
+<!-- ================= MAIN APP (PROTECTED) ================= -->
 <div id="app" style="display:none;">
 
-    <!-- ================= DASHBOARD SECTION ================= -->
-    <section id="dashboard-section">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
 
-      <!-- SIDEBAR -->
-      <aside class="sidebar">
+    <div class="logo">
+      <h2 id="site-name">Rhockstar Connect</h2>
+    </div>
 
-        <div class="logo">
-          <h2 id="site-name">Rhockstar Connect</h2>
+    <nav>
+      <ul>
+        <li><a href="#" data-page="dashboard">Dashboard</a></li>
+        <li><a href="#" data-page="profile">Profile</a></li>
+        <li><a href="#" data-page="feed">Feed</a></li>
+        <li><a href="#" data-page="messages">Messages</a></li>
+        <li><a href="#" data-page="connections">Connections</a></li>
+        <li><a href="#" data-page="jobs">Jobs</a></li>
+        <li><a href="#" data-page="notifications">Notifications</a></li>
+        <li><a href="#" data-page="settings">Settings</a></li>
+        <li><a href="#" id="logout-link">Logout</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main">
+
+    <!-- ================= TOP BAR ================= -->
+    <header class="topbar">
+
+      <div class="welcome">
+        <h1 id="welcome-message">Hello 👋</h1>
+        <p id="current-date">Loading date...</p>
+      </div>
+
+      <div class="topbar-right">
+
+        <div class="notification">
+          🔔 <span id="top-notification-count">3</span>
         </div>
 
-        <nav>
-          <ul>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#profile">My Profile</a></li>
-            <li><a href="#members">Members Directory</a></li>
-            <li><a href="#feed">News Feed</a></li>
-            <li><a href="#messages">Messages</a></li>
-            <li><a href="#connections">Connections</a></li>
-            <li><a href="#jobs">Jobs</a></li>
-            <li><a href="#notifications">Notifications</a></li>
-            <li><a href="#settings">Settings</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
-          </ul>
-        </nav>
+        <input type="search" id="search-input" placeholder="Search users, posts...">
 
-      </aside>
+        <img src="images/profile.jpg" id="top-profile" alt="Profile">
 
-      <!-- MAIN DASHBOARD -->
-      <section class="dashboard" id="dashboard">
+      </div>
 
-        <!-- TOP BAR -->
-        <header class="topbar">
+    </header>
 
-          <div class="welcome">
-            <h1 id="welcome-message">Hello, Elijah 👋</h1>
-            <p id="current-date">Monday, June 22, 2026</p>
-          </div>
+    <!-- ================= DASHBOARD ================= -->
+    <section id="dashboard" class="page active">
 
-          <div class="topbar-right">
+      <h2>Dashboard</h2>
 
-            <div class="notification">
-              🔔 <span id="top-notification-count">3</span>
-            </div>
+      <p>Welcome to your Rhockstar Connect dashboard.</p>
 
-            <input type="search" id="search-input" placeholder="Search users, jobs, posts...">
-
-            <img src="images/profile.jpg" alt="Profile Picture" id="top-profile">
-
-          </div>
-        </header>
-
-        <!-- PROFILE -->
-        <section class="profile-summary" id="profile">
-
-          <img src="images/profile.jpg" alt="Profile Picture" id="profile-picture">
-
-          <div class="profile-info">
-            <h2 id="profile-name">Elijah Peter</h2>
-            <p id="profile-title">Web Developer & Digital Creator</p>
-            <p id="profile-bio">Building connections, opportunities, and communities.</p>
-            <button id="edit-profile-btn" type="button">Edit Profile</button>
-          </div>
-
-        </section>
-
-        <!-- STATS -->
-        <section class="stats" id="statistics">
-
-          <div class="card">
-            <h3>Connections</h3>
-            <p id="connections-count">0</p>
-          </div>
-
-          <div class="card">
-            <h3>Messages</h3>
-            <p id="messages-count">0</p>
-          </div>
-
-          <div class="card">
-            <h3>Profile Views</h3>
-            <p id="profile-views-count">0</p>
-          </div>
-
-          <div class="card">
-            <h3>Job Matches</h3>
-            <p id="job-matches-count">0</p>
-          </div>
-
-        </section>
-
-        <!-- CREATE POST -->
-        <section class="create-post">
-          <h2>Create Post</h2>
-
-          <textarea id="post-content" placeholder="What's happening today?"></textarea>
-          <button id="post-btn" type="button">Post</button>
-        </section>
-
-        <!-- FEED -->
-        <section class="feed" id="feed">
-          <h2>Recent Posts</h2>
-
-          <div id="feed-container">
-            <article class="post">
-              <h3>Elijah Peter</h3>
-              <p>
-                Welcome to Rhockstar Connect! 🚀 This is where I share ideas,
-                opportunities, and connect with amazing people.
-              </p>
-              <small>Just now</small>
-            </article>
-          </div>
-        </section>
-
-        <!-- CONNECTIONS -->
-        <section class="suggestions" id="connections">
-          <h2>People You May Know</h2>
-
-          <div class="suggestion-card">
-            <h4>Jane Smith</h4>
-            <button class="connect-btn" type="button">Connect</button>
-          </div>
-        </section>
-
-        <!-- NOTIFICATIONS -->
-        <section class="notifications" id="notifications">
-          <h2>Notifications (<span id="notification-section-count">0</span>)</h2>
-
-          <div id="notification-container">
-            <p>No new notifications.</p>
-          </div>
-        </section>
-
-        <!-- MESSAGES -->
-        <section class="messages-preview" id="messages">
-          <h2>Recent Messages</h2>
-
-          <div id="messages-container">
-            <p>No messages yet.</p>
-          </div>
-        </section>
-
-        <!-- JOBS -->
-        <section class="jobs" id="jobs">
-          <h2>Recommended Jobs</h2>
-
-          <div id="jobs-container">
-            <p>No job recommendations yet.</p>
-          </div>
-        </section>
-
-      </section>
     </section>
 
+    <!-- ================= PROFILE ================= -->
+    <section id="profile" class="page profile-summary">
 
-     <!-- PROFILE -->
-<section id="profile-section">
-
-  <!-- COVER PHOTO -->
-  <div class="profile-cover">
-    <img id="cover-photo" src="images/cover.jpg" alt="Cover Photo">
-  </div>
-
-  <div class="profile-info">
-
-    <!-- PROFILE PICTURE -->
-    <div class="profile-pic-wrapper">
-      <img id="profile-pic" src="images/profile.jpg" alt="Profile Picture">
-    </div>
-
-    <!-- BASIC INFO -->
-    <h2 id="display-name">Your Name?</h2>
-    <p id="display-username">@username</p>
-
-    <!-- STATUS -->
-    <p id="profile-status">🟢 Online</p>
-
-    <p id="display-bio">Say something about yourself.</p>
-    <p id="display-skills">List your skills.</p>
-    <p id="display-location">Where is your current location?</p>
-
-    <!-- STATS -->
-    <div class="profile-stats">
-      <div>
-        <strong id="posts-count">0</strong>
-        <span>Posts</span>
+      <!-- COVER PHOTO -->
+      <div class="profile-cover">
+        <img id="cover-photo" src="images/cover.jpg" alt="Cover Photo">
+        <div class="cover-overlay">
+          <h1>My Profile</h1>
+        </div>
       </div>
 
-      <div>
-        <strong id="followers-count">0</strong>
-        <span>Followers</span>
+      <!-- PROFILE HEADER -->
+      <div class="profile-header">
+
+        <div class="profile-pic-wrapper">
+          <img id="profile-pic" src="images/profile.jpg" alt="Profile Picture">
+        </div>
+
+        <div class="profile-main-info">
+          <h2 id="profile-name">Your Name</h2>
+          <p id="profile-username">@username</p>
+          <p id="profile-status">🟢 Online</p>
+        </div>
+
+        <button id="edit-profile-btn" type="button">Edit Profile</button>
+
       </div>
 
-      <div>
-        <strong id="following-count">0</strong>
-        <span>Following</span>
+      <!-- PROFILE DETAILS -->
+      <div class="profile-details">
+
+        <h3>About</h3>
+        <p id="profile-bio">Say something about yourself.</p>
+
+        <h3>Skills</h3>
+        <p id="profile-skills">No skills added yet.</p>
+
+        <h3>Location</h3>
+        <p id="profile-location">Not set</p>
+
       </div>
-    </div>
 
-    <!-- EDIT BUTTON -->
-    <button id="editBtn" type="button">Edit profile</button>
+      <!-- PROFILE STATS -->
+      <div class="profile-stats">
 
-    <!-- EDIT FORM -->
-    <form id="profile-edit-form">
+        <div>
+          <strong id="posts-count">0</strong>
+          <span>Posts</span>
+        </div>
 
-      <input type="text" id="edit-name" placeholder="Edit Full Name">
-      <input type="email" id="edit-email" placeholder="Edit Email">
+        <div>
+          <strong id="followers-count">0</strong>
+          <span>Followers</span>
+        </div>
 
-      <textarea id="edit-bio" placeholder="Edit Bio"></textarea>
-      <textarea id="edit-skills" placeholder="Edit Skills"></textarea>
-      <textarea id="edit-location" placeholder="Edit Location"></textarea>
+        <div>
+          <strong id="following-count">0</strong>
+          <span>Following</span>
+        </div>
 
-      <button type="submit" id="saveBtn">Save Changes</button>
-      <button type="button" id="cancelBtn">Cancel</button>
+      </div>
 
-    </form>
+      <!-- EDIT PROFILE FORM -->
+      <form id="profile-edit-form" style="display:none;">
 
-  </div>
+        <h3>Edit Profile</h3>
 
-</section>
-</div>
-    
+        <input type="text" id="edit-name" placeholder="Full Name">
+        <input type="email" id="edit-email" placeholder="Email">
+
+        <textarea id="edit-bio" placeholder="Bio"></textarea>
+        <textarea id="edit-skills" placeholder="Skills"></textarea>
+        <textarea id="edit-location" placeholder="Location"></textarea>
+
+        <button type="submit">Save Changes</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+
+      </form>
+
+    </section>
+
+    <!-- ================= FEED ================= -->
+    <section id="feed" class="page">
+
+      <h2>Recent Posts</h2>
+
+      <div id="feed-container">
+
+        <article class="post">
+          <h3>User</h3>
+          <p>Welcome to Rhockstar Connect 🚀</p>
+          <small>Just now</small>
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- ================= MESSAGES ================= -->
+    <section id="messages" class="page">
+      <h2>Messages</h2>
+      <p>No messages yet.</p>
+    </section>
+
+    <!-- ================= CONNECTIONS ================= -->
+    <section id="connections" class="page">
+      <h2>People You May Know</h2>
+
+      <div class="suggestion-card">
+        <h4>Jane Smith</h4>
+        <button type="button">Connect</button>
+      </div>
+
+    </section>
+
+    <!-- ================= JOBS ================= -->
+    <section id="jobs" class="page">
+      <h2>Recommended Jobs</h2>
+      <p>No jobs available yet.</p>
+    </section>
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <section id="notifications" class="page">
+      <h2>Notifications</h2>
+      <p>No notifications yet.</p>
+    </section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+      <p>Manage your account settings here.</p>
+    </section>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2026 Rhockstar Connect. All Rights Reserved.</p>
-  </footer>
+</div>
 
-  <script src="app.js"></script>
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>&copy; 2026 Rhockstar Connect. All Rights Reserved.</p>
+</footer>
+
+<script src="app.js"></script>
 
 </body>
 </html>
