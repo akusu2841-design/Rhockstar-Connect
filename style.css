@@ -21,6 +21,13 @@ body {
   color: var(--white);
 }
 
+/* ================= HOME ================= */
+
+.page-active{
+  text-align:center;
+  
+}
+
 /* ================= APP LAYOUT ================= */
 #app {
   display: flex;
