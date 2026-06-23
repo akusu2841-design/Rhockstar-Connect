@@ -129,6 +129,10 @@ document.addEventListener("DOMContentLoaded", function () {
       setSession(user);
 
       window.location.href = "index.html";
+
+      if (sessionUser) {
+  app.style.display = "block";
+}
     });
   }
 
