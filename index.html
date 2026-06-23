@@ -246,37 +246,70 @@
 
 
      <!-- PROFILE -->
-  <section id="profile-section">
-    <div class="profile-info">
+<section id="profile-section">
 
-  <h2 id="display-name">Your Name?</h2>
-  <p id="display-username">@username</p>
-  <p id="display-bio">Say something about yourself.</p>
-  <p id="display-skills">List your skills.</p>
-  <p id="display-location">Where is your current location?</p>
+  <!-- COVER PHOTO -->
+  <div class="profile-cover">
+    <img id="cover-photo" src="images/cover.jpg" alt="Cover Photo">
+  </div>
 
-  <button id="editBtn" type="button">Edit profile</button>
+  <div class="profile-info">
 
-  <!-- PROFILE EDIT FORM -->
-  <form id="profile-edit-form">
+    <!-- PROFILE PICTURE -->
+    <div class="profile-pic-wrapper">
+      <img id="profile-pic" src="images/profile.jpg" alt="Profile Picture">
+    </div>
 
-    <input type="text" id="edit-name" name="name" placeholder="Edit Full Name">
+    <!-- BASIC INFO -->
+    <h2 id="display-name">Your Name?</h2>
+    <p id="display-username">@username</p>
 
-    <input type="email" id="edit-email" name="email" placeholder="Edit Email">
+    <!-- STATUS -->
+    <p id="profile-status">🟢 Online</p>
 
-    <textarea id="edit-bio" name="bio" placeholder="Edit Bio"></textarea>
+    <p id="display-bio">Say something about yourself.</p>
+    <p id="display-skills">List your skills.</p>
+    <p id="display-location">Where is your current location?</p>
 
-    <textarea id="edit-skills" name="skills" placeholder="Edit Skills"></textarea>
+    <!-- STATS -->
+    <div class="profile-stats">
+      <div>
+        <strong id="posts-count">0</strong>
+        <span>Posts</span>
+      </div>
 
-    <textarea id="edit-location" name="location" placeholder="Edit Location"></textarea>
+      <div>
+        <strong id="followers-count">0</strong>
+        <span>Followers</span>
+      </div>
 
-    <button type="submit" id="saveBtn">Save Changes</button>
+      <div>
+        <strong id="following-count">0</strong>
+        <span>Following</span>
+      </div>
+    </div>
 
-    <button type="button" id="cancelBtn">Cancel</button>
+    <!-- EDIT BUTTON -->
+    <button id="editBtn" type="button">Edit profile</button>
 
-  </form>
+    <!-- EDIT FORM -->
+    <form id="profile-edit-form">
 
-</div>
+      <input type="text" id="edit-name" placeholder="Edit Full Name">
+      <input type="email" id="edit-email" placeholder="Edit Email">
+
+      <textarea id="edit-bio" placeholder="Edit Bio"></textarea>
+      <textarea id="edit-skills" placeholder="Edit Skills"></textarea>
+      <textarea id="edit-location" placeholder="Edit Location"></textarea>
+
+      <button type="submit" id="saveBtn">Save Changes</button>
+      <button type="button" id="cancelBtn">Cancel</button>
+
+    </form>
+
+  </div>
+
+</section>
    
   </main>
 
