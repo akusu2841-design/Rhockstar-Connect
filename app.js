@@ -1,79 +1,62 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ELEMENTS
+const home = document.getElementById("home");
+const dashboard = document.getElementById("dashboard");
+const logoutBtn = document.getElementById("logout");
 
-  // ================= ELEMENTS =================
-  const links = document.querySelectorAll(".sidebar a[data-page]");
-  const pages = document.querySelectorAll(".page");
-  const welcomeText = document.getElementById("welcome");
-  const logoutBtn = document.getElementById("logout");
-  const searchInput = document.querySelector(".topbar input");
+// CHECK LOGIN STATE
+window.addEventListener("DOMContentLoaded", () => {
 
-  // ================= PAGE SWITCHER =================
-  function showPage(pageId) {
+    const loggedIn = localStorage.getItem("loggedIn");
 
-    // hide all pages
-    pages.forEach(page => {
-      page.classList.remove("active");
-    });
+    if(loggedIn === "true"){
+        home.classList.add("hidden");
 
-    // show selected page
-    const target = document.getElementById(pageId);
-    if (target) {
-      target.classList.add("active");
+        dashboard.classList.remove("hidden");
+        dashboard.style.display = "flex";
+
+        showPage("feed");
     }
+});
 
-    // update active link
-    links.forEach(link => {
-      link.classList.remove("active");
+// PAGE SWITCHING
+const navLinks = document.querySelectorAll("[data-page]");
 
-      if (link.dataset.page === pageId) {
-        link.classList.add("active");
-      }
-    });
+navLinks.forEach(link => {
 
-    // update welcome text dynamically
-    if (welcomeText) {
-      welcomeText.textContent = `Welcome to ${pageId.charAt(0).toUpperCase() + pageId.slice(1)} 👋`;
-    }
-  }
-
-  // ================= CLICK NAVIGATION =================
-  links.forEach(link => {
     link.addEventListener("click", (e) => {
-      e.preventDefault();
 
-      const page = link.dataset.page;
-      showPage(page);
+        e.preventDefault();
+
+        const pageId = link.dataset.page;
+
+        showPage(pageId);
     });
-  });
+});
 
-  // ================= DEFAULT PAGE =================
-  showPage("home");
+function showPage(pageId){
 
-  // ================= SEARCH HANDLER =================
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const value = e.target.value.toLowerCase();
-
-      console.log("Searching:", value);
-
-      // later we will connect this to feed/users/posts
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
     });
-  }
 
-  // ================= LOGOUT =================
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+    const selectedPage = document.getElementById(pageId);
 
-      const confirmLogout = confirm("Are you sure you want to logout?");
+    if(selectedPage){
+        selectedPage.classList.add("active");
+    }
+}
 
-      if (confirmLogout) {
-        alert("Logged out successfully!");
+// LOGOUT
+logoutBtn.addEventListener("click", () => {
 
-        // later: redirect to login page
-        // window.location.href = "login.html";
-      }
+    localStorage.removeItem("loggedIn");
+
+    dashboard.classList.add("hidden");
+
+    home.classList.remove("hidden");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
     });
-  }
-
 });
