@@ -73,11 +73,11 @@ body{
 }
 
 .primary-btn:hover{
-  background:var(--violet-dark);
+  background:var(--violet);
 }
 
 .secondary-btn{
-  border:2px solid var(--violet);
+  background:var(--violet-dark);
   color:white;
 }
 
