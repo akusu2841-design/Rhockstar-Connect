@@ -1,338 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rhockstar Connect</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 
 <body>
 
-<!-- ================= MAIN APP ================= -->
-<div id="app">
+<!-- ================= PUBLIC HOME (LANDING) ================= -->
+<section id="home" class="page active">
 
-  <!-- ================= SIDEBAR ================= -->
+  <!-- HERO AUTH -->
+  <div class="hero">
+    <h1>Rhockstar Connect 🚀</h1>
+    <p>Connect. Grow. Build your professional identity.</p>
+
+    <div class="auth-box">
+      <button class="primary-btn">Login</button>
+      <button class="secondary-btn">Register</button>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <h2>Features</h2>
+
+    <div class="feature-grid">
+      <div class="card">Networking</div>
+      <div class="card">Job Board</div>
+      <div class="card">Messaging</div>
+      <div class="card">Profile Builder</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>About Rhockstar Connect</h2>
+    <p>
+      Rhockstar Connect is a modern professional platform where users can connect,
+      showcase skills, find jobs, and build career opportunities in one place.
+    </p>
+  </section>
+
+</section>
+
+
+<!-- ================= DASHBOARD APP (AFTER LOGIN) ================= -->
+<div id="dashboard" class="hidden">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
 
     <div class="logo">
-      <h2>Rhockstar Connect</h2>
+      <h2>Rhockstar</h2>
+      <small>Dashboard</small>
     </div>
 
     <nav>
       <ul>
-        <li><a href="#" data-page="home">Home</a></li>
-        <li><a href="#" data-page="dashboard">Dashboard</a></li>
-        <li><a href="#" data-page="profile">Profile</a></li>
         <li><a href="#" data-page="feed">Feed</a></li>
-        <li><a href="#" data-page="messages">Messages</a></li>
+        <li><a href="#" data-page="profile">Profile</a></li>
         <li><a href="#" data-page="connections">Connections</a></li>
+        <li><a href="#" data-page="messages">Messages</a></li>
         <li><a href="#" data-page="jobs">Jobs</a></li>
         <li><a href="#" data-page="notifications">Notifications</a></li>
         <li><a href="#" data-page="settings">Settings</a></li>
-        <li><a href="#" id="logout">Logout</a></li>
+        <li><button id="logout">Logout</button></li>
       </ul>
     </nav>
 
   </aside>
 
-  <!-- ================= MAIN AREA ================= -->
+  <!-- MAIN DASHBOARD AREA -->
   <main class="main">
 
-    <!-- ================= TOPBAR ================= -->
-    <header class="topbar">
-
-      <h3 id="welcome">Welcome 👋</h3>
-
-      <input type="search" placeholder="Search..." />
-
-      <div class="topbar-profile">
-        <img src="images/profile.jpg" alt="profile">
-      </div>
-
-    </header>
-
-    <!-- ================= HOME (LANDING INSIDE APP) ================= -->
-    <section id="home" class="page active">
-
-      <div class="hero">
-
-        <h1>Welcome to Rhockstar Connect 🚀</h1>
-        <p>Build your network, share posts, and grow your career.</p>
-
-        <div class="hero-buttons">
-          <button>Create Post</button>
-          <button>Explore People</button>
-        </div>
-
-        <div class="hero-stats">
-
-          <div>
-            <strong>0</strong>
-            <span>Users</span>
-          </div>
-
-          <div>
-            <strong>0</strong>
-            <span>Posts</span>
-          </div>
-
-          <div>
-            <strong>0</strong>
-            <span>Jobs</span>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ================= DASHBOARD ================= -->
-    <section id="dashboard" class="page">
-
-      <h2>Dashboard</h2>
-      <p>Your activity overview appears here.</p>
-
-    </section>
-
-    <!-- ================= PROFILE ================= -->
-    <section id="profile" class="page">
-
-      <div class="profile-header">
-        <img src="images/profile.jpg" alt="profile">
-        <h2>Your Name</h2>
-        <p>@username</p>
-      </div>
-
-      <div class="profile-body">
-        <h3>About</h3>
-        <p>Your bio here...</p>
-      </div>
-
-    </section>
-
-    <!-- ================= FEED ================= -->
-    <section id="feed" class="page">
-      <h2>Feed</h2>
-      <p>Posts will appear here.</p>
-    </section>
-
-    <!-- ================= MESSAGES ================= -->
-    <section id="messages" class="page">
-      <h2>Messages</h2>
-    </section>
-
-    <!-- ================= CONNECTIONS ================= -->
-    <section id="connections" class="page">
-      <h2>Connections</h2>
-    </section>
-
-    <!-- ================= JOBS ================= -->
-    <section id="jobs" class="page">
-      <h2>Jobs</h2>
-    </section>
-
-    <!-- ================= NOTIFICATIONS ================= -->
-    <section id="notifications" class="page">
-      <h2>Notifications</h2>
-    </section>
-
-    <!-- ================= SETTINGS ================= -->
-    <section id="settings" class="page">
-      <h2>Settings</h2>
-    </section>
+    <section id="feed" class="page">Feed Content</section>
+    <section id="profile" class="page">Profile Content</section>
+    <section id="connections" class="page">Connections Content</section>
+    <section id="messages" class="page">Messages Content</section>
+    <section id="jobs" class="page">Jobs Content</section>
+    <section id="notifications" class="page">Notifications Content</section>
+    <section id="settings" class="page">Settings Content</section>
 
   </main>
 
 </div>
 
-<script src="app.js"></script>
-
 </body>
-</html>      </ul>
-    </nav>
-
-  </aside>
-
-  <!-- ================= MAIN CONTENT ================= -->
-  <main class="main">
-
-    <!-- ================= TOP BAR ================= -->
-    <header class="topbar">
-
-      <div class="welcome">
-        <h1 id="welcome-message">Hello 👋</h1>
-        <p id="current-date">Loading date...</p>
-      </div>
-
-      <div class="topbar-right">
-
-        <div class="notification">
-          🔔 <span id="top-notification-count">3</span>
-        </div>
-
-        <input type="search" id="search-input" placeholder="Search users, posts...">
-
-        <img src="images/profile.jpg" id="top-profile" alt="Profile">
-
-      </div>
-
-    </header>
-
-    <!-- ================= DASHBOARD ================= -->
-    <section id="dashboard" class="page active">
-
-      <h2>Dashboard</h2>
-
-      <p>Welcome to your Rhockstar Connect dashboard.</p>
-
-    </section>
-
-    <!-- ================= PROFILE ================= -->
-    <section id="profile" class="page profile-summary">
-
-      <!-- COVER PHOTO -->
-      <div class="profile-cover">
-        <img id="cover-photo" src="images/cover.jpg" alt="Cover Photo">
-        <div class="cover-overlay">
-          <h1>My Profile</h1>
-        </div>
-      </div>
-
-      <!-- PROFILE HEADER -->
-      <div class="profile-header">
-
-        <div class="profile-pic-wrapper">
-          <img id="profile-pic" src="images/profile.jpg" alt="Profile Picture">
-        </div>
-
-        <div class="profile-main-info">
-          <h2 id="profile-name">Your Name</h2>
-          <p id="profile-username">@username</p>
-          <p id="profile-status">🟢 Online</p>
-        </div>
-
-        <button id="edit-profile-btn" type="button">Edit Profile</button>
-
-      </div>
-
-      <!-- PROFILE DETAILS -->
-      <div class="profile-details">
-
-        <h3>About</h3>
-        <p id="profile-bio">Say something about yourself.</p>
-
-        <h3>Skills</h3>
-        <p id="profile-skills">No skills added yet.</p>
-
-        <h3>Location</h3>
-        <p id="profile-location">Not set</p>
-
-      </div>
-
-      <!-- PROFILE STATS -->
-      <div class="profile-stats">
-
-        <div>
-          <strong id="posts-count">0</strong>
-          <span>Posts</span>
-        </div>
-
-        <div>
-          <strong id="followers-count">0</strong>
-          <span>Followers</span>
-        </div>
-
-        <div>
-          <strong id="following-count">0</strong>
-          <span>Following</span>
-        </div>
-
-      </div>
-
-      <!-- EDIT PROFILE FORM -->
-      <form id="profile-edit-form" style="display:none;">
-
-        <h3>Edit Profile</h3>
-
-        <input type="text" id="edit-name" placeholder="Full Name">
-        <input type="email" id="edit-email" placeholder="Email">
-
-        <textarea id="edit-bio" placeholder="Bio"></textarea>
-        <textarea id="edit-skills" placeholder="Skills"></textarea>
-        <textarea id="edit-location" placeholder="Location"></textarea>
-
-        <button type="submit">Save Changes</button>
-        <button type="button" id="cancelBtn">Cancel</button>
-
-      </form>
-
-    </section>
-
-    <!-- ================= FEED ================= -->
-    <section id="feed" class="page">
-
-      <h2>Recent Posts</h2>
-
-      <div id="feed-container">
-
-        <article class="post">
-          <h3>User</h3>
-          <p>Welcome to Rhockstar Connect 🚀</p>
-          <small>Just now</small>
-        </article>
-
-      </div>
-
-    </section>
-
-    <!-- ================= MESSAGES ================= -->
-    <section id="messages" class="page">
-      <h2>Messages</h2>
-      <p>No messages yet.</p>
-    </section>
-
-    <!-- ================= CONNECTIONS ================= -->
-    <section id="connections" class="page">
-      <h2>People You May Know</h2>
-
-      <div class="suggestion-card">
-        <h4>Jane Smith</h4>
-        <button type="button">Connect</button>
-      </div>
-
-    </section>
-
-    <!-- ================= JOBS ================= -->
-    <section id="jobs" class="page">
-      <h2>Recommended Jobs</h2>
-      <p>No jobs available yet.</p>
-    </section>
-
-    <!-- ================= NOTIFICATIONS ================= -->
-    <section id="notifications" class="page">
-      <h2>Notifications</h2>
-      <p>No notifications yet.</p>
-    </section>
-
-    <!-- ================= SETTINGS ================= -->
-    <section id="settings" class="page">
-      <h2>Settings</h2>
-      <p>Manage your account settings here.</p>
-    </section>
-
-  </main>
-
-</div>
-
-<!-- ================= FOOTER ================= -->
-<footer>
-  <p>&copy; 2026 Rhockstar Connect. All Rights Reserved.</p>
-</footer>
-
-<script src="app.js"></script>
-
-</body>
-</html>
+    </html>
