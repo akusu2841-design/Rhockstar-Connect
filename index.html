@@ -244,6 +244,51 @@
       </section>
     </section>
 
+
+     <!-- PROFILE -->
+    <section class="profile-section" id="profile-section">
+    <div class="profile-upload">
+  <img id="profile-preview" src="images/profile.jpg" alt="Profile Picture">
+
+  <input type="file" id="profile-input" accept="image/*">
+
+  <button id="save-profile-pic">Save Profile Picture</button>
+</div>
+
+    <div class="profile-info">
+
+  <h2 id="display-name">Your Name?</h2>
+  <p id="display-username">@username</p>
+  <p id="display-bio">Say something about yourself.</p>
+  <p id="display-skills">List your skills.</p>
+  <p id="display-location">Where is your current location?</p>
+
+  <button id="editBtn" type="button">Edit profile</button>
+
+  <!-- PROFILE EDIT FORM -->
+  <form id="profile-edit-form">
+
+    <input type="text" id="edit-name" name="name" placeholder="Edit Full Name">
+
+    <input type="email" id="edit-email" name="email" placeholder="Edit Email">
+
+    <textarea id="edit-bio" name="bio" placeholder="Edit Bio"></textarea>
+
+    <textarea id="edit-skills" name="skills" placeholder="Edit Skills"></textarea>
+
+    <textarea id="edit-location" name="location" placeholder="Edit Location"></textarea>
+
+    <button type="submit" id="saveBtn">Save Changes</button>
+
+    <button type="button" id="cancelBtn">Cancel</button>
+
+  </form>
+
+</div>
+    
+  </div>
+    </section>
+   
   </main>
 
   <!-- FOOTER -->
