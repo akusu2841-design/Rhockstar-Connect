@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return; // Cancel logout
     }
 
+    
     localStorage.removeItem(SESSION_KEY);
 
     home.style.display = "block";
