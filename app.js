@@ -1,62 +1,78 @@
-// ELEMENTS
-const home = document.getElementById("home");
-const dashboard = document.getElementById("dashboard");
-const logoutBtn = document.getElementById("logout");
+document.addEventListener("DOMContentLoaded", () => {
 
-// CHECK LOGIN STATE
-window.addEventListener("DOMContentLoaded", () => {
+  const home = document.getElementById("home");
+  const dashboard = document.getElementById("dashboard");
+  const logoutBtn = document.getElementById("logout");
 
-    const loggedIn = localStorage.getItem("loggedIn");
+  const SESSION_KEY = "rhockstar_session";
 
-    if(loggedIn === "true"){
-        home.classList.add("hidden");
+  // ======================
+  // CHECK LOGIN
+  // ======================
+  const session = JSON.parse(
+    localStorage.getItem(SESSION_KEY)
+  );
 
-        dashboard.classList.remove("hidden");
-        dashboard.style.display = "flex";
+  if (session) {
+    home.style.display = "none";
+    dashboard.style.display = "flex";
+  } else {
+    home.style.display = "block";
+    dashboard.style.display = "none";
+  }
 
-        showPage("feed");
+  // ======================
+  // DASHBOARD PAGE SWITCHING
+  // ======================
+  const pages = document.querySelectorAll(".page");
+  const links = document.querySelectorAll("[data-page]");
+
+  function showPage(pageId) {
+
+    pages.forEach(page => {
+      page.style.display = "none";
+    });
+
+    const target = document.getElementById(pageId);
+
+    if (target) {
+      target.style.display = "block";
     }
-});
+  }
 
-// PAGE SWITCHING
-const navLinks = document.querySelectorAll("[data-page]");
+  links.forEach(link => {
 
-navLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
 
-    link.addEventListener("click", (e) => {
+      e.preventDefault();
 
-        e.preventDefault();
+      const page = this.dataset.page;
 
-        const pageId = link.dataset.page;
+      showPage(page);
 
-        showPage(pageId);
-    });
-});
-
-function showPage(pageId){
-
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
     });
 
-    const selectedPage = document.getElementById(pageId);
+  });
 
-    if(selectedPage){
-        selectedPage.classList.add("active");
-    }
-}
+  // Default page
+  showPage("feed");
 
-// LOGOUT
-logoutBtn.addEventListener("click", () => {
+  // ======================
+  // LOGOUT
+  // ======================
+  if (logoutBtn) {
 
-    localStorage.removeItem("loggedIn");
+    logoutBtn.addEventListener("click", () => {
 
-    dashboard.classList.add("hidden");
+      localStorage.removeItem(SESSION_KEY);
 
-    home.classList.remove("hidden");
+      home.style.display = "block";
+      dashboard.style.display = "none";
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
+      location.reload();
+
     });
+
+  }
+
 });
