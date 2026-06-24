@@ -62,14 +62,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // ======================
   if (logoutBtn) {
 
-    logoutBtn.addEventListener("click", () => {
+  logoutBtn.addEventListener("click", () => {
 
-      localStorage.removeItem(SESSION_KEY);
+    const confirmLogout = confirm(
+      "Are you sure you want to log out?"
+    );
 
-      home.style.display = "block";
-      dashboard.style.display = "none";
+    if (!confirmLogout) {
+      return; // Cancel logout
+    }
 
-      location.reload();
+    localStorage.removeItem(SESSION_KEY);
+
+    home.style.display = "block";
+    dashboard.style.display = "none";
+
+    location.reload();
+
+  });
+
+}
 
     });
 
