@@ -1,3 +1,4 @@
+// ================= ELEMENTS =================
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
@@ -6,7 +7,11 @@ const showPassword = document.getElementById("showPassword");
 const rememberMe = document.getElementById("rememberMe");
 const loginBtn = document.getElementById("loginBtn");
 
-/* ================= LOAD REMEMBERED EMAIL ================= */
+// ================= STORAGE KEYS =================
+const USERS_KEY = "rhockstarUsers";
+const SESSION_KEY = "rhockstar_session";
+
+// ================= LOAD REMEMBERED EMAIL =================
 const savedEmail = localStorage.getItem("rememberedEmail");
 
 if (savedEmail) {
@@ -14,13 +19,23 @@ if (savedEmail) {
   rememberMe.checked = true;
 }
 
-/* ================= SHOW / HIDE PASSWORD ================= */
+// ================= SHOW / HIDE PASSWORD =================
 showPassword.addEventListener("change", () => {
   passwordInput.type = showPassword.checked ? "text" : "password";
 });
 
-/* ================= LOGIN HANDLER ================= */
+// ================= CHECK EXISTING SESSION =================
+const currentUser = JSON.parse(
+  localStorage.getItem(SESSION_KEY)
+);
+
+if (currentUser) {
+  window.location.href = "index.html";
+}
+
+// ================= LOGIN =================
 loginForm.addEventListener("submit", (e) => {
+
   e.preventDefault();
 
   const email = emailInput.value.trim().toLowerCase();
@@ -32,72 +47,58 @@ loginForm.addEventListener("submit", (e) => {
     return;
   }
 
-  loginBtn.textContent = "Logging in...";
   loginBtn.disabled = true;
+  loginBtn.textContent = "Logging in...";
 
   setTimeout(() => {
-    // Demo password validation
-    if (password.length >= 8) {
 
-      let users =
-        JSON.parse(localStorage.getItem("rhockstarUsers")) || [];
+    const users =
+      JSON.parse(localStorage.getItem(USERS_KEY)) || [];
 
-      // Check if user exists
-      let user = users.find(
-        (u) => u.email.toLowerCase() === email
-      );
+    const user = users.find(
+      u =>
+        u.email.toLowerCase() === email &&
+        u.password === password
+    );
 
-      // Create user if not found
-      if (!user) {
-        user = {
-          id: Date.now(),
-          name: email.split("@")[0],
-          email: email,
-          password: password, // demo only
-          title: "Member",
-          bio: "Welcome to Rhockstar.",
-          profileImage:
-            "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(email.split("@")[0]) +
-            "&background=0D8ABC&color=fff",
-          joinedAt: new Date().toISOString()
-        };
+    if (!user) {
 
-        users.push(user);
-        localStorage.setItem(
-          "rhockstarUsers",
-          JSON.stringify(users)
-        );
-      }
-
-      // Save current logged-in user
-      localStorage.setItem(
-        "rhockstarUser",
-        JSON.stringify(user)
-      );
-
-      // Remember email
-      if (rememberMe.checked) {
-        localStorage.setItem("rememberedEmail", email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-
-      message.style.color = "lightgreen";
-      message.textContent =
-        "Login successful! Redirecting...";
-
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 1500);
-
-    } else {
       message.style.color = "red";
       message.textContent =
-        "Password must be at least 8 characters.";
+        "Invalid email or password.";
 
-      loginBtn.textContent = "Login";
       loginBtn.disabled = false;
+      loginBtn.textContent = "Login";
+
+      return;
     }
+
+    // ================= SAVE SESSION =================
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify(user)
+    );
+
+    // ================= REMEMBER EMAIL =================
+    if (rememberMe.checked) {
+      localStorage.setItem(
+        "rememberedEmail",
+        email
+      );
+    } else {
+      localStorage.removeItem(
+        "rememberedEmail"
+      );
+    }
+
+    message.style.color = "lightgreen";
+    message.textContent =
+      "Login successful! Redirecting...";
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1000);
+
   }, 1000);
+
 });
