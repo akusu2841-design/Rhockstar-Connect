@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     dashboard.style.display = "none";
   }
 
-  // ======================
+  // ===========================
   // DASHBOARD PAGE SWITCHING
-  // ======================
+  // ===========================
   const pages = document.querySelectorAll(".page");
   const links = document.querySelectorAll("[data-page]");
 
@@ -68,15 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "Are you sure you want to log out?"
     );
 
-    if (!confirmLogout) {
-      return; // Cancel logout
-    }
+    if (!confirmLogout) return;
 
-    
     localStorage.removeItem(SESSION_KEY);
-
-    home.style.display = "block";
-    dashboard.style.display = "none";
 
     location.reload();
 
@@ -84,13 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 }
 
-    });
-
-  }
-
 });
-
-
 // ======================
   // Original news feed
   // ======================
@@ -98,8 +86,9 @@ const postBtn = document.getElementById("postBtn");
 const textSpace = document.getElementById("textSpace");
 const postsContainer = document.getElementById("postsContainer");
 
-postBtn.addEventListener("click", () => {
+if (postBtn && textSpace && postsContainer) {
 
+postBtn.addEventListener("click", () => {
   const text = textSpace.value.trim();
 
   if (!text) {
@@ -170,7 +159,7 @@ postBtn.addEventListener("click", () => {
 
 });
 
-
+}
 // ======================
   // Like section
   // ======================
@@ -196,6 +185,9 @@ document.addEventListener("click", (e) => {
 // ======================
   // Comment section
   // ======================
+// ======================
+// Comment section
+// ======================
 document.addEventListener("click", (e) => {
 
   if (e.target.classList.contains("comment-btn")) {
@@ -220,8 +212,7 @@ document.addEventListener("click", (e) => {
     comment.className = "comment";
 
     comment.innerHTML = `
-    
-      <p>${text}</p>
+      <p class="comment-text">${text}</p>
 
       <button class="reply-btn">
         Reply
@@ -241,7 +232,8 @@ document.addEventListener("click", (e) => {
 
       </div>
 
-      <div class="replies"></div>;
+      <div class="replies"></div>
+    `;
 
     commentsList.prepend(comment);
 
@@ -250,7 +242,6 @@ document.addEventListener("click", (e) => {
   }
 
 });
-
 
 // ======================
   // Reply section
