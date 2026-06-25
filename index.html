@@ -13,340 +13,570 @@
 <section id="home">
 
     <div class="hero">
-        <h1>Rhockstar Connect 🚀</h1>
-        <p>Connect. Grow. Build your professional identity.</p>
+
+        <h1>Welcome to <span>Rhockstar Connect 🚀</span></h1>
+
+        <p>
+            Connect with professionals, discover opportunities, grow your network,
+            build meaningful relationships, and create your professional identity all
+            in one secure platform.
+        </p>
 
         <div class="auth-box">
             <a href="login.html" class="primary-btn">Login</a>
-            <a href="register.html" class="secondary-btn">Register</a>
+            <a href="register.html" class="secondary-btn">Create Account</a>
         </div>
+
     </div>
 
+    <!-- FEATURES -->
     <section class="features">
-        <h2>Features</h2>
+
+        <h2>Why Choose Rhockstar Connect?</h2>
 
         <div class="feature-grid">
-            <div class="card">Networking</div>
-            <div class="card">Job Board</div>
-            <div class="card">Messaging</div>
-            <div class="card">Profile Builder</div>
+
+            <div class="card">
+                <h3>🌐 Networking</h3>
+                <p>Meet professionals, entrepreneurs and like-minded people.</p>
+            </div>
+
+            <div class="card">
+                <h3>💼 Job Board</h3>
+                <p>Find internships, remote work and full-time career opportunities.</p>
+            </div>
+
+            <div class="card">
+                <h3>💬 Messaging</h3>
+                <p>Chat securely with your connections anytime.</p>
+            </div>
+
+            <div class="card">
+                <h3>👤 Professional Profile</h3>
+                <p>Showcase your skills, achievements and experience.</p>
+            </div>
+
+            <div class="card">
+                <h3>📢 Community Feed</h3>
+                <p>Share updates, ideas and engage with the community.</p>
+            </div>
+
+            <div class="card">
+                <h3>🔒 Secure Platform</h3>
+                <p>Your information is protected with modern security practices.</p>
+            </div>
+
         </div>
+
     </section>
 
+    <!-- ABOUT -->
     <section class="about">
+
         <h2>About Rhockstar Connect</h2>
 
         <p>
-            Rhockstar Connect is a modern professional platform where users chat and connect,
-            build relationships, find jobs, showcase skills and grow opportunities.
+            Rhockstar Connect is a modern professional social networking platform
+            built to connect people with opportunities. Whether you're searching
+            for jobs, building business relationships, making friends, or expanding
+            your professional network, Rhockstar Connect provides everything you
+            need in one place.
         </p>
+
+        <p>
+            Our mission is to empower individuals by creating meaningful
+            connections that inspire growth, collaboration and success.
+        </p>
+
     </section>
 
 </section>
 
 <!-- ================= DASHBOARD ================= -->
-<div id="dashboard">
-<!-- Mobile Menu Button -->
-<button id="menuToggle" class="menu-toggle">
-    ☰
-</button>
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
+<section id="dashboard" class="hidden">
 
-    <div class="logo">
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay"></div>
 
-        <h2>Rhockstar</h2>
-        <small>Dashboard</small>
+    <!-- Mobile Menu Button -->
+    <button
+        id="menuToggle"
+        class="menu-toggle"
+        aria-label="Open Menu"
+    >
+        ☰
+    </button>
 
-        <button id="closeMenu" class="close-menu">
-            ✕
-        </button>
+    <!-- ================= SIDEBAR ================= -->
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
 
-    </div>
+        <div class="logo">
 
-    <nav>
-        <ul>
+            <div>
 
-            <li><a href="#" data-page="feed">🏠 Feed</a></li>
+                <h2>Rhockstar</h2>
 
-            <li><a href="#" data-page="profile">👤 Profile</a></li>
+                <small>Connect Dashboard</small>
 
-            <li><a href="#" data-page="connections">🤝 Connections</a></li>
+            </div>
 
-            <li><a href="#" data-page="messages">💬 Messages</a></li>
+            <button
+                id="closeMenu"
+                class="close-menu"
+                aria-label="Close Menu"
+            >
+                ✕
+            </button>
 
-            <li><a href="#" data-page="jobs">💼 Jobs</a></li>
+        </div>
 
-            <li><a href="#" data-page="notifications">🔔 Notifications</a></li>
+        <nav>
 
-            <li><a href="#" data-page="settings">⚙ Settings</a></li>
+            <ul>
 
-            <li><button id="logout">🚪 Logout</button></li>
+                <li>
+                    <a href="#" data-page="feed">
+                        🏠 Home Feed
+                    </a>
+                </li>
 
-        </ul>
-    </nav>
+                <li>
+                    <a href="#" data-page="profile">
+                        👤 My Profile
+                    </a>
+                </li>
 
-</aside>
-    <!-- MAIN -->
+                <li>
+                    <a href="#" data-page="connections">
+                        🤝 Connections
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-page="messages">
+                        💬 Messages
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-page="jobs">
+                        💼 Jobs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-page="notifications">
+                        🔔 Notifications
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-page="settings">
+                        ⚙ Settings
+                    </a>
+                </li>
+
+                <li>
+                    <button id="logout">
+                        🚪 Logout
+                    </button>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
     <main class="main">
 
-        <!-- FEED -->
-        <section id="feed" class="page">
+        <!-- ================= NEWS FEED ================= -->
+        <section
+            id="feed"
+            class="page active"
+        >
 
             <h2>News Feed</h2>
 
             <div class="create-post">
 
-                <h3>Create Post</h3>
+                <h3>Create a Post</h3>
 
                 <textarea
                     id="textSpace"
-                    placeholder="What's on your mind today?"
+                    placeholder="Share an update with your network..."
+                    rows="5"
                 ></textarea>
 
                 <button id="postBtn">
-                    Post
+                    Publish Post
                 </button>
 
             </div>
 
-            <div id="postsContainer"></div>
+            <div id="postsContainer">
+
+                <div class="post">
+
+                    <h4>Welcome to Rhockstar Connect 🎉</h4>
+
+                    <p>
+                        Start networking, create your first post,
+                        connect with professionals and explore
+                        exciting opportunities.
+                    </p>
+
+                </div>
+
+            </div>
 
         </section>
 
-        <!-- PROFILE -->
-        <section id="profile" class="page">
-
-  <div class="profile-card">
-
-    <!-- COVER PHOTO -->
-    <div class="profile-cover">
-      <img
-        id="coverPhoto"
-        src="images/cover.jpg"
-        alt="Cover Photo"
-      >
-    </div>
-
-    <!-- PROFILE IMAGE -->
-    <img
-      src="images/profile.jpg"
-      class="profile-avatar"
-      id="profileAvatar"
-      alt="Profile"
-    >
-
-    <!-- PROFILE INFO -->
-    <div class="profile-info">
-
-      <h2 id="displayName">
-        Elijah Peter
-      </h2>
-
-      <p id="displayUsername">
-        @rhockstar
-      </p>
-
-      <p id="displayStatus">
-        🟢 Online
-      </p>
-
-      <p id="displayTitle">
-        Web Developer & Digital Creator
-      </p>
-
-      <p id="displayBio">
-        Building connections and opportunities through Rhockstar Connect.
-      </p>
-
-      <hr>
-
-      <h3>Personal Information</h3>
-
-      <p>
-        <strong>Full Name:</strong>
-        <span id="myN">Elijah Peter</span>
-      </p>
-
-      <strong>Professional Title</strong>
-     <span id="myPT">Web Developer</span>
-        
-      <p>
-        <strong>Email:</strong>
-        <span id="myE">akusu2841@gmail.com</span>
-      </p>
-
-      <p>
-        <strong>Phone Number:</strong>
-        <span id="myPhone">Not Added</span>
-      </p>
-
-      <p>
-        <strong>Location:</strong>
-        <span id="myL">Lagos, Nigeria</span>
-      </p>
-
-      <p>
-        <strong>About Me:</strong>
-        <span id="abtMe">
-          I am a Rhockstar.
-        </span>
-      </p>
-
-      <h3>Skills</h3>
-
-      <p id="myS">
-        HTML, CSS, JavaScript, Responsive Design,
-        UI/UX Design, Content Creation,
-        Graphics Design
-      </p>
-
-      <!-- STATS -->
-      <div class="profile-stats">
-
-        <div class="stat-box">
-          <h3 id="myConnections">0</h3>
-          <p>Connections</p>
-        </div>
-
-        <div class="stat-box">
-          <h3 id="myPosts">0</h3>
-          <p>Posts</p>
-        </div>
-
-        <div class="stat-box">
-          <h3 id="myFollowers">0</h3>
-          <p>Followers</p>
-        </div>
-
-        <div class="stat-box">
-          <h3 id="myFollowing">0</h3>
-          <p>Following</p>
-        </div>
-
-        <div class="stat-box">
-          <h3 id="myViews">0</h3>
-          <p>Profile Views</p>
-        </div>
-
-      </div>
-
-      <button id="profileEditBtn">
-        Edit Profile
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- EDIT PROFILE -->
-  <div
-    class="profile-edit"
-    id="profileEditSection"
-    style="display:none;"
-  >
-
-    <h2>Edit Profile</h2>
-
-    <!-- PROFILE PICTURE -->
-    <img
-      id="profilePicPreview"
-      src="images/profile.jpg"
-      alt="Profile Picture"
-      class="profile-avatar"
-    >
-
-    <label for="uploadPic">
-      Upload Profile Picture
-    </label>
-
-    <input
-      type="file"
-      id="uploadPic"
-      accept="image/*"
-    >
-
-    <!-- COVER PHOTO -->
-    <label for="uploadCover">
-      Upload Cover Photo
-    </label>
-
-    <input
-      type="file"
-      id="uploadCover"
-      accept="image/*"
-    >
-
-    <input
-      type="text"
-      id="editFullName"
-      placeholder="Full Name"
-    >
-
-    <input
-      type="text"
-      id="editUName"
-      placeholder="Username"
-    >
-
-    <input
-      type="email"
-      id="editE"
-      placeholder="Email"
-    >
-
-    <input
-      type="tel"
-      id="editTel"
-      placeholder="Phone Number"
-    >
-
-    <input
-      type="text"
-      id="editL"
-      placeholder="Location"
-    >
-    <textarea
-      id="editTitle"
-      placeholder="Tell people about Professional Title, i.e Trader, Businessman/woman, Web Developer,etc..."
-    ></textarea>
-      
-    <textarea
-      id="editBio"
-      placeholder="Tell people about yourself"
-    ></textarea>
-
-    <textarea
-      id="editSkills"
-      placeholder="Your skills"
-    ></textarea>
-
-    <button id="saveBtn">
-      Save Changes
-    </button>
-
-    <button id="cancel">
-      Cancel
-    </button>
-
-  </div>
+    </main>
 
 </section>
 
-        <!-- CONNECTIONS -->
-<section id="connections" class="page">
+<!-- ================= PROFILE ================= -->
+<!-- ================= PROFILE ================= -->
+<section id="profile" class="page">
 
-    <h2>Connections</h2>
+    <div class="profile-card">
 
-    <!-- SEARCH -->
-    <div class="search-connections">
+        <!-- COVER PHOTO -->
+        <div class="profile-cover">
+            <img
+                id="coverPhoto"
+                src="images/cover.jpg"
+                alt="Profile Cover Photo"
+                onerror="this.src='images/default-cover.jpg'"
+            >
+        </div>
 
-        <h3>Search Users</h3>
+        <!-- PROFILE PICTURE -->
+        <div class="profile-avatar-wrapper">
+            <img
+                id="profileAvatar"
+                class="profile-avatar"
+                src="images/profile.jpg"
+                alt="Profile Picture"
+                onerror="this.src='images/default-avatar.png'"
+            >
+        </div>
+
+        <!-- PROFILE INFO -->
+        <div class="profile-info">
+
+            <h2 id="displayName">Elijah Peter</h2>
+
+            <p id="displayUsername" class="username">
+                @rhockstar
+            </p>
+
+            <span id="displayStatus" class="status online">
+                🟢 Online
+            </span>
+
+            <h4 id="displayTitle">
+                Web Developer & Digital Creator
+            </h4>
+
+            <p id="displayBio" class="bio">
+                Building meaningful connections and creating opportunities through Rhockstar Connect.
+            </p>
+
+            <button id="editProfileBtn" class="primary-btn">
+                ✏ Edit Profile
+            </button>
+
+        </div>
+
+        <hr>
+
+        <!-- PERSONAL INFORMATION -->
+        <div class="profile-details">
+
+            <h3>Personal Information</h3>
+
+            <div class="info-item">
+                <strong>👤 Full Name</strong>
+                <span id="myN">Elijah Peter</span>
+            </div>
+
+            <div class="info-item">
+                <strong>💼 Professional Title</strong>
+                <span id="myPT">Web Developer</span>
+            </div>
+
+            <div class="info-item">
+                <strong>📧 Email Address</strong>
+                <span id="myE">akusu2841@gmail.com</span>
+            </div>
+
+            <div class="info-item">
+                <strong>📱 Phone Number</strong>
+                <span id="myPhone">Not Added</span>
+            </div>
+
+            <div class="info-item">
+                <strong>📍 Location</strong>
+                <span id="myL">Lagos, Nigeria</span>
+            </div>
+
+            <div class="info-item">
+                <strong>🌐 Website</strong>
+                <span id="myWebsite">Not Added</span>
+            </div>
+
+            <div class="info-item">
+                <strong>🎂 Date of Birth</strong>
+                <span id="myDOB">Not Added</span>
+            </div>
+
+            <div class="info-item">
+                <strong>🎓 Education</strong>
+                <span id="myEducation">Not Added</span>
+            </div>
+
+            <div class="info-item">
+                <strong>💡 Skills</strong>
+                <span id="mySkills">HTML, CSS, JavaScript</span>
+            </div>
+
+            <div class="info-item">
+                <strong>❤️ Relationship Status</strong>
+                <span id="relationshipStatus">Not Added</span>
+            </div>
+
+            <div class="info-item">
+                <strong>📝 About Me</strong>
+                <p id="abtMe">
+                    I am a passionate web developer and digital creator dedicated to building innovative projects, creating meaningful connections, and empowering communities through technology.
+                </p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- SKILLS -->
+        <div class="profile-section">
+
+            <h3>💡 Skills & Expertise</h3>
+
+            <p id="myS" class="skills">
+                HTML • CSS • JavaScript • Responsive Web Design • UI/UX Design • Graphics Design • Content Creation • Web Development
+            </p>
+
+        </div>
+
+        <hr>
+
+        <!-- PROFILE STATISTICS -->
+        <div class="profile-stats">
+
+            <div class="stat-box">
+                <h3 id="myConnections">0</h3>
+                <p>Connections</p>
+            </div>
+
+            <div class="stat-box">
+                <h3 id="myPosts">0</h3>
+                <p>Posts</p>
+            </div>
+
+            <div class="stat-box">
+                <h3 id="myFollowers">0</h3>
+                <p>Followers</p>
+            </div>
+
+            <div class="stat-box">
+                <h3 id="myFollowing">0</h3>
+                <p>Following</p>
+            </div>
+
+            <div class="stat-box">
+                <h3 id="myViews">0</h3>
+                <p>Profile Views</p>
+            </div>
+
+        </div>
+
+        <div class="profile-actions">
+
+            <button id="profileEditBtn" class="primary-btn">
+                ✏ Edit Profile
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= EDIT PROFILE ================= -->
+<section
+    class="profile-edit"
+    id="profileEditSection"
+    style="display:none;"
+>
+
+    <h2>Edit Your Profile</h2>
+
+    <!-- PROFILE PICTURE -->
+    <div class="upload-group">
+
+        <img
+            id="profilePicPreview"
+            src="images/profile.jpg"
+            alt="Profile Picture Preview"
+            class="profile-avatar"
+            onerror="this.src='images/default-avatar.png'"
+        >
+
+        <label for="uploadPic">
+            📷 Upload Profile Picture
+        </label>
 
         <input
+            type="file"
+            id="uploadPic"
+            accept="image/*"
+        >
+
+    </div>
+
+    <!-- COVER PHOTO -->
+    <div class="upload-group">
+
+        <label for="uploadCover">
+            🖼 Upload Cover Photo
+        </label>
+
+        <input
+            type="file"
+            id="uploadCover"
+            accept="image/*"
+        >
+
+    </div>
+
+    <!-- PERSONAL INFORMATION -->
+
+    <div class="form-group">
+        <label for="editFullName">Full Name</label>
+        <input
             type="text"
+            id="editFullName"
+            placeholder="Enter your full name"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="editUName">Username</label>
+        <input
+            type="text"
+            id="editUName"
+            placeholder="@username"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="editE">Email Address</label>
+        <input
+            type="email"
+            id="editE"
+            placeholder="example@email.com"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="editTel">Phone Number</label>
+        <input
+            type="tel"
+            id="editTel"
+            placeholder="+234..."
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="editL">Location</label>
+        <input
+            type="text"
+            id="editL"
+            placeholder="City, Country"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="editTitle">Professional Title</label>
+        <textarea
+            id="editTitle"
+            rows="3"
+            placeholder="Example: Web Developer, Entrepreneur, Graphic Designer..."
+        ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="editBio">About You</label>
+        <textarea
+            id="editBio"
+            rows="5"
+            placeholder="Tell the community about yourself..."
+        ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="editSkills">Skills</label>
+        <textarea
+            id="editSkills"
+            rows="4"
+            placeholder="HTML, CSS, JavaScript, UI/UX Design..."
+        ></textarea>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="form-actions">
+
+        <button
+            id="saveBtn"
+            class="primary-btn"
+        >
+            💾 Save Changes
+        </button>
+
+        <button
+            id="cancel"
+            class="secondary-btn"
+        >
+            ❌ Cancel
+        </button>
+
+    </div>
+
+</section>
+
+        <!-- ================= CONNECTIONS ================= -->
+<section
+    id="connections"
+    class="page"
+>
+
+    <h2>🤝 Connections</h2>
+
+    <!-- SEARCH USERS -->
+    <div class="search-connections">
+
+        <h3>Find People</h3>
+
+        <input
+            type="search"
             id="searchInput"
-            placeholder="Search users..."
+            placeholder="Search by name, username or profession..."
+            autocomplete="off"
         >
 
     </div>
@@ -354,7 +584,7 @@
     <!-- CONNECTION REQUESTS -->
     <div class="dashboard-card">
 
-        <h3>Connection Requests</h3>
+        <h3>📨 Connection Requests</h3>
 
         <div class="user-card">
 
@@ -362,20 +592,27 @@
                 src="images/profile.jpg"
                 alt="John Doe"
                 class="connection-avatar"
+                onerror="this.src='images/default-avatar.png'"
             >
 
-            <div>
+            <div class="user-info">
 
                 <h4>John Doe</h4>
 
                 <p>Frontend Developer</p>
 
+                <small>2 Mutual Connections</small>
+
+            </div>
+
+            <div class="user-actions">
+
                 <button class="accept-btn">
-                    Accept
+                    ✅ Accept
                 </button>
 
                 <button class="decline-btn">
-                    Decline
+                    ❌ Decline
                 </button>
 
             </div>
@@ -388,20 +625,27 @@
                 src="images/profile.jpg"
                 alt="Jane Smith"
                 class="connection-avatar"
+                onerror="this.src='images/default-avatar.png'"
             >
 
-            <div>
+            <div class="user-info">
 
                 <h4>Jane Smith</h4>
 
                 <p>Graphic Designer</p>
 
+                <small>5 Mutual Connections</small>
+
+            </div>
+
+            <div class="user-actions">
+
                 <button class="accept-btn">
-                    Accept
+                    ✅ Accept
                 </button>
 
                 <button class="decline-btn">
-                    Decline
+                    ❌ Decline
                 </button>
 
             </div>
@@ -413,7 +657,7 @@
     <!-- MY CONNECTIONS -->
     <div class="dashboard-card">
 
-        <h3>My Connections</h3>
+        <h3>👥 My Connections</h3>
 
         <div class="user-card">
 
@@ -421,13 +665,16 @@
                 src="images/profile.jpg"
                 alt="Elijah Peter"
                 class="connection-avatar"
+                onerror="this.src='images/default-avatar.png'"
             >
 
-            <div>
+            <div class="user-info">
 
                 <h4>Elijah Peter</h4>
 
-                <p>Web Developer</p>
+                <p>Web Developer & Digital Creator</p>
+
+                <small>Connected</small>
 
             </div>
 
@@ -439,156 +686,191 @@
                 src="images/profile.jpg"
                 alt="Rachael Okon"
                 class="connection-avatar"
+                onerror="this.src='images/default-avatar.png'"
             >
 
-            <div>
+            <div class="user-info">
 
                 <h4>Rachael Okon</h4>
 
                 <p>Business Woman</p>
 
+                <small>Connected 3 months ago</small>
+
             </div>
 
-            <button class="remove-btn">
-                Remove
-            </button>
+            <div class="user-actions">
+
+                <button class="message-btn">
+                    💬 Message
+                </button>
+
+                <button class="remove-btn">
+                    🗑 Remove
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- SUGGESTED CONNECTIONS -->
-    <div class="dashboard-card">
+            <!-- ================= SUGGESTED CONNECTIONS ================= -->
+        <div class="dashboard-card">
 
-        <h3>Suggested Connections</h3>
+            <h3>⭐ Suggested Connections</h3>
 
-        <div class="user-card">
+            <div class="user-card">
 
-            <img
-                src="images/profile.jpg"
-                alt="Samuel Peter"
-                class="connection-avatar"
-            >
+                <img
+                    src="images/profile.jpg"
+                    alt="Samuel Peter"
+                    class="connection-avatar"
+                    onerror="this.src='images/default-avatar.png'"
+                >
 
-            <div>
+                <div class="user-info">
 
-                <h4>Samuel Peter</h4>
+                    <h4>Samuel Peter</h4>
 
-                <p>Businessman</p>
+                    <p>Businessman</p>
 
-            </div>
+                    <small>8 Mutual Connections</small>
 
-            <button class="connect-btn">
-                Connect
-            </button>
+                </div>
 
-        </div>
+                <div class="user-actions">
 
-        <div class="user-card">
+                    <button class="connect-btn">
+                        ➕ Connect
+                    </button>
 
-            <img
-                src="images/profile.jpg"
-                alt="Sewuese Vera"
-                class="connection-avatar"
-            >
-
-            <div>
-
-                <h4>Sewuese Vera</h4>
-
-                <p>Business Woman</p>
+                </div>
 
             </div>
 
-            <button class="connect-btn">
-                Connect
-            </button>
+            <div class="user-card">
+
+                <img
+                    src="images/profile.jpg"
+                    alt="Sewuese Vera"
+                    class="connection-avatar"
+                    onerror="this.src='images/default-avatar.png'"
+                >
+
+                <div class="user-info">
+
+                    <h4>Sewuese Vera</h4>
+
+                    <p>Business Woman</p>
+
+                    <small>5 Mutual Connections</small>
+
+                </div>
+
+                <div class="user-actions">
+
+                    <button class="connect-btn">
+                        ➕ Connect
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+        <!-- ================= CONNECTION STATISTICS ================= -->
+        <div class="dashboard-card">
 
-    <!-- STATISTICS -->
-    <div class="dashboard-card">
+            <h3>📊 Connection Statistics</h3>
 
-        <h3>Connection Statistics</h3>
+            <div class="stats-grid">
 
-        <p>
-            Total Connections:
-            <span id="totalConnections">
-                2
-            </span>
-        </p>
+                <div class="stat-box">
 
-        <p>
-            Pending Requests:
-            <span id="pendingRequests">
-                2
-            </span>
-        </p>
+                    <h3 id="totalConnections">2</h3>
 
-        <p>
-            Sent Requests:
-            <span id="sentRequests">
-                0
-            </span>
-        </p>
+                    <p>Total Connections</p>
 
-        <p>
-            Suggested Users:
-            <span id="suggestedUsers">
-                2
-            </span>
-        </p>
+                </div>
 
-    </div>
+                <div class="stat-box">
+
+                    <h3 id="pendingRequests">2</h3>
+
+                    <p>Pending Requests</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3 id="sentRequests">0</h3>
+
+                    <p>Sent Requests</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3 id="suggestedUsers">2</h3>
+
+                    <p>Suggested Users</p>
+
+                </div>
+
+            </div>
+
+        </div>
 
 </section>
-        
 
-        <!-- MESSAGES -->
-        <section id="messages" class="page">
+<!-- ================= MESSAGES ================= -->
+<section
+    id="messages"
+    class="page"
+>
 
-    <h2>Messages</h2>
- 
+    <h2>💬 Messages</h2>
+
     <!-- SEARCH -->
     <div class="message-search">
+
         <input
-            type="text"
+            type="search"
             id="searchMessages"
             placeholder="Search conversations..."
+            autocomplete="off"
         >
+
     </div>
 
     <div class="messages-layout">
 
         <!-- CONVERSATIONS -->
-        <div class="conversations">
+        <aside class="conversations">
 
-            <h3>Conversations</h3>
+            <h3>Recent Conversations</h3>
 
             <div class="conversation-card active">
 
                 <img
                     src="images/profile.jpg"
                     class="conversation-avatar"
-                    alt="User"
+                    alt="Jane Smith"
+                    onerror="this.src='images/default-avatar.png'"
                 >
 
-                <div>
+                <div class="conversation-info">
 
                     <h4>
                         Jane Smith
                         <span class="online-dot"></span>
                     </h4>
 
-                    <p>
-                        Hey Elijah, how are you?
-                    </p>
+                    <p>Hey Elijah, how are you?</p>
 
-                    <small>
-                        2 mins ago
-                    </small>
+                    <small>2 minutes ago</small>
 
                 </div>
 
@@ -599,115 +881,104 @@
                 <img
                     src="images/profile.jpg"
                     class="conversation-avatar"
-                    alt="User"
+                    alt="Prisca Johnson"
+                    onerror="this.src='images/default-avatar.png'"
                 >
 
-                <div>
+                <div class="conversation-info">
 
-                    <h4>
-                        Prisca Johnson
-                    </h4>
+                    <h4>Prisca Johnson</h4>
 
-                    <p>
-                        Can we connect?
-                    </p>
+                    <p>Can we connect?</p>
 
-                    <small>
-                        1 hour ago
-                    </small>
+                    <small>1 hour ago</small>
 
                 </div>
 
             </div>
 
-        </div>
+        </aside>
 
-        <!-- CHAT AREA -->
+        <!-- CHAT WINDOW -->
         <div class="chat-container">
 
-            <!-- CHAT HEADER -->
             <div class="chat-header">
 
                 <img
                     src="images/profile.jpg"
                     class="chat-avatar"
-                    alt="User"
+                    alt="Jane Smith"
+                    onerror="this.src='images/default-avatar.png'"
                 >
 
                 <div>
 
                     <h3>Jane Smith</h3>
 
-                    <small>
-                        Online
-                    </small>
+                    <small>🟢 Online</small>
 
                 </div>
 
             </div>
 
-            <!-- CHAT BODY -->
-            <div id="chatBody" class="chat-body">
+            <div
+                id="chatBody"
+                class="chat-body"
+            >
 
                 <div class="message received">
 
-                    <p>
-                        Hey Eli, what's up?
-                    </p>
+                    <p>Hey Eli, what's up?</p>
 
-                    <small>
-                        2 mins ago
-                    </small>
+                    <small>2 minutes ago</small>
 
                 </div>
 
                 <div class="message sent">
 
-                    <p>
-                        I'm good. How are you?
-                    </p>
+                    <p>I'm good. How are you?</p>
 
-                    <small>
-                        1 min ago
-                    </small>
+                    <small>1 minute ago</small>
 
                 </div>
 
                 <div class="message received">
 
-                    <p>
-                        I'm fine, thanks.
-                    </p>
+                    <p>I'm fine, thanks.</p>
 
-                    <small>
-                        Just now
-                    </small>
+                    <small>Just now</small>
 
                 </div>
 
             </div>
 
-            <!-- CHAT INPUT -->
             <div class="chat-input">
 
-                <button id="emojiBtn">
+                <button
+                    id="emojiBtn"
+                    aria-label="Emoji"
+                >
                     😊
                 </button>
 
-                <button id="attachBtn">
+                <button
+                    id="attachBtn"
+                    aria-label="Attach File"
+                >
                     📎
                 </button>
 
                 <textarea
                     id="chatMessage"
-                    placeholder="Type a message..."
+                    rows="2"
+                    placeholder="Type your message..."
                 ></textarea>
 
                 <button
                     id="sendMessageBtn"
                     class="sendBtn"
                 >
-                    Send
+                    📤 Send
                 </button>
 
             </div>
@@ -717,152 +988,224 @@
     </div>
 
 </section>
-        <!-- JOBS -->
-        <section id="jobs" class="page">
 
-    <h2>Jobs Marketplace</h2>
+
+    
+        <!-- ================= JOBS ================= -->
+<section
+    id="jobs"
+    class="page"
+>
+
+    <h2>💼 Jobs Marketplace</h2>
 
     <!-- JOB SEARCH -->
     <div class="job-search">
 
         <input
-            type="text"
+            type="search"
             id="searchJobs"
-            placeholder="Search jobs..."
+            placeholder="Search jobs, companies or locations..."
+            autocomplete="off"
         >
 
-        <button id="searchJobBtn">
-            Search
+        <button
+            id="searchJobBtn"
+            class="primary-btn"
+        >
+            🔍 Search
         </button>
 
     </div>
 
-    <!-- POST JOB -->
-    <div class="post-job-card">
+    <!-- POST A JOB -->
+    <div class="dashboard-card post-job-card">
 
-        <h3>Post a Job</h3>
+        <h3>📢 Post a Job Opportunity</h3>
 
-        <input
-            type="text"
-            id="jobTitle"
-            placeholder="Job Title"
+        <div class="form-group">
+
+            <label for="jobTitle">
+                Job Title
+            </label>
+
+            <input
+                type="text"
+                id="jobTitle"
+                placeholder="e.g. Frontend Developer"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="companyName">
+                Company Name
+            </label>
+
+            <input
+                type="text"
+                id="companyName"
+                placeholder="Company Name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="jobLocation">
+                Job Location
+            </label>
+
+            <input
+                type="text"
+                id="jobLocation"
+                placeholder="City, Country or Remote"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="jobType">
+                Employment Type
+            </label>
+
+            <select id="jobType">
+
+                <option value="Full Time">Full Time</option>
+
+                <option value="Part Time">Part Time</option>
+
+                <option value="Remote">Remote</option>
+
+                <option value="Contract">Contract</option>
+
+                <option value="Internship">Internship</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="jobDescription">
+                Job Description
+            </label>
+
+            <textarea
+                id="jobDescription"
+                rows="6"
+                placeholder="Describe the job role, requirements and responsibilities..."
+            ></textarea>
+
+        </div>
+
+        <button
+            id="postJobBtn"
+            class="primary-btn"
         >
-
-        <input
-            type="text"
-            id="companyName"
-            placeholder="Company Name"
-        >
-
-        <input
-            type="text"
-            id="jobLocation"
-            placeholder="Location"
-        >
-
-        <select id="jobType">
-            <option>Full Time</option>
-            <option>Part Time</option>
-            <option>Remote</option>
-            <option>Contract</option>
-            <option>Internship</option>
-        </select>
-
-        <textarea
-            id="jobDescription"
-            placeholder="Job Description..."
-        ></textarea>
-
-        <button id="postJobBtn">
-            Post Job
+            🚀 Publish Job
         </button>
 
     </div>
 
     <!-- JOB CATEGORIES -->
-    <div class="job-categories">
+    <div class="dashboard-card">
 
-        <h3>Categories</h3>
+        <h3>📂 Browse Categories</h3>
 
         <div class="category-list">
 
-            <button>Technology</button>
-            <button>Design</button>
-            <button>Marketing</button>
-            <button>Remote</button>
-            <button>Business</button>
-            <button>Customer Support</button>
-            <button>Engineering</button>
-            <button>Education</button>
+            <button>💻 Technology</button>
+
+            <button>🎨 Design</button>
+
+            <button>📢 Marketing</button>
+
+            <button>🌍 Remote</button>
+
+            <button>💼 Business</button>
+
+            <button>🎧 Customer Support</button>
+
+            <button>⚙ Engineering</button>
+
+            <button>🎓 Education</button>
 
         </div>
 
     </div>
 
-    <!-- JOB STATS -->
-    <div class="job-statistics">
+    <!-- JOB STATISTICS -->
+    <div class="dashboard-card">
 
-        <h3>Statistics</h3>
+        <h3>📊 Job Statistics</h3>
 
-        <p>
-            Available Jobs:
-            <span id="totalJobs">0</span>
-        </p>
+        <div class="stats-grid">
 
-        <p>
-            Saved Jobs:
-            <span id="savedJobsCount">0</span>
-        </p>
+            <div class="stat-box">
 
-        <p>
-            Applications Sent:
-            <span id="applicationsCount">0</span>
-        </p>
+                <h3 id="totalJobs">0</h3>
+
+                <p>Available Jobs</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="savedJobsCount">0</h3>
+
+                <p>Saved Jobs</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="applicationsCount">0</h3>
+
+                <p>Applications</p>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <!-- JOB LIST -->
+    <!-- AVAILABLE JOBS -->
     <div id="jobsContainer">
 
         <div class="job-card">
 
             <h3>Software Engineer</h3>
 
-            <p>
-                <strong>Company:</strong>
-                Rhockstar Technologies
-            </p>
+            <p><strong>🏢 Company:</strong> Rhockstar Technologies</p>
+
+            <p><strong>📍 Location:</strong> Remote</p>
+
+            <p><strong>💼 Type:</strong> Full Time</p>
 
             <p>
-                <strong>Location:</strong>
-                Remote
-            </p>
-
-            <p>
-                <strong>Type:</strong>
-                Full Time
-            </p>
-
-            <p>
-                Build modern web applications.
+                Build scalable and modern web applications using
+                the latest technologies.
             </p>
 
             <small>
-                Posted by Elijah Peter
+                Posted by Elijah Peter • Today
             </small>
 
             <div class="job-actions">
 
                 <button class="viewBtn">
-                    View
+                    👁 View
                 </button>
 
                 <button class="saveBtn">
-                    Save
+                    ⭐ Save
                 </button>
 
                 <button class="applyBtn">
-                    Apply
+                    📩 Apply
                 </button>
 
             </div>
@@ -871,22 +1214,31 @@
 
     </div>
 
-</section
+</section>
 
-        <!-- NOTIFICATIONS -->
-        <section id="notifications" class="page">
+<!-- ================= NOTIFICATIONS ================= -->
+<section
+    id="notifications"
+    class="page"
+>
 
     <div class="notifications-header">
 
-        <h2>Notifications</h2>
+        <h2>🔔 Notifications</h2>
 
         <div class="notification-actions">
 
-            <button id="markAllReadBtn" class="readAll">
+            <button
+                id="markAllReadBtn"
+                class="readAll"
+            >
                 ✓ Mark All Read
             </button>
 
-            <button id="clearNotificationsBtn" class="clearBtn">
+            <button
+                id="clearNotificationsBtn"
+                class="clearBtn"
+            >
                 🗑 Clear All
             </button>
 
@@ -894,38 +1246,50 @@
 
     </div>
 
-    <!-- Notification Statistics -->
+    <!-- NOTIFICATION STATISTICS -->
+    <div class="notification-stats">
 
-    <div class="notification-stats dashboard-grid">
+        <div class="stat-box">
 
-        <div class="dashboard-card">
-            <h3>Total</h3>
-            <h2 id="totalNotifications">4</h2>
+            <h3 id="totalNotifications">
+                4
+            </h3>
+
+            <p>Total Notifications</p>
+
         </div>
 
-        <div class="dashboard-card">
-            <h3>Unread</h3>
-            <h2 id="unreadNotifications">4</h2>
+        <div class="stat-box">
+
+            <h3 id="unreadNotifications">
+                4
+            </h3>
+
+            <p>Unread Notifications</p>
+
         </div>
 
     </div>
 
-    <!-- Filter -->
-
+    <!-- FILTER -->
     <div class="notification-filter">
 
-        <button class="filter-btn active">
-            All
+        <button
+            class="filter-btn active"
+        >
+            📋 All
         </button>
 
-        <button class="filter-btn">
-            Unread
+        <button
+            class="filter-btn"
+        >
+            📩 Unread
         </button>
 
     </div>
 
-    <!-- Notifications -->
-
+    
+        <!-- ================= NOTIFICATION LIST ================= -->
     <div id="notificationContainer">
 
         <div class="notification-card unread">
@@ -933,31 +1297,28 @@
             <img
                 src="images/profile.jpg"
                 class="notification-avatar"
-                alt="User"
+                alt="Jane Smith"
+                onerror="this.src='images/default-avatar.png'"
             >
 
             <div class="notification-content">
 
                 <p>
-                    🔔
-                    <strong>Jane Smith</strong>
-                    sent you a connection request.
+                    🔔 <strong>Jane Smith</strong> sent you a connection request.
                 </p>
 
-                <small>
-                    2 minutes ago
-                </small>
+                <small>2 minutes ago</small>
 
             </div>
 
             <div class="notification-buttons">
 
                 <button class="markReadBtn">
-                    Mark Read
+                    ✓ Mark Read
                 </button>
 
                 <button class="deleteNotificationBtn">
-                    Delete
+                    🗑 Delete
                 </button>
 
             </div>
@@ -969,31 +1330,28 @@
             <img
                 src="images/profile.jpg"
                 class="notification-avatar"
-                alt="User"
+                alt="Michael Brown"
+                onerror="this.src='images/default-avatar.png'"
             >
 
             <div class="notification-content">
 
                 <p>
-                    ❤️
-                    <strong>Michael Brown</strong>
-                    liked your post.
+                    ❤️ <strong>Michael Brown</strong> liked your post.
                 </p>
 
-                <small>
-                    18 minutes ago
-                </small>
+                <small>18 minutes ago</small>
 
             </div>
 
             <div class="notification-buttons">
 
                 <button class="markReadBtn">
-                    Mark Read
+                    ✓ Mark Read
                 </button>
 
                 <button class="deleteNotificationBtn">
-                    Delete
+                    🗑 Delete
                 </button>
 
             </div>
@@ -1005,31 +1363,28 @@
             <img
                 src="images/profile.jpg"
                 class="notification-avatar"
-                alt="User"
+                alt="Sarah Johnson"
+                onerror="this.src='images/default-avatar.png'"
             >
 
             <div class="notification-content">
 
                 <p>
-                    💬
-                    <strong>Sarah Johnson</strong>
-                    commented on your post.
+                    💬 <strong>Sarah Johnson</strong> commented on your post.
                 </p>
 
-                <small>
-                    Yesterday
-                </small>
+                <small>Yesterday</small>
 
             </div>
 
             <div class="notification-buttons">
 
                 <button class="markReadBtn">
-                    Mark Read
+                    ✓ Mark Read
                 </button>
 
                 <button class="deleteNotificationBtn">
-                    Delete
+                    🗑 Delete
                 </button>
 
             </div>
@@ -1041,30 +1396,28 @@
             <img
                 src="images/profile.jpg"
                 class="notification-avatar"
-                alt="User"
+                alt="Job Alert"
+                onerror="this.src='images/default-avatar.png'"
             >
 
             <div class="notification-content">
 
                 <p>
-                    🎯
-                    New Frontend Developer job matches your profile.
+                    🎯 A new <strong>Frontend Developer</strong> job matches your profile.
                 </p>
 
-                <small>
-                    12 hours ago
-                </small>
+                <small>12 hours ago</small>
 
             </div>
 
             <div class="notification-buttons">
 
                 <button class="markReadBtn">
-                    Mark Read
+                    ✓ Mark Read
                 </button>
 
                 <button class="deleteNotificationBtn">
-                    Delete
+                    🗑 Delete
                 </button>
 
             </div>
@@ -1073,9 +1426,13 @@
 
     </div>
 
+    <!-- NOTIFICATION SETTINGS -->
     <div class="notification-settings">
 
-        <button id="notificationSettingsBtn">
+        <button
+            id="notificationSettingsBtn"
+            class="primary-btn"
+        >
             ⚙ Notification Settings
         </button>
 
@@ -1083,39 +1440,66 @@
 
 </section>
 
-        <!-- SETTINGS -->
-        <section id="settings" class="page">
+<!-- ================= SETTINGS ================= -->
+<section
+    id="settings"
+    class="page"
+>
 
-    <h2>Settings</h2>
+    <h2>⚙ Settings</h2>
 
-    <!-- ACCOUNT -->
+    <!-- ACCOUNT SETTINGS -->
     <div class="dashboard-card">
 
-        <h3>Account Settings</h3>
+        <h3>👤 Account Settings</h3>
 
-        <label>Full Name</label>
-        <input
-            type="text"
-            id="settingsName"
-            placeholder="Your Full Name"
+        <div class="form-group">
+
+            <label for="settingsName">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="settingsName"
+                placeholder="Enter your full name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="settingsEmail">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="settingsEmail"
+                placeholder="Enter your email address"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="settingsUsername">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="settingsUsername"
+                placeholder="@username"
+            >
+
+        </div>
+
+        <button
+            id="saveAccountBtn"
+            class="primary-btn"
         >
-
-        <label>Email Address</label>
-        <input
-            type="email"
-            id="settingsEmail"
-            placeholder="Your Email"
-        >
-
-        <label>Username</label>
-        <input
-            type="text"
-            id="settingsUsername"
-            placeholder="Username"
-        >
-
-        <button id="saveAccountBtn">
-            Save Changes
+            💾 Save Changes
         </button>
 
     </div>
@@ -1123,31 +1507,55 @@
     <!-- SECURITY -->
     <div class="dashboard-card">
 
-        <h3>Security</h3>
+        <h3>🔒 Security</h3>
 
-        <label>Current Password</label>
-        <input
-            type="password"
-            id="currentPassword"
-            placeholder="Current Password"
+        <div class="form-group">
+
+            <label for="currentPassword">
+                Current Password
+            </label>
+
+            <input
+                type="password"
+                id="currentPassword"
+                placeholder="Current Password"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="newPassword">
+                New Password
+            </label>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="New Password"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="confirmPassword">
+                Confirm New Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+            >
+
+        </div>
+
+        <button
+            id="changePasswordBtn"
+            class="primary-btn"
         >
-
-        <label>New Password</label>
-        <input
-            type="password"
-            id="newPassword"
-            placeholder="New Password"
-        >
-
-        <label>Confirm Password</label>
-        <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-        >
-
-        <button id="changePasswordBtn">
-            Change Password
+            🔑 Change Password
         </button>
 
     </div>
@@ -1155,30 +1563,24 @@
     <!-- APPEARANCE -->
     <div class="dashboard-card">
 
-        <h3>Appearance</h3>
+        <h3>🎨 Appearance</h3>
 
         <label>
-
             <input
                 type="checkbox"
                 id="darkMode"
                 checked
             >
-
-            Dark Mode
-
+            Enable Dark Mode
         </label>
 
         <label>
-
             <input
                 type="checkbox"
                 id="animations"
                 checked
             >
-
             Enable Animations
-
         </label>
 
     </div>
@@ -1186,83 +1588,65 @@
     <!-- PRIVACY -->
     <div class="dashboard-card">
 
-        <h3>Privacy</h3>
+        <h3>🛡 Privacy</h3>
 
         <label>
-
             <input
                 type="checkbox"
                 id="privateProfile"
             >
-
             Private Profile
-
         </label>
 
         <label>
-
             <input
                 type="checkbox"
                 id="showEmail"
                 checked
             >
-
-            Show Email
-
+            Show Email Address
         </label>
 
         <label>
-
             <input
                 type="checkbox"
                 id="showPhone"
             >
-
             Show Phone Number
-
         </label>
 
     </div>
 
-    <!-- NOTIFICATIONS -->
+    <!-- NOTIFICATION PREFERENCES -->
     <div class="dashboard-card">
 
-        <h3>Notifications</h3>
+        <h3>🔔 Notification Preferences</h3>
 
         <label>
-
             <input
                 type="checkbox"
                 id="emailNotifications"
                 checked
             >
-
             Email Notifications
-
         </label>
 
         <label>
-
             <input
                 type="checkbox"
                 id="jobNotifications"
                 checked
             >
-
             Job Alerts
-
         </label>
 
         <label>
-
             <input
                 type="checkbox"
                 id="messageNotifications"
                 checked
             >
-
             Message Notifications
-
         </label>
 
     </div>
@@ -1270,42 +1654,65 @@
     <!-- STORAGE -->
     <div class="dashboard-card">
 
-        <h3>Storage</h3>
+        <h3>📊 Storage & Activity</h3>
 
-        <p>Posts Created:
-            <span id="totalPosts">0</span>
-        </p>
+        <div class="stats-grid">
 
-        <p>Connections:
-            <span id="totalConnections">0</span>
-        </p>
+            <div class="stat-box">
 
-        <p>Saved Jobs:
-            <span id="savedJobs">0</span>
-        </p>
+                <h3 id="totalPosts">0</h3>
+
+                <p>Posts</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="settingsConnections">0</h3>
+
+                <p>Connections</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="savedJobs">0</h3>
+
+                <p>Saved Jobs</p>
+
+            </div>
+
+        </div>
 
     </div>
 
     <!-- DANGER ZONE -->
     <div class="dashboard-card danger-zone">
 
-        <h3>Danger Zone</h3>
+        <h3>⚠ Danger Zone</h3>
 
-        <button id="downloadDataBtn">
-            Download My Data
+        <button
+            id="downloadDataBtn"
+            class="secondary-btn"
+        >
+            📥 Download My Data
         </button>
 
-        <button id="deleteAccountBtn">
-            Delete Account
+        <button
+            id="deleteAccountBtn"
+            class="danger-btn"
+        >
+            🗑 Delete Account
         </button>
 
     </div>
 
 </section>
 
-    </main>
+</main>
+
 </div>
-    
+
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
 
@@ -1315,19 +1722,24 @@
         Connect. Grow. Build your professional identity.
     </p>
 
-    <div class="footer-links">
-        <a href="#">Home</a>
-        <a href="#">Profile</a>
-        <a href="#">Jobs</a>
-        <a href="#">Messages</a>
-    </div>
+    <nav class="footer-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#profile">Profile</a>
+
+        <a href="#jobs">Jobs</a>
+
+        <a href="#messages">Messages</a>
+
+    </nav>
 
     <p class="copyright">
         © 2026 Rhockstar Connect. All Rights Reserved.
     </p>
 
-    <p>
-        Designed by Elijah Peter a.k.a Rhockstar
+    <p class="designer">
+        Designed with ❤️ by Elijah Peter (Rhockstar)
     </p>
 
 </footer>
