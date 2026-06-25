@@ -703,14 +703,158 @@
         <!-- JOBS -->
         <section id="jobs" class="page">
 
-            <h2>Jobs</h2>
+    <h2>Jobs Marketplace</h2>
 
-            <div class="dashboard-card">
-                <h3>Web Developer</h3>
-                <p>Remote Position Available</p>
+    <!-- JOB SEARCH -->
+    <div class="job-search">
+
+        <input
+            type="text"
+            id="searchJobs"
+            placeholder="Search jobs..."
+        >
+
+        <button id="searchJobBtn">
+            Search
+        </button>
+
+    </div>
+
+    <!-- POST JOB -->
+    <div class="post-job-card">
+
+        <h3>Post a Job</h3>
+
+        <input
+            type="text"
+            id="jobTitle"
+            placeholder="Job Title"
+        >
+
+        <input
+            type="text"
+            id="companyName"
+            placeholder="Company Name"
+        >
+
+        <input
+            type="text"
+            id="jobLocation"
+            placeholder="Location"
+        >
+
+        <select id="jobType">
+            <option>Full Time</option>
+            <option>Part Time</option>
+            <option>Remote</option>
+            <option>Contract</option>
+            <option>Internship</option>
+        </select>
+
+        <textarea
+            id="jobDescription"
+            placeholder="Job Description..."
+        ></textarea>
+
+        <button id="postJobBtn">
+            Post Job
+        </button>
+
+    </div>
+
+    <!-- JOB CATEGORIES -->
+    <div class="job-categories">
+
+        <h3>Categories</h3>
+
+        <div class="category-list">
+
+            <button>Technology</button>
+            <button>Design</button>
+            <button>Marketing</button>
+            <button>Remote</button>
+            <button>Business</button>
+            <button>Customer Support</button>
+            <button>Engineering</button>
+            <button>Education</button>
+
+        </div>
+
+    </div>
+
+    <!-- JOB STATS -->
+    <div class="job-statistics">
+
+        <h3>Statistics</h3>
+
+        <p>
+            Available Jobs:
+            <span id="totalJobs">0</span>
+        </p>
+
+        <p>
+            Saved Jobs:
+            <span id="savedJobsCount">0</span>
+        </p>
+
+        <p>
+            Applications Sent:
+            <span id="applicationsCount">0</span>
+        </p>
+
+    </div>
+
+    <!-- JOB LIST -->
+    <div id="jobsContainer">
+
+        <div class="job-card">
+
+            <h3>Software Engineer</h3>
+
+            <p>
+                <strong>Company:</strong>
+                Rhockstar Technologies
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                Remote
+            </p>
+
+            <p>
+                <strong>Type:</strong>
+                Full Time
+            </p>
+
+            <p>
+                Build modern web applications.
+            </p>
+
+            <small>
+                Posted by Elijah Peter
+            </small>
+
+            <div class="job-actions">
+
+                <button class="viewBtn">
+                    View
+                </button>
+
+                <button class="saveBtn">
+                    Save
+                </button>
+
+                <button class="applyBtn">
+                    Apply
+                </button>
+
             </div>
 
-        </section>
+        </div>
+
+    </div>
+
+</section
 
         <!-- NOTIFICATIONS -->
         <section id="notifications" class="page">
