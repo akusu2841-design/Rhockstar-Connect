@@ -3,6 +3,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const home = document.getElementById("home");
   const dashboard = document.getElementById("dashboard");
   const logoutBtn = document.getElementById("logout");
+  const footer = document.querySelector(".footer");
+
+if (session) {
+  home.style.display = "none";
+  dashboard.style.display = "flex";
+
+  if (footer) {
+    footer.style.display = "none";
+  }
+
+} else {
+  home.style.display = "block";
+  dashboard.style.display = "none";
+
+  if (footer) {
+    footer.style.display = "block";
+  }
+}
 
   const SESSION_KEY = "rhockstar_session";
 
