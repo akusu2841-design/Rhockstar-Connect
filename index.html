@@ -1,146 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rhockstar Connect</title>
-
-  <link rel="stylesheet" href="style.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhockstar Connect</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= PUBLIC HOME (LANDING) ================= -->
-<section id="home" class="page-active">
+<!-- ================= HOME ================= -->
+<section id="home">
 
-  <!-- HERO AUTH -->
-  <div class="hero">
-    <h1>Rhockstar Connect 🚀</h1>
-    <p>Connect. Grow. Build your professional identity.</p>
+    <div class="hero">
+        <h1>Rhockstar Connect 🚀</h1>
+        <p>Connect. Grow. Build your professional identity.</p>
 
-    <div class="auth-box">
-      <a href="login.html" class="primary-btn">Login</a>
-      <a href="register.html" class="secondary-btn">Register</a>
+        <div class="auth-box">
+            <a href="login.html" class="primary-btn">Login</a>
+            <a href="register.html" class="secondary-btn">Register</a>
+        </div>
     </div>
-  </div>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <h2>Features</h2>
+    <section class="features">
+        <h2>Features</h2>
 
-    <div class="feature-grid">
-      <div class="card">Networking</div>
-      <div class="card">Job Board</div>
-      <div class="card">Messaging</div>
-      <div class="card">Profile Builder</div>
-    </div>
-  </section>
+        <div class="feature-grid">
+            <div class="card">Networking</div>
+            <div class="card">Job Board</div>
+            <div class="card">Messaging</div>
+            <div class="card">Profile Builder</div>
+        </div>
+    </section>
 
-  <!-- ABOUT -->
-  <section class="about">
-    <h2>About Rhockstar Connect</h2>
-    <p>
-      Rhockstar Connect is a modern professional platform where users can connect,
-      showcase skills, find jobs, and build career opportunities in one place.
-    </p>
-  </section>
+    <section class="about">
+        <h2>About Rhockstar Connect</h2>
+
+        <p>
+            Rhockstar Connect is a modern professional platform where users connect,
+            build relationships, find jobs, showcase skills and grow opportunities.
+        </p>
+    </section>
 
 </section>
 
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard">
 
-<!-- ================= DASHBOARD APP (AFTER LOGIN) ================= -->
-<div id="dashboard" class="hidden">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+        <div class="logo">
+            <h2>Rhockstar</h2>
+            <small>Dashboard</small>
+        </div>
 
-    <div class="logo">
-      <h2>Rhockstar</h2>
-      <small>Dashboard</small>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="#" data-page="feed">Feed</a></li>
+                <li><a href="#" data-page="profile">Profile</a></li>
+                <li><a href="#" data-page="connections">Connections</a></li>
+                <li><a href="#" data-page="messages">Messages</a></li>
+                <li><a href="#" data-page="jobs">Jobs</a></li>
+                <li><a href="#" data-page="notifications">Notifications</a></li>
+                <li><a href="#" data-page="settings">Settings</a></li>
+                <li><button id="logout">Logout</button></li>
+            </ul>
+        </nav>
 
-    <nav>
-      <ul>
-        <li><a href="#" data-page="feed">Feed</a></li>
-        <li><a href="#" data-page="profile">Profile</a></li>
-        <li><a href="#" data-page="connections">Connections</a></li>
-        <li><a href="#" data-page="messages">Messages</a></li>
-        <li><a href="#" data-page="jobs">Jobs</a></li>
-        <li><a href="#" data-page="notifications">Notifications</a></li>
-        <li><a href="#" data-page="settings">Settings</a></li>
-        <li><button id="logout">Logout</button></li>
-      </ul>
-    </nav>
+    </aside>
 
-  </aside>
+    <!-- MAIN -->
+    <main class="main">
 
-  <!-- MAIN DASHBOARD AREA -->
-  <main class="main">
+        <!-- FEED -->
+        <section id="feed" class="page">
 
-    <section id="feed" class="page">Feed Content</section>
-    <section id="profile" class="page">Profile Content</section>
-    <section id="connections" class="page">Connections Content</section>
-    <section id="messages" class="page">Messages Content</section>
-    <section id="jobs" class="page">Jobs Content</section>
-    <section id="notifications" class="page">Notifications Content</section>
-    <section id="settings" class="page">Settings Content</section>
+            <h2>News Feed</h2>
 
-    <section id="feed-section">
+            <div class="create-post">
 
-  <h2>News Feed</h2>
+                <h3>Create Post</h3>
 
-  <div class="create-post">
+                <textarea
+                    id="textSpace"
+                    placeholder="What's on your mind today?"
+                ></textarea>
 
-    <h3>Create Post</h3>
+                <button id="postBtn">
+                    Post
+                </button>
 
-    <textarea
-      id="textSpace"
-      placeholder="What's on your mind today?"
-    ></textarea>
+            </div>
 
-    <button id="postBtn">
-      Post
-    </button>
+            <div id="postsContainer"></div>
 
-  </div>
+        </section>
 
-  <!-- ALL POSTS WILL LOAD HERE -->
-  <div id="postsContainer"></div>
+        <!-- PROFILE -->
+        <section id="profile" class="page">
 
-    </section>
-  </main>
+            <div class="profile-card">
+
+                <div class="profile-cover"></div>
+
+                <img
+                    src="images/profile.jpg"
+                    class="profile-avatar"
+                    alt="Profile"
+                >
+
+                <div class="profile-info">
+
+                    <h3>Elijah Peter</h3>
+
+                    <p>Web Developer & Digital Creator</p>
+
+                    <p>
+                        Building connections and opportunities through
+                        Rhockstar Connect.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CONNECTIONS -->
+        <section id="connections" class="page">
+
+            <h2>Connections</h2>
+
+            <div class="dashboard-grid">
+
+                <div class="dashboard-card">
+                    <h3>John Doe</h3>
+                    <p>Frontend Developer</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Jane Smith</h3>
+                    <p>Graphic Designer</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- MESSAGES -->
+        <section id="messages" class="page">
+
+            <h2>Messages</h2>
+
+            <div class="dashboard-card">
+                <p>No messages yet.</p>
+            </div>
+
+        </section>
+
+        <!-- JOBS -->
+        <section id="jobs" class="page">
+
+            <h2>Jobs</h2>
+
+            <div class="dashboard-card">
+                <h3>Web Developer</h3>
+                <p>Remote Position Available</p>
+            </div>
+
+        </section>
+
+        <!-- NOTIFICATIONS -->
+        <section id="notifications" class="page">
+
+            <h2>Notifications</h2>
+
+            <div class="dashboard-card">
+                <p>No new notifications.</p>
+            </div>
+
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="settings" class="page">
+
+            <h2>Settings</h2>
+
+            <div class="dashboard-card">
+                <p>Account settings coming soon.</p>
+            </div>
+
+        </section>
+
+    </main>
+
 </div>
-  <!-- FOOTER -->
+
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
 
-  <h3>Rhockstar Connect</h3>
+    <h3>Rhockstar Connect</h3>
 
-  <p>
-    Connect. Grow. Build your professional identity.
-  </p>
+    <p>
+        Connect. Grow. Build your professional identity.
+    </p>
 
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#profile">Profile</a>
-    <a href="#jobs">Jobs</a>
-    <a href="#messages">Messages</a>
-  </div>
+    <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#">Profile</a>
+        <a href="#">Jobs</a>
+        <a href="#">Messages</a>
+    </div>
 
-  <p class="copyright">
-    © 2026 Rhockstar Connect. All Rights Reserved.
-  </p>
+    <p class="copyright">
+        © 2026 Rhockstar Connect. All Rights Reserved.
+    </p>
 
-  <p>
-    Designed by Elijah Peter a.k.a Rhockstar
-  </p>
+    <p>
+        Designed by Elijah Peter a.k.a Rhockstar
+    </p>
 
 </footer>
+
 <script src="app.js"></script>
+
 </body>
-    </html>
-
-
-
-
-
-
+</html>
