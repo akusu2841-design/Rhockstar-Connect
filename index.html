@@ -46,30 +46,47 @@
 
 <!-- ================= DASHBOARD ================= -->
 <div id="dashboard">
-
+<!-- Mobile Menu Button -->
+<button id="menuToggle" class="menu-toggle">
+    ☰
+</button>
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
-        <div class="logo">
-            <h2>Rhockstar</h2>
-            <small>Dashboard</small>
-        </div>
+    <div class="logo">
 
-        <nav>
-            <ul>
-                <li><a href="#" data-page="feed">Feed</a></li>
-                <li><a href="#" data-page="profile">Profile</a></li>
-                <li><a href="#" data-page="connections">Connections</a></li>
-                <li><a href="#" data-page="messages">Messages</a></li>
-                <li><a href="#" data-page="jobs">Jobs</a></li>
-                <li><a href="#" data-page="notifications">Notifications</a></li>
-                <li><a href="#" data-page="settings">Settings</a></li>
-                <li><button id="logout">Logout</button></li>
-            </ul>
-        </nav>
+        <h2>Rhockstar</h2>
+        <small>Dashboard</small>
 
-    </aside>
+        <button id="closeMenu" class="close-menu">
+            ✕
+        </button>
 
+    </div>
+
+    <nav>
+        <ul>
+
+            <li><a href="#" data-page="feed">🏠 Feed</a></li>
+
+            <li><a href="#" data-page="profile">👤 Profile</a></li>
+
+            <li><a href="#" data-page="connections">🤝 Connections</a></li>
+
+            <li><a href="#" data-page="messages">💬 Messages</a></li>
+
+            <li><a href="#" data-page="jobs">💼 Jobs</a></li>
+
+            <li><a href="#" data-page="notifications">🔔 Notifications</a></li>
+
+            <li><a href="#" data-page="settings">⚙ Settings</a></li>
+
+            <li><button id="logout">🚪 Logout</button></li>
+
+        </ul>
+    </nav>
+
+</aside>
     <!-- MAIN -->
     <main class="main">
 
