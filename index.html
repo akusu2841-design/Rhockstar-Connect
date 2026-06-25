@@ -100,53 +100,434 @@
         <!-- PROFILE -->
         <section id="profile" class="page">
 
-            <div class="profile-card">
+  <div class="profile-card">
 
-                <div class="profile-cover"></div>
+    <!-- COVER PHOTO -->
+    <div class="profile-cover">
+      <img
+        id="coverPhoto"
+        src="images/cover.jpg"
+        alt="Cover Photo"
+      >
+    </div>
 
-                <img
-                    src="images/profile.jpg"
-                    class="profile-avatar"
-                    alt="Profile"
-                >
+    <!-- PROFILE IMAGE -->
+    <img
+      src="images/profile.jpg"
+      class="profile-avatar"
+      id="profileAvatar"
+      alt="Profile"
+    >
 
-                <div class="profile-info">
+    <!-- PROFILE INFO -->
+    <div class="profile-info">
 
-                    <h3>Elijah Peter</h3>
+      <h2 id="displayName">
+        Elijah Peter
+      </h2>
 
-                    <p>Web Developer & Digital Creator</p>
+      <p id="displayUsername">
+        @rhockstar
+      </p>
 
-                    <p>
-                        Building connections and opportunities through
-                        Rhockstar Connect.
-                    </p>
+      <p id="displayStatus">
+        🟢 Online
+      </p>
 
-                </div>
+      <p id="displayTitle">
+        Web Developer & Digital Creator
+      </p>
 
-            </div>
+      <p id="displayBio">
+        Building connections and opportunities through Rhockstar Connect.
+      </p>
 
-        </section>
+      <hr>
+
+      <h3>Personal Information</h3>
+
+      <p>
+        <strong>Full Name:</strong>
+        <span id="myN">Elijah Peter</span>
+      </p>
+
+      <strong>Professional Title</strong>
+     <span id="myPT">Web Developer</span>
+        
+      <p>
+        <strong>Email:</strong>
+        <span id="myE">akusu2841@gmail.com</span>
+      </p>
+
+      <p>
+        <strong>Phone Number:</strong>
+        <span id="myPhone">Not Added</span>
+      </p>
+
+      <p>
+        <strong>Location:</strong>
+        <span id="myL">Lagos, Nigeria</span>
+      </p>
+
+      <p>
+        <strong>About Me:</strong>
+        <span id="abtMe">
+          I am a Rhockstar.
+        </span>
+      </p>
+
+      <h3>Skills</h3>
+
+      <p id="myS">
+        HTML, CSS, JavaScript, Responsive Design,
+        UI/UX Design, Content Creation,
+        Graphics Design
+      </p>
+
+      <!-- STATS -->
+      <div class="profile-stats">
+
+        <div class="stat-box">
+          <h3 id="myConnections">0</h3>
+          <p>Connections</p>
+        </div>
+
+        <div class="stat-box">
+          <h3 id="myPosts">0</h3>
+          <p>Posts</p>
+        </div>
+
+        <div class="stat-box">
+          <h3 id="myFollowers">0</h3>
+          <p>Followers</p>
+        </div>
+
+        <div class="stat-box">
+          <h3 id="myFollowing">0</h3>
+          <p>Following</p>
+        </div>
+
+        <div class="stat-box">
+          <h3 id="myViews">0</h3>
+          <p>Profile Views</p>
+        </div>
+
+      </div>
+
+      <button id="profileEditBtn">
+        Edit Profile
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- EDIT PROFILE -->
+  <div
+    class="profile-edit"
+    id="profileEditSection"
+    style="display:none;"
+  >
+
+    <h2>Edit Profile</h2>
+
+    <!-- PROFILE PICTURE -->
+    <img
+      id="profilePicPreview"
+      src="images/profile.jpg"
+      alt="Profile Picture"
+      class="profile-avatar"
+    >
+
+    <label for="uploadPic">
+      Upload Profile Picture
+    </label>
+
+    <input
+      type="file"
+      id="uploadPic"
+      accept="image/*"
+    >
+
+    <!-- COVER PHOTO -->
+    <label for="uploadCover">
+      Upload Cover Photo
+    </label>
+
+    <input
+      type="file"
+      id="uploadCover"
+      accept="image/*"
+    >
+
+    <input
+      type="text"
+      id="editFullName"
+      placeholder="Full Name"
+    >
+
+    <input
+      type="text"
+      id="editUName"
+      placeholder="Username"
+    >
+
+    <input
+      type="email"
+      id="editE"
+      placeholder="Email"
+    >
+
+    <input
+      type="tel"
+      id="editTel"
+      placeholder="Phone Number"
+    >
+
+    <input
+      type="text"
+      id="editL"
+      placeholder="Location"
+    >
+    <textarea
+      id="editTitle"
+      placeholder="Tell people about Professional Title, i.e Trader, Businessman/woman, Web Developer,etc..."
+    ></textarea>
+      
+    <textarea
+      id="editBio"
+      placeholder="Tell people about yourself"
+    ></textarea>
+
+    <textarea
+      id="editSkills"
+      placeholder="Your skills"
+    ></textarea>
+
+    <button id="saveBtn">
+      Save Changes
+    </button>
+
+    <button id="cancel">
+      Cancel
+    </button>
+
+  </div>
+
+</section>
 
         <!-- CONNECTIONS -->
-        <section id="connections" class="page">
+<section id="connections" class="page">
 
-            <h2>Connections</h2>
+    <h2>Connections</h2>
 
-            <div class="dashboard-grid">
+    <!-- SEARCH -->
+    <div class="search-connections">
 
-                <div class="dashboard-card">
-                    <h3>John Doe</h3>
-                    <p>Frontend Developer</p>
-                </div>
+        <h3>Search Users</h3>
 
-                <div class="dashboard-card">
-                    <h3>Jane Smith</h3>
-                    <p>Graphic Designer</p>
-                </div>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search users..."
+        >
+
+    </div>
+
+    <!-- CONNECTION REQUESTS -->
+    <div class="dashboard-card">
+
+        <h3>Connection Requests</h3>
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                alt="John Doe"
+                class="connection-avatar"
+            >
+
+            <div>
+
+                <h4>John Doe</h4>
+
+                <p>Frontend Developer</p>
+
+                <button class="accept-btn">
+                    Accept
+                </button>
+
+                <button class="decline-btn">
+                    Decline
+                </button>
 
             </div>
 
-        </section>
+        </div>
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                alt="Jane Smith"
+                class="connection-avatar"
+            >
+
+            <div>
+
+                <h4>Jane Smith</h4>
+
+                <p>Graphic Designer</p>
+
+                <button class="accept-btn">
+                    Accept
+                </button>
+
+                <button class="decline-btn">
+                    Decline
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MY CONNECTIONS -->
+    <div class="dashboard-card">
+
+        <h3>My Connections</h3>
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                alt="Elijah Peter"
+                class="connection-avatar"
+            >
+
+            <div>
+
+                <h4>Elijah Peter</h4>
+
+                <p>Web Developer</p>
+
+            </div>
+
+        </div>
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                alt="Rachael Okon"
+                class="connection-avatar"
+            >
+
+            <div>
+
+                <h4>Rachael Okon</h4>
+
+                <p>Business Woman</p>
+
+            </div>
+
+            <button class="remove-btn">
+                Remove
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- SUGGESTED CONNECTIONS -->
+    <div class="dashboard-card">
+
+        <h3>Suggested Connections</h3>
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                alt="Samuel Peter"
+                class="connection-avatar"
+            >
+
+            <div>
+
+                <h4>Samuel Peter</h4>
+
+                <p>Businessman</p>
+
+            </div>
+
+            <button class="connect-btn">
+                Connect
+            </button>
+
+        </div>
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                alt="Sewuese Vera"
+                class="connection-avatar"
+            >
+
+            <div>
+
+                <h4>Sewuese Vera</h4>
+
+                <p>Business Woman</p>
+
+            </div>
+
+            <button class="connect-btn">
+                Connect
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- STATISTICS -->
+    <div class="dashboard-card">
+
+        <h3>Connection Statistics</h3>
+
+        <p>
+            Total Connections:
+            <span id="totalConnections">
+                2
+            </span>
+        </p>
+
+        <p>
+            Pending Requests:
+            <span id="pendingRequests">
+                2
+            </span>
+        </p>
+
+        <p>
+            Sent Requests:
+            <span id="sentRequests">
+                0
+            </span>
+        </p>
+
+        <p>
+            Suggested Users:
+            <span id="suggestedUsers">
+                2
+            </span>
+        </p>
+
+    </div>
+
+</section>
+        
 
         <!-- MESSAGES -->
         <section id="messages" class="page">
