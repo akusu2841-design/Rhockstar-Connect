@@ -1,40 +1,58 @@
-// ======================
-// RHOCKSTAR CONNECT
-// MAIN APP
-// ======================
+// =====================================
+// Rhockstar Connect
+// app.js
+// =====================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Initialize every module
+    // Initialize Authentication first
+    if (typeof initAuth === "function") {
+        initAuth();
+    }
 
-    if (typeof checkSession === "function")
-        checkSession();
-
-    if (typeof initNavigation === "function")
+    // Navigation
+    if (typeof initNavigation === "function") {
         initNavigation();
+    }
 
-    if (typeof initProfile === "function")
-        initProfile();
-
-    if (typeof initFeed === "function")
-        initFeed();
-
-    if (typeof initJobs === "function")
-        initJobs();
-
-    if (typeof initMessages === "function")
-        initMessages();
-
-    if (typeof initConnections === "function")
-        initConnections();
-
-    if (typeof initNotifications === "function")
-        initNotifications();
-
-    if (typeof initSettings === "function")
-        initSettings();
-
-    if (typeof initDashboard === "function")
+    // Dashboard
+    if (typeof initDashboard === "function") {
         initDashboard();
+    }
+
+    // Feed
+    if (typeof initFeed === "function") {
+        initFeed();
+    }
+
+    // Profile
+    if (typeof initProfile === "function") {
+        initProfile();
+    }
+
+    // Connections
+    if (typeof initConnections === "function") {
+        initConnections();
+    }
+
+    // Messages
+    if (typeof initMessages === "function") {
+        initMessages();
+    }
+
+    // Jobs
+    if (typeof initJobs === "function") {
+        initJobs();
+    }
+
+    // Notifications
+    if (typeof initNotifications === "function") {
+        initNotifications();
+    }
+
+    // Settings
+    if (typeof initSettings === "function") {
+        initSettings();
+    }
 
 });
