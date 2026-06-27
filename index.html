@@ -196,557 +196,521 @@
 
     
         <!-- ========================= FEED ========================= -->
+<!-- ================= FEED ================= -->
+
 <section id="feed" class="page active">
 
-<h2>News Feed</h2>
+    <!-- PAGE HEADER -->
 
-<!-- Create Post -->
-<div class="create-post">
+    <div class="feed-header">
 
-<div class="create-top">
+        <div>
 
-<img src="images/profile.jpg"
-id="feedProfilePic"
-class="feed-profile-pic">
+            <h2>🏠 News Feed</h2>
 
-<textarea
-id="textSpace"
-maxlength="3000"
-placeholder="What's happening today, Elijah?">
-</textarea>
+            <small>
+                Stay connected with your friends, professionals and matches.
+            </small>
 
-</div>
+        </div>
 
-<!-- Preview -->
-<div id="postPreview" class="post-preview"></div>
+        <button id="refreshFeedBtn" class="refresh-btn">
+            🔄 Refresh
+        </button>
 
-<!-- Media Preview -->
-<div id="mediaPreview" class="media-preview"></div>
+    </div>
 
-<!-- Feeling -->
-<div id="feelingPreview" class="feeling-preview"></div>
+    <!-- CREATE POST -->
 
-<!-- Location -->
-<div id="locationPreview" class="location-preview"></div>
+    <div class="create-post">
 
-<!-- Poll -->
-<div id="pollContainer" class="poll-container" style="display:none;">
-
-<input
-type="text"
-id="pollQuestion"
-placeholder="Poll Question">
-
-<input
-type="text"
-id="pollOption1"
-placeholder="Option 1">
-
-<input
-type="text"
-id="pollOption2"
-placeholder="Option 2">
-
-<input
-type="text"
-id="pollOption3"
-placeholder="Option 3 (Optional)">
-
-<input
-type="text"
-id="pollOption4"
-placeholder="Option 4 (Optional)">
-
-</div>
-
-<!-- Toolbar -->
-<div class="post-toolbar">
-
-<label for="postImages" class="toolbar-btn">
-📷 Photo
-</label>
-
-<input
-type="file"
-id="postImages"
-accept="image/*"
-multiple
-hidden>
-
-<label for="postVideo" class="toolbar-btn">
-🎥 Video
-</label>
-
-<input
-type="file"
-id="postVideo"
-accept="video/*"
-hidden>
-
-<button
-id="cameraBtn"
-class="toolbar-btn">
-📸 Camera
-</button>
-
-<input
-type="file"
-accept="image/*"
-capture="environment"
-id="cameraInput"
-hidden>
-
-<button
-id="voiceBtn"
-class="toolbar-btn">
-🎤 Voice
-</button>
-
-<button
-id="emojiBtn"
-class="toolbar-btn">
-😀 Emoji
-</button>
-
-<button
-id="gifBtn"
-class="toolbar-btn">
-GIF
-</button>
-
-<button
-id="pollBtn"
-class="toolbar-btn">
-📊 Poll
-</button>
-
-<button
-id="feelingBtn"
-class="toolbar-btn">
-😊 Feeling
-</button>
-
-<button
-id="locationBtn"
-class="toolbar-btn">
-📍 Location
-</button>
-
-</div>
-
-<!-- Bottom -->
-<div class="post-bottom">
-
-<select id="privacy">
-
-<option value="public">
-🌍 Public
-</option>
-
-<option value="connections">
-👥 Connections
-</option>
-
-<option value="private">
-🔒 Only Me
-</option>
-
-</select>
-
-<div class="counter">
-
-<span id="charCount">
-0
-</span>/3000
-
-</div>
-
-<button
-id="clearPostBtn"
-class="secondary-btn">
-Clear
-</button>
-
-<button
-id="postBtn"
-class="primary-btn">
-Publish
-</button>
-
-</div>
-
-</div>
-
-<!-- Stories -->
-
-<div class="stories">
-
-<div class="story yours">
-
-<img src="images/profile.jpg">
-
-<p>Your Story</p>
-
-</div>
-
-<div class="story">
-
-<img src="images/profile.jpg">
-
-<p>Jane</p>
-
-</div>
-
-<div class="story">
-
-<img src="images/profile.jpg">
-
-<p>Michael</p>
-
-</div>
-
-<div class="story">
-
-<img src="images/profile.jpg">
-
-<p>Sarah</p>
-
-</div>
-
-<div class="story">
-
-<img src="images/profile.jpg">
-
-<p>Samuel</p>
-
-</div>
-
-</div>
-
-<!-- Filter -->
-
-<div class="feed-filter">
-
-<button class="active">
-Latest
-</button>
-
-<button>
-Trending
-</button>
-
-<button>
-Connections
-</button>
-
-<button>
-Photos
-</button>
-
-<button>
-Videos
-</button>
-
-</div>
-
-<!-- Feed -->
-
-<div id="postsContainer">
-
-<!-- Welcome Post -->
-
-<div class="post-card">
-
-<div class="post-header">
-
-<img
-src="images/profile.jpg"
-class="post-avatar">
-
-<div>
-
-<h3>
-
-Rhockstar Connect
-
-<span class="verified">
-✔
-</span>
-
-</h3>
-
-<p>
-
-Official
-
-•
-Just now
-
-</p>
-
-</div>
-
-<button class="post-menu">
-⋮
-</button>
-
-</div>
-
-<div class="post-content">
-
-<h3>
-
-Welcome to Rhockstar Connect 🚀
-
-</h3>
-
-<p>
-
-Start networking, build meaningful relationships,
-showcase your skills, publish content,
-discover jobs and connect with professionals
-from around the world.
-
-</p>
-
-</div>
-
-<div class="post-image">
-
-<img
-src="images/cover.jpg">
-
-</div>
-
-<div class="post-stats">
-
-<span>
-👍 25 Likes
-</span>
-
-<span>
-8 Comments
-</span>
-
-<span>
-3 Shares
-</span>
-
-</div>
-
-<div class="post-actions">
-
-<button class="likeBtn">
-👍 Like
-</button>
-
-<button class="loveBtn">
-❤️ Love
-</button>
-
-<button class="commentToggle">
-💬 Comment
-</button>
-
-<button class="shareBtn">
-🔁 Share
-</button>
-
-<button class="saveBtn">
-⭐ Save
-</button>
-
-</div>
-
-<div class="comments">
-
-<textarea
-placeholder="Write a comment...">
-</textarea>
-
-<button>
-Post
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ================= DYNAMIC POSTS ================= -->
-
-<div id="postsContainer">
-
-    <!-- POST 1 -->
-    <div class="post-card">
-
-        <div class="post-header">
+        <div class="create-top">
 
             <img
                 src="images/profile.jpg"
-                class="post-avatar"
+                id="feedProfilePic"
+                class="feed-profile-pic"
+                alt="Profile"
+                onerror="this.src='images/default-avatar.png'"
             >
 
-            <div class="post-user">
+            <textarea
+                id="textSpace"
+                maxlength="3000"
+                placeholder="What's happening today?"
+            ></textarea>
 
-                <h3>
-                    Elijah Peter
-                    <span class="verified">✔</span>
-                </h3>
+        </div>
 
-                <small>
-                    Web Developer • Just now • 🌍 Public
-                </small>
+        <!-- TEXT PREVIEW -->
 
-            </div>
+        <div
+            id="postPreview"
+            class="post-preview"
+        ></div>
 
-            <div class="post-options">
+        <!-- IMAGE / VIDEO PREVIEW -->
 
-                <button class="menu-btn">
-                    ⋮
-                </button>
+        <div
+            id="mediaPreview"
+            class="media-preview"
+        ></div>
 
-                <div class="post-menu-dropdown">
+        <!-- FEELING -->
 
-                    <button>Edit Post</button>
+        <div
+            id="feelingPreview"
+            class="feeling-preview"
+        ></div>
 
-                    <button>Delete Post</button>
+        <!-- LOCATION -->
 
-                    <button>Pin Post</button>
+        <div
+            id="locationPreview"
+            class="location-preview"
+        ></div>
 
-                    <button>Copy Link</button>
+        <!-- POLL -->
 
-                    <button>Report</button>
+        <div
+            id="pollContainer"
+            class="poll-container"
+            style="display:none;">
+
+            <input
+                type="text"
+                id="pollQuestion"
+                placeholder="Poll Question">
+
+            <input
+                type="text"
+                id="pollOption1"
+                placeholder="Option 1">
+
+            <input
+                type="text"
+                id="pollOption2"
+                placeholder="Option 2">
+
+            <input
+                type="text"
+                id="pollOption3"
+                placeholder="Option 3 (Optional)">
+
+            <input
+                type="text"
+                id="pollOption4"
+                placeholder="Option 4 (Optional)">
+
+        </div>
+
+        <!-- TOOLBAR -->
+
+        <div class="post-toolbar">
+
+            <label
+                for="postImages"
+                class="toolbar-btn">
+
+                📷 Photo
+
+            </label>
+
+            <input
+                type="file"
+                id="postImages"
+                accept="image/*"
+                multiple
+                hidden>
+
+            <label
+                for="postVideo"
+                class="toolbar-btn">
+
+                🎥 Video
+
+            </label>
+
+            <input
+                type="file"
+                id="postVideo"
+                accept="video/*"
+                hidden>
+
+            <button
+                id="cameraBtn"
+                class="toolbar-btn">
+
+                📸 Camera
+
+            </button>
+
+            <input
+                id="cameraInput"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                hidden>
+
+            <button
+                id="voiceBtn"
+                class="toolbar-btn">
+
+                🎤 Voice
+
+            </button>
+
+            <button
+                id="emojiBtn"
+                class="toolbar-btn">
+
+                😀 Emoji
+
+            </button>
+
+            <button
+                id="gifBtn"
+                class="toolbar-btn">
+
+                GIF
+
+            </button>
+
+            <button
+                id="pollBtn"
+                class="toolbar-btn">
+
+                📊 Poll
+
+            </button>
+
+            <button
+                id="feelingBtn"
+                class="toolbar-btn">
+
+                😊 Feeling
+
+            </button>
+
+            <button
+                id="locationBtn"
+                class="toolbar-btn">
+
+                📍 Location
+
+            </button>
+
+        </div>
+
+        <!-- POST OPTIONS -->
+
+        <div class="post-bottom">
+
+            <select id="privacy">
+
+                <option value="public">
+                    🌍 Public
+                </option>
+
+                <option value="connections">
+                    👥 Connections
+                </option>
+
+                <option value="private">
+                    🔒 Only Me
+                </option>
+
+            </select>
+
+            <span class="counter">
+
+                <span id="charCount">
+                    0
+                </span>
+
+                /3000
+
+            </span>
+
+            <button
+                id="clearPostBtn"
+                class="secondary-btn">
+
+                Clear
+
+            </button>
+
+            <button
+                id="postBtn"
+                class="primary-btn">
+
+                🚀 Publish
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- STORIES -->
+
+    <div class="stories">
+
+        <div class="story yours">
+
+            <img src="images/profile.jpg">
+
+            <p>Your Story</p>
+
+            <button class="add-story">
+                +
+            </button>
+
+        </div>
+
+        <div class="story">
+
+            <img src="images/profile.jpg">
+
+            <p>Jane</p>
+
+        </div>
+
+        <div class="story">
+
+            <img src="images/profile.jpg">
+
+            <p>Samuel</p>
+
+        </div>
+
+        <div class="story">
+
+            <img src="images/profile.jpg">
+
+            <p>Sarah</p>
+
+        </div>
+
+        <div class="story">
+
+            <img src="images/profile.jpg">
+
+            <p>Michael</p>
+
+        </div>
+
+        <div class="story">
+
+            <img src="images/profile.jpg">
+
+            <p>Deborah</p>
+
+        </div>
+
+    </div>
+
+    <!-- QUICK STATUS -->
+
+    <div class="quick-status">
+
+        <button>
+            📢 Announcement
+        </button>
+
+        <button>
+            💼 Hiring
+        </button>
+
+        <button>
+            ❤️ Dating
+        </button>
+
+        <button>
+            🎉 Celebration
+        </button>
+
+        <button>
+            📚 Education
+        </button>
+
+        <button>
+            🎮 Gaming
+        </button>
+
+        <button>
+            ✈ Travel
+        </button>
+
+        <button>
+            🤝 Networking
+        </button>
+
+    </div>
+
+    <!-- FEED FILTER -->
+
+    <div class="feed-filter">
+
+        <button class="active">
+            Latest
+        </button>
+
+        <button>
+            Trending
+        </button>
+
+        <button>
+            Friends
+        </button>
+
+        <button>
+            Dating
+        </button>
+
+        <button>
+            Photos
+        </button>
+
+        <button>
+            Videos
+        </button>
+
+        <button>
+            Jobs
+        </button>
+
+    </div>
+
+    <!-- DYNAMIC POSTS -->
+
+    <div id="postsContainer">
+
+            <!-- ================= OFFICIAL POST ================= -->
+
+        <div class="post-card">
+
+            <div class="post-header">
+
+                <img
+                    src="images/profile.jpg"
+                    class="post-avatar"
+                    onerror="this.src='images/default-avatar.png'"
+                >
+
+                <div class="post-user">
+
+                    <h3>
+                        Rhockstar Connect
+                        <span class="verified">✔</span>
+                    </h3>
+
+                    <small>
+                        Official • Just now • 🌍 Public
+                    </small>
 
                 </div>
 
-            </div>
-
-        </div>
-
-        <div class="post-content">
-
-            <p>
-
-                Welcome to Rhockstar Connect.
-                This platform helps professionals connect,
-                create opportunities and grow together.
-
-            </p>
-
-        </div>
-
-        <div class="post-gallery">
-
-            <img src="images/cover.jpg">
-
-        </div>
-
-        <div class="post-stats">
-
-            <span>👍 102</span>
-
-            <span>💬 35 Comments</span>
-
-            <span>🔁 18 Shares</span>
-
-            <span>👁 310 Views</span>
-
-        </div>
-
-        <div class="post-actions">
-
-            <button class="like-btn">
-                👍 Like
-            </button>
-
-            <button class="love-btn">
-                ❤️ Love
-            </button>
-
-            <button class="comment-btn">
-                💬 Comment
-            </button>
-
-            <button class="share-btn">
-                🔁 Share
-            </button>
-
-            <button class="save-btn">
-                ⭐ Save
-            </button>
-
-        </div>
-
-        <!-- COMMENTS -->
-
-        <div class="comments-box">
-
-            <div class="comment-input-area">
-
-                <img
-                    src="images/profile.jpg"
-                    class="comment-avatar"
-                >
-
-                <textarea
-                    class="comment-input"
-                    placeholder="Write a comment..."
-                ></textarea>
-
-                <button>
-                    Send
+                <button class="post-menu-btn">
+                    ⋮
                 </button>
 
             </div>
 
-            <div class="comment">
+            <div class="post-content">
+
+                <h3>
+                    Welcome to Rhockstar Connect 🚀
+                </h3>
+
+                <p>
+
+                    Connect with professionals, make new friends,
+                    discover your perfect match, grow your career,
+                    showcase your skills and build meaningful
+                    relationships.
+
+                </p>
+
+            </div>
+
+            <div class="post-gallery">
 
                 <img
-                    src="images/profile.jpg"
-                    class="comment-avatar"
-                >
+                    src="images/cover.jpg"
+                    alt="Welcome">
 
-                <div>
+            </div>
 
-                    <h4>Jane Smith</h4>
+            <div class="post-stats">
 
-                    <p>
-                        Amazing platform 👏
-                    </p>
+                <span>👍 280</span>
 
-                    <div class="comment-actions">
+                <span>❤️ 145</span>
 
-                        <small>Like</small>
+                <span>💬 58 Comments</span>
 
-                        <small>Reply</small>
+                <span>🔁 22 Shares</span>
 
-                        <small>2 mins</small>
+                <span>👁 1.3K Views</span>
+
+            </div>
+
+            <div class="post-actions">
+
+                <button class="like-btn">
+                    👍 Like
+                </button>
+
+                <button class="love-btn">
+                    ❤️ Love
+                </button>
+
+                <button class="comment-btn">
+                    💬 Comment
+                </button>
+
+                <button class="share-btn">
+                    🔁 Share
+                </button>
+
+                <button class="bookmark-btn">
+                    ⭐ Save
+                </button>
+
+            </div>
+
+            <div class="comments-box">
+
+                <div class="comment">
+
+                    <img
+                        src="images/profile.jpg"
+                        class="comment-avatar">
+
+                    <div>
+
+                        <h4>
+                            Jane Smith
+                        </h4>
+
+                        <p>
+                            Amazing platform 🔥
+                        </p>
 
                     </div>
 
                 </div>
 
-            </div>
+                <div class="comment-input">
 
-            <div class="reply">
+                    <textarea
+                        placeholder="Write a comment..."
+                    ></textarea>
 
-                <img
-                    src="images/profile.jpg"
-                    class="comment-avatar"
-                >
-
-                <div>
-
-                    <h4>Elijah Peter</h4>
-
-                    <p>
-
-                        Thank you very much ❤️
-
-                    </p>
+                    <button>
+                        Send
+                    </button>
 
                 </div>
 
@@ -754,152 +718,489 @@ Post
 
         </div>
 
-    </div>
+        <!-- ================= USER POST ================= -->
 
-    <!-- POST 2 -->
+        <div class="post-card">
 
-    <div class="post-card">
+            <div class="post-header">
 
-        <div class="post-header">
+                <img
+                    src="images/profile.jpg"
+                    class="post-avatar">
 
-            <img
-                src="images/profile.jpg"
-                class="post-avatar"
-            >
+                <div class="post-user">
 
-            <div>
+                    <h3>
+                        Elijah Peter
+                    </h3>
 
-                <h3>
+                    <small>
 
-                    Jane Smith
+                        Web Developer • 12 mins ago • 🌍 Public
 
-                </h3>
+                    </small>
 
-                <small>
+                </div>
 
-                    Graphic Designer • 2 hrs ago
+                <button class="post-menu-btn">
+                    ⋮
+                </button>
 
-                </small>
+            </div>
+
+            <div class="post-content">
+
+                <p>
+
+                    Just completed another update on
+                    Rhockstar Connect.
+
+                    Bigger.
+
+                    Faster.
+
+                    Better.
+
+                    ❤️
+
+                </p>
+
+            </div>
+
+            <div class="post-gallery">
+
+                <img src="images/post1.jpg">
+
+                <img src="images/post2.jpg">
+
+                <img src="images/post3.jpg">
+
+            </div>
+
+            <div class="post-stats">
+
+                <span>👍 105</span>
+
+                <span>❤️ 66</span>
+
+                <span>😂 4</span>
+
+                <span>💬 19</span>
+
+                <span>🔁 8</span>
+
+            </div>
+
+            <div class="post-actions">
+
+                <button class="like-btn">
+                    👍 Like
+                </button>
+
+                <button class="love-btn">
+                    ❤️ Love
+                </button>
+
+                <button class="comment-btn">
+                    💬 Comment
+                </button>
+
+                <button class="share-btn">
+                    🔁 Share
+                </button>
+
+                <button class="bookmark-btn">
+                    ⭐ Save
+                </button>
 
             </div>
 
         </div>
 
-        <div class="post-content">
+        <!-- ================= VIDEO POST ================= -->
 
-            <p>
+        <div class="post-card">
 
-                Just completed another branding project.
+            <div class="post-header">
 
-            </p>
+                <img
+                    src="images/profile.jpg"
+                    class="post-avatar">
 
-        </div>
+                <div class="post-user">
 
-        <div class="post-gallery">
+                    <h3>
 
-            <img src="images/post1.jpg">
+                        Michael Brown
 
-            <img src="images/post2.jpg">
+                    </h3>
 
-            <img src="images/post3.jpg">
+                    <small>
 
-        </div>
+                        1 hour ago
 
-        <div class="post-actions">
+                    </small>
 
-            <button class="like-btn">
+                </div>
 
-                👍 Like
+            </div>
 
-            </button>
+            <div class="post-content">
 
-            <button class="comment-btn">
+                <p>
 
-                💬 Comment
+                    Check out my latest office setup.
 
-            </button>
+                </p>
 
-            <button class="share-btn">
+                <video controls>
 
-                🔁 Share
+                    <source
+                        src="videos/sample.mp4"
+                        type="video/mp4">
 
-            </button>
+                </video>
 
-            <button class="save-btn">
+            </div>
 
-                ⭐ Save
+            <div class="post-actions">
 
-            </button>
+                <button>
+                    👍 Like
+                </button>
 
-        </div>
+                <button>
+                    ❤️ Love
+                </button>
 
-    </div>
+                <button>
+                    💬 Comment
+                </button>
 
-    <!-- POST 3 -->
+                <button>
+                    🔁 Share
+                </button>
 
-    <div class="post-card">
-
-        <div class="post-header">
-
-            <img
-                src="images/profile.jpg"
-                class="post-avatar"
-            >
-
-            <div>
-
-                <h3>
-
-                    Michael Brown
-
-                </h3>
-
-                <small>
-
-                    5 hrs ago
-
-                </small>
+                <button>
+                    ⭐ Save
+                </button>
 
             </div>
 
         </div>
 
-        <div class="post-content">
+        <!-- ================= DATING POST ================= -->
 
-            <video controls>
+        <div class="post-card dating-post">
 
-                <source
-                    src="videos/sample.mp4"
-                    type="video/mp4"
-                >
+            <div class="post-header">
 
-            </video>
+                <img
+                    src="images/profile.jpg"
+                    class="post-avatar">
+
+                <div class="post-user">
+
+                    <h3>
+
+                        Deborah Williams
+
+                    </h3>
+
+                    <small>
+
+                        💕 Looking for a Relationship
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="post-gallery">
+
+                <img src="images/profile.jpg">
+
+            </div>
+
+            <div class="post-content">
+
+                <p>
+
+                    Hi everyone 😊
+
+                    I'm looking for someone serious,
+                    caring and God fearing.
+
+                </p>
+
+            </div>
+
+            <div class="post-actions">
+
+                <button>
+                    ❤️ Interested
+                </button>
+
+                <button>
+                    💬 Chat
+                </button>
+
+                <button>
+                    👤 View Profile
+                </button>
+
+            </div>
 
         </div>
 
-        <div class="post-actions">
+        <!-- ================= JOB POST ================= -->
 
-            <button class="like-btn">
+        <div class="post-card">
 
-                👍 Like
+            <div class="post-header">
+
+                <img
+                    src="images/profile.jpg"
+                    class="post-avatar">
+
+                <div class="post-user">
+
+                    <h3>
+
+                        Rhockstar Technologies
+
+                    </h3>
+
+                    <small>
+
+                        Hiring Now
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="post-content">
+
+                <h3>
+
+                    Frontend Developer Needed
+
+                </h3>
+
+                <p>
+
+                    📍 Remote
+
+                    💰 $2,000/month
+
+                    Full Time
+
+                </p>
+
+            </div>
+
+            <div class="post-actions">
+
+                <button>
+
+                    📩 Apply
+
+                </button>
+
+                <button>
+
+                    ⭐ Save
+
+                </button>
+
+                <button>
+
+                    🔁 Share
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LOAD MORE -->
+
+    <div class="load-more">
+
+        <button id="loadMorePosts">
+
+            Load More Posts
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= RIGHT SIDEBAR ================= -->
+
+<aside class="feed-right-sidebar">
+
+    <!-- ONLINE FRIENDS -->
+
+    <div class="dashboard-card">
+
+        <h3>🟢 Online Friends</h3>
+
+        <div class="online-user">
+
+            <img src="images/profile.jpg"
+                 onerror="this.src='images/default-avatar.png'">
+
+            <span class="online-dot"></span>
+
+            <div>
+
+                <h4>Jane Smith</h4>
+
+                <small>Active Now</small>
+
+            </div>
+
+            <button class="message-btn">
+                💬
+            </button>
+
+        </div>
+
+        <div class="online-user">
+
+            <img src="images/profile.jpg"
+                 onerror="this.src='images/default-avatar.png'">
+
+            <span class="online-dot"></span>
+
+            <div>
+
+                <h4>Samuel Peter</h4>
+
+                <small>Typing...</small>
+
+            </div>
+
+            <button class="message-btn">
+                💬
+            </button>
+
+        </div>
+
+        <div class="online-user">
+
+            <img src="images/profile.jpg"
+                 onerror="this.src='images/default-avatar.png'">
+
+            <span class="online-dot"></span>
+
+            <div>
+
+                <h4>Sarah Johnson</h4>
+
+                <small>Online</small>
+
+            </div>
+
+            <button class="message-btn">
+                💬
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- PEOPLE YOU MAY KNOW -->
+
+    <div class="dashboard-card">
+
+        <h3>👥 People You May Know</h3>
+
+        <div class="suggest-user">
+
+            <img src="images/profile.jpg">
+
+            <div>
+
+                <h4>Michael Brown</h4>
+
+                <small>5 Mutual Friends</small>
+
+            </div>
+
+            <button class="connect-btn">
+                ➕ Connect
+            </button>
+
+        </div>
+
+        <div class="suggest-user">
+
+            <img src="images/profile.jpg">
+
+            <div>
+
+                <h4>Blessing James</h4>
+
+                <small>12 Mutual Friends</small>
+
+            </div>
+
+            <button class="connect-btn">
+                ➕ Connect
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- DATING MATCHES -->
+
+    <div class="dashboard-card">
+
+        <h3>❤️ Dating Matches</h3>
+
+        <div class="dating-match">
+
+            <img src="images/profile.jpg">
+
+            <div>
+
+                <h4>Deborah ❤️</h4>
+
+                <small>95% Match</small>
+
+            </div>
+
+            <button class="match-btn">
+
+                💕
 
             </button>
 
-            <button class="comment-btn">
+        </div>
 
-                💬 Comment
+        <div class="dating-match">
 
-            </button>
+            <img src="images/profile.jpg">
 
-            <button class="share-btn">
+            <div>
 
-                🔁 Share
+                <h4>Victoria 💕</h4>
 
-            </button>
+                <small>89% Match</small>
 
-            <button class="save-btn">
+            </div>
 
-                ⭐ Save
+            <button class="match-btn">
+
+                💕
 
             </button>
 
@@ -907,122 +1208,184 @@ Post
 
     </div>
 
-</div>
+    <!-- UPCOMING EVENTS -->
 
-<!-- LOAD MORE -->
+    <div class="dashboard-card">
 
-<div class="load-more">
+        <h3>📅 Upcoming Events</h3>
 
-    <button id="loadMorePosts">
+        <ul class="event-list">
 
-        Load More Posts
+            <li>
 
-    </button>
+                🎉 Tech Meetup
 
-</div>
+                <small>Tomorrow</small>
+
+            </li>
+
+            <li>
+
+                💼 Career Fair
+
+                <small>Saturday</small>
+
+            </li>
+
+            <li>
+
+                🎤 Business Seminar
+
+                <small>Next Week</small>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- BIRTHDAYS -->
+
+    <div class="dashboard-card">
+
+        <h3>🎂 Birthdays</h3>
+
+        <p>
+
+            🎉 Jane Smith has a birthday today.
+
+        </p>
+
+        <button class="primary-btn">
+
+            Send Wishes
+
+        </button>
+
+    </div>
+
+    <!-- TRENDING -->
+
+    <div class="dashboard-card">
+
+        <h3>🔥 Trending</h3>
+
+        <ul class="trend-list">
+
+            <li>#RhockstarConnect</li>
+
+            <li>#Programming</li>
+
+            <li>#RemoteJobs</li>
+
+            <li>#Business</li>
+
+            <li>#Dating</li>
+
+            <li>#Love</li>
+
+            <li>#AI</li>
+
+            <li>#WebDevelopment</li>
+
+            <li>#GraphicsDesign</li>
+
+        </ul>
+
+    </div>
+
+    <!-- SPONSORED -->
+
+    <div class="dashboard-card">
+
+        <h3>📢 Sponsored</h3>
+
+        <img src="images/cover.jpg"
+             class="sponsored-image">
+
+        <p>
+
+            Advertise your business to thousands
+            of professionals on Rhockstar Connect.
+
+        </p>
+
+        <button class="primary-btn">
+
+            Learn More
+
+        </button>
+
+    </div>
+
+</aside>
 
 <!-- FLOATING CREATE POST -->
 
 <button
-id="floatingPostBtn"
-class="floating-post">
+    id="floatingPostBtn"
+    class="floating-post">
 
-➕
+    ➕
+
+</button>
+
+<!-- CHAT SHORTCUT -->
+
+<button
+    id="floatingChatBtn"
+    class="floating-chat">
+
+    💬
 
 </button>
 
 <!-- BACK TO TOP -->
 
 <button
-id="backToTop"
-class="back-top">
+    id="backToTop"
+    class="back-top">
 
-⬆
+    ⬆
 
 </button>
 
-<!-- ONLINE USERS -->
+<!-- LOADING -->
 
-<div class="online-users">
+<div
+    id="feedLoader"
+    class="feed-loader hidden">
 
-<h3>
+    <div class="spinner"></div>
 
-Online Friends
-
-</h3>
-
-<div class="online-user">
-
-<img src="images/profile.jpg">
-
-<span class="online-dot"></span>
-
-Jane
+    <p>Loading posts...</p>
 
 </div>
 
-<div class="online-user">
+<!-- NO POSTS -->
 
-<img src="images/profile.jpg">
+<div
+    id="emptyFeed"
+    class="empty-feed hidden">
 
-<span class="online-dot"></span>
+    <img
+        src="images/empty-feed.png"
+        onerror="this.style.display='none'">
 
-Samuel
+    <h3>
 
-</div>
+        No posts yet
 
-<div class="online-user">
+    </h3>
 
-<img src="images/profile.jpg">
+    <p>
 
-<span class="online-dot"></span>
+        Be the first person to share something.
 
-Sarah
-
-</div>
-
-<div class="online-user">
-
-<img src="images/profile.jpg">
-
-<span class="online-dot"></span>
-
-Michael
+    </p>
 
 </div>
 
-</div>
-
-<!-- TRENDING -->
-
-<div class="trending">
-
-<h3>
-
-🔥 Trending
-
-</h3>
-
-<ul>
-
-<li>#WebDevelopment</li>
-
-<li>#RemoteJobs</li>
-
-<li>#Programming</li>
-
-<li>#Business</li>
-
-<li>#AI</li>
-
-<li>#GraphicsDesign</li>
-
-<li>#Networking</li>
-
-</ul>
-
-</div>
-    
 </section>
 
         
@@ -2467,44 +2830,193 @@ Online
 </div>        
     </secttion>
         <!-- ================= CONNECTIONS ================= -->
-<section
-    id="connections"
-    class="page"
+<section id="connections" class="page">
+
+<div class="page-header">
+
+<h2>🤝 Connections</h2>
+
+<div class="page-actions">
+
+<button id="refreshConnections">
+🔄 Refresh
+</button>
+
+<button id="inviteFriendsBtn">
+📨 Invite Friends
+</button>
+
+<button id="findNearbyBtn">
+📍 Nearby
+</button>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="dashboard-card">
+
+<h3>🔍 Search People</h3>
+
+<div class="search-row">
+
+<input
+type="search"
+id="searchInput"
+placeholder="Search by name, username, profession or location..."
+autocomplete="off"
 >
 
-    <h2>🤝 Connections</h2>
+<button id="searchPeopleBtn">
+Search
+</button>
 
-    <!-- SEARCH USERS -->
-    <div class="search-connections">
+</div>
 
-        <h3>Find People</h3>
+</div>
 
-        <input
-            type="search"
-            id="searchInput"
-            placeholder="Search by name, username or profession..."
-            autocomplete="off"
-        >
+<!-- FILTERS -->
 
-    </div>
+<div class="dashboard-card">
 
-    <!-- CONNECTION REQUESTS -->
-    <div class="dashboard-card">
+<h3>🎯 Filters</h3>
+
+<div class="connection-filters">
+
+<select id="professionFilter">
+
+<option value="">Profession</option>
+<option>Developer</option>
+<option>Designer</option>
+<option>Doctor</option>
+<option>Business</option>
+<option>Student</option>
+<option>Engineer</option>
+
+</select>
+
+<select id="locationFilter">
+
+<option value="">Location</option>
+<option>Lagos</option>
+<option>Abuja</option>
+<option>Ibadan</option>
+<option>Akure</option>
+
+</select>
+
+<select id="relationshipFilter">
+
+<option value="">Relationship</option>
+<option>Professional</option>
+<option>Dating</option>
+<option>Friendship</option>
+
+</select>
+
+<select id="onlineFilter">
+
+<option value="">Status</option>
+<option>Online</option>
+<option>Offline</option>
+
+</select>
+
+<button id="clearFilterBtn">
+
+Clear
+
+</button>
+
+</div>
+
+</div>
+
+<!-- QUICK STATS -->
+
+<div class="profile-stats">
+
+<div class="stat-box">
+
+<h3 id="totalConnections">0</h3>
+
+<p>Connections</p>
+
+</div>
+
+<div class="stat-box">
+
+<h3 id="followersCount">0</h3>
+
+<p>Followers</p>
+
+</div>
+
+<div class="stat-box">
+
+<h3 id="followingCount">0</h3>
+
+<p>Following</p>
+
+</div>
+
+<div class="stat-box">
+
+<h3 id="pendingRequests">0</h3>
+
+<p>Pending</p>
+
+</div>
+
+<div class="stat-box">
+
+<h3 id="sentRequests">0</h3>
+
+<p>Sent</p>
+
+</div>
+
+<div class="stat-box">
+
+<h3 id="profileVisitors">0</h3>
+
+<p>Visitors</p>
+
+</div>
+
+</div>
+
+<!-- ================= CONNECTION REQUESTS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
 
         <h3>📨 Connection Requests</h3>
 
+        <button id="acceptAllBtn">
+            Accept All
+        </button>
+
+    </div>
+
+    <div id="requestContainer">
+
+        <!-- REQUEST 1 -->
         <div class="user-card">
 
             <img
                 src="images/profile.jpg"
-                alt="John Doe"
                 class="connection-avatar"
+                alt="John Doe"
                 onerror="this.src='images/default-avatar.png'"
             >
 
             <div class="user-info">
 
-                <h4>John Doe</h4>
+                <h4>John Doe <span class="online-dot"></span></h4>
 
                 <p>Frontend Developer</p>
 
@@ -2513,6 +3025,10 @@ Online
             </div>
 
             <div class="user-actions">
+
+                <button class="view-profile-btn">
+                    👤 Profile
+                </button>
 
                 <button class="accept-btn">
                     ✅ Accept
@@ -2526,12 +3042,14 @@ Online
 
         </div>
 
+        <!-- REQUEST 2 -->
+
         <div class="user-card">
 
             <img
                 src="images/profile.jpg"
-                alt="Jane Smith"
                 class="connection-avatar"
+                alt="Jane Smith"
                 onerror="this.src='images/default-avatar.png'"
             >
 
@@ -2547,6 +3065,10 @@ Online
 
             <div class="user-actions">
 
+                <button class="view-profile-btn">
+                    👤 Profile
+                </button>
+
                 <button class="accept-btn">
                     ✅ Accept
                 </button>
@@ -2561,44 +3083,41 @@ Online
 
     </div>
 
-    <!-- MY CONNECTIONS -->
-    <div class="dashboard-card">
+</div>
+
+
+
+<!-- ================= MY CONNECTIONS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
 
         <h3>👥 My Connections</h3>
 
+        <button id="viewAllConnections">
+            View All
+        </button>
+
+    </div>
+
+    <div id="connectionsContainer">
+
         <div class="user-card">
 
             <img
                 src="images/profile.jpg"
-                alt="Elijah Peter"
                 class="connection-avatar"
-                onerror="this.src='images/default-avatar.png'"
-            >
-
-            <div class="user-info">
-
-                <h4>Elijah Peter</h4>
-
-                <p>Web Developer & Digital Creator</p>
-
-                <small>Connected</small>
-
-            </div>
-
-        </div>
-
-        <div class="user-card">
-
-            <img
-                src="images/profile.jpg"
                 alt="Rachael Okon"
-                class="connection-avatar"
                 onerror="this.src='images/default-avatar.png'"
             >
 
             <div class="user-info">
 
-                <h4>Rachael Okon</h4>
+                <h4>
+                    Rachael Okon
+                    <span class="online-dot"></span>
+                </h4>
 
                 <p>Business Woman</p>
 
@@ -2612,8 +3131,16 @@ Online
                     💬 Message
                 </button>
 
+                <button class="voice-call-btn">
+                    📞
+                </button>
+
+                <button class="video-call-btn">
+                    🎥
+                </button>
+
                 <button class="remove-btn">
-                    🗑 Remove
+                    ❌ Remove
                 </button>
 
             </div>
@@ -2622,271 +3149,1141 @@ Online
 
     </div>
 
-            <!-- ================= SUGGESTED CONNECTIONS ================= -->
-        <div class="dashboard-card">
+</div>
 
-            <h3>⭐ Suggested Connections</h3>
 
-            <div class="user-card">
 
-                <img
-                    src="images/profile.jpg"
-                    alt="Samuel Peter"
-                    class="connection-avatar"
-                    onerror="this.src='images/default-avatar.png'"
-                >
+<!-- ================= FOLLOWERS ================= -->
 
-                <div class="user-info">
+<div class="dashboard-card">
 
-                    <h4>Samuel Peter</h4>
+    <div class="section-header">
 
-                    <p>Businessman</p>
+        <h3>❤️ Followers</h3>
 
-                    <small>8 Mutual Connections</small>
+        <button>
+            View All
+        </button>
 
-                </div>
+    </div>
 
-                <div class="user-actions">
+    <div id="followersContainer">
 
-                    <button class="connect-btn">
-                        ➕ Connect
-                    </button>
+    </div>
 
-                </div>
+</div>
+
+
+
+<!-- ================= FOLLOWING ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>➕ Following</h3>
+
+        <button>
+            View All
+        </button>
+
+    </div>
+
+    <div id="followingContainer">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= ONLINE NOW ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🟢 Online Now</h3>
+
+        <button id="refreshOnlineBtn">
+
+            Refresh
+
+        </button>
+
+    </div>
+
+    <div id="onlineUsersContainer">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= RECENT CONNECTIONS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🕒 Recently Connected</h3>
+
+    </div>
+
+    <div id="recentConnectionsContainer">
+
+    </div>
+
+</div>
+
+
+<!-- ================= SUGGESTED CONNECTIONS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>⭐ Suggested Connections</h3>
+
+        <button id="refreshSuggestions">
+            🔄 Refresh
+        </button>
+
+    </div>
+
+    <div id="suggestedConnections">
+
+        <div class="user-card">
+
+            <img src="images/profile.jpg"
+                 class="connection-avatar"
+                 onerror="this.src='images/default-avatar.png'">
+
+            <div class="user-info">
+
+                <h4>
+                    Samuel Peter
+                    <span class="verified-badge">✔</span>
+                </h4>
+
+                <p>Business Consultant</p>
+
+                <small>📍 Lagos • 8 Mutual Connections</small>
+
+                <small>Joined 3 weeks ago</small>
 
             </div>
 
-            <div class="user-card">
+            <div class="user-actions">
 
-                <img
-                    src="images/profile.jpg"
-                    alt="Sewuese Vera"
-                    class="connection-avatar"
-                    onerror="this.src='images/default-avatar.png'"
-                >
+                <button class="view-profile-btn">
+                    👤 View
+                </button>
 
-                <div class="user-info">
+                <button class="follow-btn">
+                    ⭐ Follow
+                </button>
 
-                    <h4>Sewuese Vera</h4>
-
-                    <p>Business Woman</p>
-
-                    <small>5 Mutual Connections</small>
-
-                </div>
-
-                <div class="user-actions">
-
-                    <button class="connect-btn">
-                        ➕ Connect
-                    </button>
-
-                </div>
+                <button class="connect-btn">
+                    ➕ Connect
+                </button>
 
             </div>
 
         </div>
 
-        <!-- ================= CONNECTION STATISTICS ================= -->
-        <div class="dashboard-card">
+    </div>
 
-            <h3>📊 Connection Statistics</h3>
+</div>
 
-            <div class="stats-grid">
 
-                <div class="stat-box">
+<!-- ================= PEOPLE YOU MAY LIKE ================= -->
 
-                    <h3 id="totalConnections">2</h3>
+<div class="dashboard-card">
 
-                    <p>Total Connections</p>
+    <div class="section-header">
 
-                </div>
+        <h3>❤️ People You May Like</h3>
 
-                <div class="stat-box">
+        <button id="refreshDating">
+            🔄 Refresh
+        </button>
 
-                    <h3 id="pendingRequests">2</h3>
+    </div>
 
-                    <p>Pending Requests</p>
+    <div id="datingMatches">
 
-                </div>
+        <div class="user-card dating-card">
 
-                <div class="stat-box">
+            <img
+                src="images/profile.jpg"
+                class="connection-avatar"
+                onerror="this.src='images/default-avatar.png'"
+            >
 
-                    <h3 id="sentRequests">0</h3>
+            <div class="user-info">
 
-                    <p>Sent Requests</p>
+                <h4>Sewuese Vera ❤️</h4>
 
-                </div>
+                <p>Entrepreneur</p>
 
-                <div class="stat-box">
+                <small>25 Years</small>
 
-                    <h3 id="suggestedUsers">2</h3>
+                <small>📍 Abuja</small>
 
-                    <p>Suggested Users</p>
+                <small>💘 92% Match</small>
 
-                </div>
+            </div>
+
+            <div class="user-actions">
+
+                <button class="like-btn">
+                    ❤️ Like
+                </button>
+
+                <button class="wave-btn">
+                    👋 Wave
+                </button>
+
+                <button class="connect-btn">
+                    ➕ Connect
+                </button>
 
             </div>
 
         </div>
 
-</section>
+    </div>
 
-<!-- ================= MESSAGES ================= -->
-<section
-    id="messages"
-    class="page"
->
+</div>
 
-    <h2>💬 Messages</h2>
 
-    <!-- SEARCH -->
-    <div class="message-search">
+<!-- ================= NEARBY USERS ================= -->
 
-        <input
-            type="search"
-            id="searchMessages"
-            placeholder="Search conversations..."
-            autocomplete="off"
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>📍 Nearby Users</h3>
+
+        <button id="refreshNearby">
+
+            Refresh
+
+        </button>
+
+    </div>
+
+    <div id="nearbyUsers">
+
+    </div>
+
+</div>
+
+
+<!-- ================= TRENDING PROFESSIONALS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🔥 Trending Professionals</h3>
+
+    </div>
+
+    <div id="trendingProfessionals">
+
+    </div>
+
+</div>
+
+
+<!-- ================= NEW MEMBERS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🆕 New Members</h3>
+
+    </div>
+
+    <div id="newMembers">
+
+    </div>
+
+</div>
+
+
+<!-- ================= PEOPLE YOU MAY KNOW ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>👥 People You May Know</h3>
+
+    </div>
+
+    <div id="peopleYouKnow">
+
+    </div>
+
+</div>
+
+
+<!-- ================= RECRUITERS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>💼 Recruiters Hiring</h3>
+
+    </div>
+
+    <div id="recruiters">
+
+    </div>
+
+</div>
+
+
+<!-- ================= COMPANIES TO FOLLOW ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🏢 Companies To Follow</h3>
+
+    </div>
+
+    <div id="companiesContainer">
+
+    </div>
+
+</div>
+
+<!-- ================= SENT REQUESTS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>📤 Sent Requests</h3>
+
+        <button id="cancelAllRequests">
+            Cancel All
+        </button>
+
+    </div>
+
+    <div id="sentRequestsContainer">
+
+        <div class="user-card">
+
+            <img
+                src="images/profile.jpg"
+                class="connection-avatar"
+                alt="User"
+                onerror="this.src='images/default-avatar.png'"
+            >
+
+            <div class="user-info">
+
+                <h4>Michael Brown</h4>
+
+                <p>UI/UX Designer</p>
+
+                <small>Request sent 2 days ago</small>
+
+            </div>
+
+            <div class="user-actions">
+
+                <button class="cancel-request-btn">
+                    ❌ Cancel Request
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= MUTUAL CONNECTIONS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🤝 Mutual Connections</h3>
+
+        <button id="viewMutualBtn">
+            View All
+        </button>
+
+    </div>
+
+    <div id="mutualConnections">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= RECENT PROFILE VISITORS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>👀 Recent Profile Visitors</h3>
+
+    </div>
+
+    <div id="profileVisitorsContainer">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= BLOCKED USERS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🚫 Blocked Users</h3>
+
+        <button id="manageBlockedBtn">
+
+            Manage
+
+        </button>
+
+    </div>
+
+    <div id="blockedUsersContainer">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FAVORITES ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>⭐ Favorite Connections</h3>
+
+    </div>
+
+    <div id="favoriteConnections">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= INVITE FRIENDS ================= -->
+
+<div class="dashboard-card">
+
+    <h3>📨 Invite Friends</h3>
+
+    <p>
+        Invite your friends to join Rhockstar Connect.
+    </p>
+
+    <div class="invite-buttons">
+
+        <button id="inviteWhatsapp">
+
+            WhatsApp
+
+        </button>
+
+        <button id="inviteFacebook">
+
+            Facebook
+
+        </button>
+
+        <button id="inviteTelegram">
+
+            Telegram
+
+        </button>
+
+        <button id="inviteEmail">
+
+            Email
+
+        </button>
+
+        <button id="copyInviteLink">
+
+            Copy Invite Link
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= QR CODE ================= -->
+
+<div class="dashboard-card">
+
+    <h3>📱 Connect Using QR Code</h3>
+
+    <p>
+        Let people scan your QR code to connect instantly.
+    </p>
+
+    <div class="qr-box">
+
+        <img
+            id="profileQRCode"
+            src="images/qrcode.png"
+            alt="QR Code"
+            onerror="this.style.display='none'"
         >
 
     </div>
 
-    <div class="messages-layout">
+    <button id="downloadQR">
 
-        <!-- CONVERSATIONS -->
-        <aside class="conversations">
+        Download QR
 
-            <h3>Recent Conversations</h3>
+    </button>
 
-            <div class="conversation-card active">
+</div>
 
-                <img
-                    src="images/profile.jpg"
-                    class="conversation-avatar"
-                    alt="Jane Smith"
-                    onerror="this.src='images/default-avatar.png'"
-                >
 
-                <div class="conversation-info">
 
-                    <h4>
-                        Jane Smith
-                        <span class="online-dot"></span>
-                    </h4>
+<!-- ================= IMPORT CONTACTS ================= -->
 
-                    <p>Hey Elijah, how are you?</p>
+<div class="dashboard-card">
 
-                    <small>2 minutes ago</small>
+    <h3>📞 Import Contacts</h3>
 
-                </div>
+    <p>
 
-            </div>
+        Find friends already using Rhockstar Connect.
 
-            <div class="conversation-card">
+    </p>
 
-                <img
-                    src="images/profile.jpg"
-                    class="conversation-avatar"
-                    alt="Prisca Johnson"
-                    onerror="this.src='images/default-avatar.png'"
-                >
+    <button id="importContactsBtn">
 
-                <div class="conversation-info">
+        Import Contacts
 
-                    <h4>Prisca Johnson</h4>
+    </button>
 
-                    <p>Can we connect?</p>
+</div>
 
-                    <small>1 hour ago</small>
 
-                </div>
 
-            </div>
+<!-- ================= CONNECTION ACHIEVEMENTS ================= -->
 
-        </aside>
+<div class="dashboard-card">
 
-        <!-- CHAT WINDOW -->
-        <div class="chat-container">
+    <h3>🏆 Networking Achievements</h3>
 
-            <div class="chat-header">
+    <div class="achievement-grid">
 
-                <img
-                    src="images/profile.jpg"
-                    class="chat-avatar"
-                    alt="Jane Smith"
-                    onerror="this.src='images/default-avatar.png'"
-                >
+        <div class="achievement">
 
-                <div>
+            🥉
 
-                    <h3>Jane Smith</h3>
+            <p>First Connection</p>
 
-                    <small>🟢 Online</small>
+        </div>
 
-                </div>
+        <div class="achievement">
 
-            </div>
+            🥈
 
-            <div
-                id="chatBody"
-                class="chat-body"
+            <p>50 Connections</p>
+
+        </div>
+
+        <div class="achievement">
+
+            🥇
+
+            <p>100 Connections</p>
+
+        </div>
+
+        <div class="achievement">
+
+            👑
+
+            <p>Top Networker</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= ANALYTICS ================= -->
+
+<div class="dashboard-card">
+
+    <h3>📈 Networking Analytics</h3>
+
+    <div class="stats-grid">
+
+        <div class="stat-box">
+
+            <h3 id="weeklyConnections">
+
+                0
+
+            </h3>
+
+            <p>This Week</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h3 id="monthlyConnections">
+
+                0
+
+            </h3>
+
+            <p>This Month</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h3 id="profileSearches">
+
+                0
+
+            </h3>
+
+            <p>Search Appearances</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h3 id="profileReach">
+
+                0
+
+            </h3>
+
+            <p>Profile Reach</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= NETWORK GOALS ================= -->
+
+<div class="dashboard-card">
+
+    <h3>🎯 Networking Goals</h3>
+
+    <ul class="goal-list">
+
+        <li>
+
+            ☐ Reach 100 Connections
+
+        </li>
+
+        <li>
+
+            ☐ Meet 20 Professionals
+
+        </li>
+
+        <li>
+
+            ☐ Find a Mentor
+
+        </li>
+
+        <li>
+
+            ☐ Find a Business Partner
+
+        </li>
+
+        <li>
+
+            ☐ Find Your Match ❤️
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ================= CONNECTION SETTINGS ================= -->
+
+<div class="dashboard-card">
+
+    <h3>⚙ Connection Settings</h3>
+
+    <label>
+
+        <input
+            type="checkbox"
+            checked
+        >
+
+        Allow Anyone To Connect
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+            checked
+        >
+
+        Allow Dating Suggestions
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+            checked
+        >
+
+        Show Online Status
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+        >
+
+        Only Friends Can Message Me
+
+    </label>
+
+</div>
+
+</section>
+        
+
+<!-- ================= MESSAGES ================= -->
+<section id="messages" class="page">
+
+<div class="page-header">
+
+<h2>💬 Messages</h2>
+
+<div class="page-actions">
+
+<button id="newChatBtn">
+➕ New Chat
+</button>
+
+<button id="refreshChatsBtn">
+🔄 Refresh
+</button>
+
+<button id="messageSettingsBtn">
+⚙
+</button>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="dashboard-card">
+
+<div class="message-search">
+
+<input
+type="search"
+id="searchMessages"
+placeholder="Search conversations..."
+autocomplete="off"
+>
+
+<button id="searchMessageBtn">
+
+Search
+
+</button>
+
+</div>
+
+<div class="message-filters">
+
+<button class="active">
+All
+</button>
+
+<button>
+Unread
+</button>
+
+<button>
+Groups
+</button>
+
+<button>
+Dating
+</button>
+
+<button>
+Business
+</button>
+
+<button>
+Archived
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="messages-layout">
+
+<!-- ================= LEFT SIDEBAR ================= -->
+
+<aside class="conversations">
+
+<div class="conversation-header">
+
+<h3>Conversations</h3>
+
+<span id="totalChats">
+
+0 Chats
+
+</span>
+
+</div>
+
+<div id="conversationContainer">
+
+<!-- Conversation -->
+
+<div
+class="conversation-card active"
+data-user="jane"
+>
+
+<img
+src="images/profile.jpg"
+class="conversation-avatar"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<div class="conversation-info">
+
+<h4>
+
+Jane Smith
+
+<span class="online-dot"></span>
+
+</h4>
+
+<p>
+
+Hey Elijah, how are you?
+
+</p>
+
+<small>
+
+2 mins ago
+
+</small>
+
+</div>
+
+<div class="conversation-extra">
+
+<span class="unread-count">
+
+2
+
+</span>
+
+<span class="pin-chat">
+
+📌
+
+</span>
+
+</div>
+
+</div>
+
+
+
+<div
+class="conversation-card"
+data-user="prisca"
+>
+
+<img
+src="images/profile.jpg"
+class="conversation-avatar"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<div class="conversation-info">
+
+<h4>
+
+Prisca Johnson
+
+</h4>
+
+<p>
+
+Can we connect?
+
+</p>
+
+<small>
+
+1 hr ago
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</aside>
+
+<!-- ================= CHAT WINDOW ================= -->
+
+<div class="chat-container">
+
+    <!-- CHAT HEADER -->
+
+    <div class="chat-header">
+
+        <button
+            id="backToChats"
+            class="mobile-back-btn"
+        >
+            ←
+        </button>
+
+        <img
+            src="images/profile.jpg"
+            class="chat-avatar"
+            alt="Jane Smith"
+            onerror="this.src='images/default-avatar.png'"
+        >
+
+        <div class="chat-user-info">
+
+            <h3 id="chatUserName">
+                Jane Smith
+            </h3>
+
+            <small id="chatUserStatus">
+                🟢 Online
+            </small>
+
+            <small id="typingIndicator"></small>
+
+        </div>
+
+        <div class="chat-header-actions">
+
+            <button
+                id="voiceCallBtn"
+                title="Voice Call"
+            >
+                📞
+            </button>
+
+            <button
+                id="videoCallBtn"
+                title="Video Call"
+            >
+                📹
+            </button>
+
+            <button
+                id="viewProfileBtn"
+                title="View Profile"
+            >
+                👤
+            </button>
+
+            <button
+                id="searchChatBtn"
+                title="Search"
+            >
+                🔍
+            </button>
+
+            <button
+                id="chatMenuBtn"
+                title="Menu"
+            >
+                ⋮
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PINNED MESSAGE -->
+
+    <div
+        id="pinnedMessage"
+        class="pinned-message"
+        style="display:none;"
+    >
+
+        📌
+        <span id="pinnedMessageText">
+
+        </span>
+
+    </div>
+
+
+
+    <!-- CHAT BODY -->
+
+    <div
+        id="chatBody"
+        class="chat-body"
+    >
+
+        <!-- RECEIVED -->
+
+        <div class="message received">
+
+            <img
+                src="images/profile.jpg"
+                class="mini-avatar"
             >
 
-                <div class="message received">
+            <div class="message-content">
 
-                    <p>Hey Eli, what's up?</p>
+                <p>
+                    Hey Eli, what's up?
+                </p>
 
-                    <small>2 minutes ago</small>
+                <small>
 
-                </div>
+                    2 mins ago
 
-                <div class="message sent">
+                </small>
 
-                    <p>I'm good. How are you?</p>
+                <div class="message-reactions">
 
-                    <small>1 minute ago</small>
-
-                </div>
-
-                <div class="message received">
-
-                    <p>I'm fine, thanks.</p>
-
-                    <small>Just now</small>
+                    ❤️ 👍 😂
 
                 </div>
 
             </div>
 
-            <div class="chat-input">
+        </div>
 
-                <button
-                    id="emojiBtn"
-                    aria-label="Emoji"
-                >
-                    😊
-                </button>
 
-                <button
-                    id="attachBtn"
-                    aria-label="Attach File"
-                >
-                    📎
-                </button>
 
-                <textarea
-                    id="chatMessage"
-                    rows="2"
-                    placeholder="Type your message..."
-                ></textarea>
+        <!-- SENT -->
 
-                <button
-                    id="sendMessageBtn"
-                    class="sendBtn"
-                >
-                    📤 Send
-                </button>
+        <div class="message sent">
+
+            <div class="message-content">
+
+                <p>
+
+                    I'm good. How are you?
+
+                </p>
+
+                <small>
+
+                    1 min ago
+
+                    ✓✓
+
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RECEIVED -->
+
+        <div class="message received">
+
+            <img
+                src="images/profile.jpg"
+                class="mini-avatar"
+            >
+
+            <div class="message-content">
+
+                <p>
+
+                    I'm fine, thanks 😊
+
+                </p>
+
+                <small>
+
+                    Just now
+
+                </small>
 
             </div>
 
@@ -2894,728 +4291,3719 @@ Online
 
     </div>
 
-</section>
 
+
+    <!-- RECORDING BAR -->
+
+    <div
+        id="recordingBar"
+        class="recording-bar"
+        style="display:none;"
+    >
+
+        🔴 Recording...
+
+        <button id="stopRecordingBtn">
+
+            Stop
+
+        </button>
+
+    </div>
+
+
+
+    <!-- FILE PREVIEW -->
+
+    <div
+        id="attachmentPreview"
+        class="attachment-preview"
+    >
+
+    </div>
+
+
+
+    <!-- CHAT INPUT -->
+
+    <div class="chat-input">
+
+        <button
+            id="emojiBtn"
+            title="Emoji"
+        >
+
+            😀
+        </button>
+
+        <button
+            id="stickerBtn"
+            title="Sticker"
+        >
+
+            🏷️
+        </button>
+
+        <button
+            id="gifBtn"
+            title="GIF"
+        >
+
+            GIF
+        </button>
+
+        <button
+            id="cameraBtn"
+            title="Camera"
+        >
+
+            📷
+        </button>
+
+        <button
+            id="galleryBtn"
+            title="Gallery"
+        >
+
+            🖼️
+        </button>
+
+        <button
+            id="attachBtn"
+            title="Document"
+        >
+
+            📎
+        </button>
+
+        <button
+            id="locationBtn"
+            title="Location"
+        >
+
+            📍
+        </button>
+
+        <button
+            id="contactBtn"
+            title="Contact"
+        >
+
+            👤
+        </button>
+
+        <textarea
+            id="chatMessage"
+            rows="2"
+            placeholder="Type your message..."
+        ></textarea>
+
+        <button
+            id="micBtn"
+            title="Voice Note"
+        >
+
+            🎤
+        </button>
+
+        <button
+            id="sendMessageBtn"
+            class="sendBtn"
+        >
+
+            📤
+
+        </button>
+
+    </div>
+
+
+
+    <!-- HIDDEN FILE INPUTS -->
+
+    <input
+        type="file"
+        id="cameraInput"
+        accept="image/*,video/*"
+        capture="environment"
+        hidden
+    >
+
+    <input
+        type="file"
+        id="galleryInput"
+        accept="image/*,video/*"
+        multiple
+        hidden
+    >
+
+    <input
+        type="file"
+        id="documentInput"
+        multiple
+        hidden
+    >
+
+</div>
+
+<!-- ================= CHAT MENU ================= -->
+
+<div
+    id="chatMenu"
+    class="chat-menu"
+    style="display:none;"
+>
+
+    <button id="viewProfileMenu">
+        👤 View Profile
+    </button>
+
+    <button id="muteChatBtn">
+        🔕 Mute Chat
+    </button>
+
+    <button id="pinChatBtn">
+        📌 Pin Chat
+    </button>
+
+    <button id="starMessagesBtn">
+        ⭐ Starred Messages
+    </button>
+
+    <button id="clearChatBtn">
+        🧹 Clear Chat
+    </button>
+
+    <button id="exportChatBtn">
+        📄 Export Chat
+    </button>
+
+    <button id="blockUserBtn">
+        🚫 Block User
+    </button>
+
+    <button id="reportUserBtn">
+        ⚠ Report User
+    </button>
+
+    <button id="deleteChatBtn" class="danger-btn">
+        🗑 Delete Chat
+    </button>
+
+</div>
+
+
+
+<!-- ================= MESSAGE OPTIONS ================= -->
+
+<div
+    id="messageOptions"
+    class="message-options"
+    style="display:none;"
+>
+
+    <button class="replyMessage">
+        ↩ Reply
+    </button>
+
+    <button class="copyMessage">
+        📋 Copy
+    </button>
+
+    <button class="forwardMessage">
+        📤 Forward
+    </button>
+
+    <button class="reactMessage">
+        😀 React
+    </button>
+
+    <button class="starMessage">
+        ⭐ Star
+    </button>
+
+    <button class="editMessage">
+        ✏ Edit
+    </button>
+
+    <button class="deleteForMe">
+        🗑 Delete For Me
+    </button>
+
+    <button class="deleteForEveryone">
+        ❌ Delete For Everyone
+    </button>
+
+</div>
+
+
+
+<!-- ================= SHARED MEDIA ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🖼 Shared Media</h3>
+
+        <button id="viewAllMedia">
+
+            View All
+
+        </button>
+
+    </div>
+
+    <div id="sharedMediaGrid">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= SHARED DOCUMENTS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>📄 Shared Documents</h3>
+
+    </div>
+
+    <div id="sharedDocuments">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= SHARED LINKS ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🔗 Shared Links</h3>
+
+    </div>
+
+    <div id="sharedLinks">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= VOICE NOTES ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>🎤 Voice Notes</h3>
+
+    </div>
+
+    <div id="voiceNotesContainer">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FAVORITE MESSAGES ================= -->
+
+<div class="dashboard-card">
+
+    <div class="section-header">
+
+        <h3>⭐ Starred Messages</h3>
+
+    </div>
+
+    <div id="starredMessages">
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= CHAT WALLPAPER ================= -->
+
+<div class="dashboard-card">
+
+    <h3>🖼 Chat Wallpaper</h3>
+
+    <button id="changeWallpaper">
+
+        Change Wallpaper
+
+    </button>
+
+    <button id="resetWallpaper">
+
+        Reset
+
+    </button>
+
+</div>
+
+
+
+<!-- ================= CHAT SETTINGS ================= -->
+
+<div class="dashboard-card">
+
+    <h3>⚙ Chat Settings</h3>
+
+    <label>
+
+        <input
+            type="checkbox"
+            id="enterToSend"
+            checked
+        >
+
+        Press Enter To Send
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+            id="readReceipts"
+            checked
+        >
+
+        Read Receipts
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+            id="typingStatus"
+            checked
+        >
+
+        Show Typing Status
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+            id="onlineStatus"
+            checked
+        >
+
+        Show Online Status
+
+    </label>
+
+    <label>
+
+        <input
+            type="checkbox"
+            id="autoDownloadMedia"
+        >
+
+        Auto Download Media
+
+    </label>
+
+</div>
+
+
+
+<!-- ================= MEDIA VIEWER ================= -->
+
+<div
+    id="mediaViewer"
+    class="media-viewer"
+    style="display:none;"
+>
+
+    <button
+        id="closeMediaViewer"
+    >
+        ✕
+
+    </button>
+
+    <img
+        id="mediaViewerImage"
+        src=""
+        alt=""
+    >
+
+    <video
+        id="mediaViewerVideo"
+        controls
+        style="display:none;"
+    >
+
+    </video>
+
+</div>
+
+
+
+<!-- ================= EMPTY CHAT ================= -->
+
+<div
+    id="emptyChat"
+    class="empty-chat"
+    style="display:none;"
+>
+
+    <img
+        src="images/chat-empty.png"
+        alt="No Chat"
+        onerror="this.style.display='none'"
+    >
+
+    <h2>
+
+        Select a Conversation
+
+    </h2>
+
+    <p>
+
+        Choose someone from the left to start chatting.
+
+    </p>
+
+    <button id="startNewChat">
+
+        Start New Chat
+
+    </button>
+
+</div>
+
+</section>
 
     
         <!-- ================= JOBS ================= -->
-<section
-    id="jobs"
-    class="page"
+<section id="jobs" class="page">
+
+<div class="page-header">
+
+<h2>💼 Jobs Marketplace</h2>
+
+<div class="page-actions">
+
+<button id="refreshJobsBtn">
+🔄 Refresh
+</button>
+
+<button id="myJobsBtn">
+📂 My Jobs
+</button>
+
+<button id="savedJobsBtn">
+⭐ Saved Jobs
+</button>
+
+<button id="jobAlertBtn">
+🔔 Job Alerts
+</button>
+
+</div>
+
+</div>
+
+<!-- ================= SEARCH ================= -->
+
+<div class="dashboard-card">
+
+<div class="job-search">
+
+<input
+type="search"
+id="searchJobs"
+placeholder="Search jobs, companies, skills or location..."
+autocomplete="off"
 >
 
-    <h2>💼 Jobs Marketplace</h2>
+<button
+id="searchJobBtn"
+class="primary-btn"
+>
 
-    <!-- JOB SEARCH -->
-    <div class="job-search">
+🔍 Search
 
-        <input
-            type="search"
-            id="searchJobs"
-            placeholder="Search jobs, companies or locations..."
-            autocomplete="off"
-        >
+</button>
 
-        <button
-            id="searchJobBtn"
-            class="primary-btn"
-        >
-            🔍 Search
-        </button>
+</div>
 
-    </div>
+<div class="job-filters">
 
-    <!-- POST A JOB -->
-    <div class="dashboard-card post-job-card">
+<select id="filterCategory">
 
-        <h3>📢 Post a Job Opportunity</h3>
+<option value="">Category</option>
 
-        <div class="form-group">
+<option>Technology</option>
 
-            <label for="jobTitle">
-                Job Title
-            </label>
+<option>Design</option>
 
-            <input
-                type="text"
-                id="jobTitle"
-                placeholder="e.g. Frontend Developer"
-            >
+<option>Marketing</option>
 
-        </div>
+<option>Engineering</option>
 
-        <div class="form-group">
+<option>Education</option>
 
-            <label for="companyName">
-                Company Name
-            </label>
+<option>Business</option>
 
-            <input
-                type="text"
-                id="companyName"
-                placeholder="Company Name"
-            >
+<option>Healthcare</option>
 
-        </div>
+</select>
 
-        <div class="form-group">
+<select id="filterLocation">
 
-            <label for="jobLocation">
-                Job Location
-            </label>
+<option value="">Location</option>
 
-            <input
-                type="text"
-                id="jobLocation"
-                placeholder="City, Country or Remote"
-            >
+<option>Remote</option>
 
-        </div>
+<option>Nigeria</option>
 
-        <div class="form-group">
+<option>United Kingdom</option>
 
-            <label for="jobType">
-                Employment Type
-            </label>
+<option>Canada</option>
 
-            <select id="jobType">
+<option>United States</option>
 
-                <option value="Full Time">Full Time</option>
+</select>
 
-                <option value="Part Time">Part Time</option>
+<select id="filterJobType">
 
-                <option value="Remote">Remote</option>
+<option value="">Job Type</option>
 
-                <option value="Contract">Contract</option>
+<option>Full Time</option>
 
-                <option value="Internship">Internship</option>
+<option>Part Time</option>
 
-            </select>
+<option>Internship</option>
 
-        </div>
+<option>Contract</option>
 
-        <div class="form-group">
+<option>Remote</option>
 
-            <label for="jobDescription">
-                Job Description
-            </label>
+<option>Volunteer</option>
 
-            <textarea
-                id="jobDescription"
-                rows="6"
-                placeholder="Describe the job role, requirements and responsibilities..."
-            ></textarea>
+</select>
 
-        </div>
+<select id="filterExperience">
 
-        <button
-            id="postJobBtn"
-            class="primary-btn"
-        >
-            🚀 Publish Job
-        </button>
+<option value="">Experience</option>
 
-    </div>
+<option>Entry Level</option>
 
-    <!-- JOB CATEGORIES -->
-    <div class="dashboard-card">
+<option>Junior</option>
 
-        <h3>📂 Browse Categories</h3>
+<option>Mid Level</option>
 
-        <div class="category-list">
+<option>Senior</option>
 
-            <button>💻 Technology</button>
+<option>Executive</option>
 
-            <button>🎨 Design</button>
+</select>
 
-            <button>📢 Marketing</button>
+<select id="filterSalary">
 
-            <button>🌍 Remote</button>
+<option value="">Salary</option>
 
-            <button>💼 Business</button>
+<option>$200 - $500</option>
 
-            <button>🎧 Customer Support</button>
+<option>$500 - $1000</option>
 
-            <button>⚙ Engineering</button>
+<option>$1000 - $3000</option>
 
-            <button>🎓 Education</button>
+<option>$3000+</option>
 
-        </div>
+</select>
 
-    </div>
+<button id="clearFiltersBtn">
 
-    <!-- JOB STATISTICS -->
-    <div class="dashboard-card">
+Clear Filters
 
-        <h3>📊 Job Statistics</h3>
+</button>
 
-        <div class="stats-grid">
+</div>
 
-            <div class="stat-box">
+</div>
 
-                <h3 id="totalJobs">0</h3>
 
-                <p>Available Jobs</p>
 
-            </div>
+<!-- ================= FEATURED JOBS ================= -->
 
-            <div class="stat-box">
+<div class="dashboard-card">
 
-                <h3 id="savedJobsCount">0</h3>
+<h3>🔥 Featured Jobs</h3>
 
-                <p>Saved Jobs</p>
+<div class="featured-jobs-slider">
 
-            </div>
+<div class="featured-job">
 
-            <div class="stat-box">
+<h4>Senior Frontend Developer</h4>
 
-                <h3 id="applicationsCount">0</h3>
+<p>Rhockstar Technologies</p>
 
-                <p>Applications</p>
+<small>Remote • Full Time</small>
 
-            </div>
+<button class="viewBtn">
 
-        </div>
+View Job
 
-    </div>
+</button>
 
-    <!-- AVAILABLE JOBS -->
-    <div id="jobsContainer">
+</div>
 
-        <div class="job-card">
+<div class="featured-job">
 
-            <h3>Software Engineer</h3>
+<h4>UI/UX Designer</h4>
 
-            <p><strong>🏢 Company:</strong> Rhockstar Technologies</p>
+<p>Creative Studio</p>
 
-            <p><strong>📍 Location:</strong> Remote</p>
+<small>Lagos • Full Time</small>
 
-            <p><strong>💼 Type:</strong> Full Time</p>
+<button class="viewBtn">
 
-            <p>
-                Build scalable and modern web applications using
-                the latest technologies.
-            </p>
+View Job
 
-            <small>
-                Posted by Elijah Peter • Today
-            </small>
+</button>
 
-            <div class="job-actions">
+</div>
 
-                <button class="viewBtn">
-                    👁 View
-                </button>
+<div class="featured-job">
 
-                <button class="saveBtn">
-                    ⭐ Save
-                </button>
+<h4>Mobile App Developer</h4>
 
-                <button class="applyBtn">
-                    📩 Apply
-                </button>
+<p>Tech Africa</p>
 
-            </div>
+<small>Hybrid</small>
 
-        </div>
+<button class="viewBtn">
 
-    </div>
+View Job
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= POST JOB ================= -->
+
+<div class="dashboard-card post-job-card">
+
+<h3>📢 Post a Job</h3>
+
+<input
+type="text"
+id="jobTitle"
+placeholder="Job Title"
+>
+
+<input
+type="text"
+id="companyName"
+placeholder="Company Name"
+>
+
+<input
+type="text"
+id="jobLocation"
+placeholder="Location"
+>
+
+<select id="jobType">
+
+<option>Full Time</option>
+
+<option>Part Time</option>
+
+<option>Remote</option>
+
+<option>Contract</option>
+
+<option>Internship</option>
+
+<option>Volunteer</option>
+
+</select>
+
+<select id="jobCategory">
+
+<option>Technology</option>
+
+<option>Business</option>
+
+<option>Engineering</option>
+
+<option>Education</option>
+
+<option>Healthcare</option>
+
+<option>Finance</option>
+
+<option>Design</option>
+
+<option>Marketing</option>
+
+</select>
+
+<input
+type="number"
+id="jobSalary"
+placeholder="Salary"
+>
+
+<input
+type="date"
+id="jobDeadline"
+>
+
+<textarea
+id="jobDescription"
+placeholder="Job Description..."
+rows="6"
+></textarea>
+
+<textarea
+id="jobRequirements"
+placeholder="Requirements..."
+rows="5"
+></textarea>
+
+<textarea
+id="jobBenefits"
+placeholder="Benefits..."
+rows="4"
+></textarea>
+
+<input
+type="email"
+id="recruiterEmail"
+placeholder="Recruiter Email"
+>
+
+<input
+type="url"
+id="companyWebsite"
+placeholder="Company Website"
+>
+
+<input
+type="file"
+id="companyLogo"
+accept="image/*"
+>
+
+<button
+id="postJobBtn"
+class="primary-btn"
+>
+
+🚀 Publish Job
+
+</button>
+
+</div>
+
+<!-- ================= TRENDING COMPANIES ================= -->
+
+<div class="dashboard-card">
+
+<h3>🏢 Trending Companies</h3>
+
+<div class="companies-grid">
+
+<div class="company-card">
+
+<img
+src="images/company.png"
+class="company-logo"
+onerror="this.src='images/default-company.png'"
+>
+
+<h4>Rhockstar Technologies</h4>
+
+<p>Technology</p>
+
+<small>24 Open Positions</small>
+
+<button class="followCompanyBtn">
+➕ Follow
+</button>
+
+<button class="viewCompanyBtn">
+View Company
+</button>
+
+</div>
+
+<div class="company-card">
+
+<img
+src="images/company.png"
+class="company-logo"
+onerror="this.src='images/default-company.png'"
+>
+
+<h4>Google</h4>
+
+<p>Technology</p>
+
+<small>83 Open Positions</small>
+
+<button class="followCompanyBtn">
+➕ Follow
+</button>
+
+<button class="viewCompanyBtn">
+View Company
+</button>
+
+</div>
+
+<div class="company-card">
+
+<img
+src="images/company.png"
+class="company-logo"
+onerror="this.src='images/default-company.png'"
+>
+
+<h4>Microsoft</h4>
+
+<p>Technology</p>
+
+<small>51 Open Positions</small>
+
+<button class="followCompanyBtn">
+➕ Follow
+</button>
+
+<button class="viewCompanyBtn">
+View Company
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= JOB STATISTICS ================= -->
+
+<div class="dashboard-card">
+
+<h3>📊 Dashboard</h3>
+
+<div class="stats-grid">
+
+<div class="stat-box">
+<h2 id="totalJobs">0</h2>
+<p>Available Jobs</p>
+</div>
+
+<div class="stat-box">
+<h2 id="savedJobsCount">0</h2>
+<p>Saved Jobs</p>
+</div>
+
+<div class="stat-box">
+<h2 id="applicationsCount">0</h2>
+<p>Applications</p>
+</div>
+
+<div class="stat-box">
+<h2 id="interviewsCount">0</h2>
+<p>Interviews</p>
+</div>
+
+<div class="stat-box">
+<h2 id="followingCompanies">0</h2>
+<p>Companies</p>
+</div>
+
+<div class="stat-box">
+<h2 id="jobAlerts">0</h2>
+<p>Alerts</p>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= AVAILABLE JOBS ================= -->
+
+<div id="jobsContainer">
+
+<div class="job-card">
+
+<div class="job-top">
+
+<img
+src="images/company.png"
+class="company-logo"
+onerror="this.src='images/default-company.png'"
+>
+
+<div>
+
+<h3>Senior Frontend Developer</h3>
+
+<p>Rhockstar Technologies ✔</p>
+
+<small>Posted Today</small>
+
+</div>
+
+</div>
+
+<div class="job-tags">
+
+<span>Remote</span>
+
+<span>Full Time</span>
+
+<span>Senior</span>
+
+<span>Technology</span>
+
+</div>
+
+<p>
+
+We are looking for an experienced Frontend Developer with strong HTML, CSS, JavaScript and React experience.
+
+</p>
+
+<p>
+
+<strong>Salary:</strong>
+
+$2,500/month
+
+</p>
+
+<p>
+
+<strong>Location:</strong>
+
+Remote
+
+</p>
+
+<p>
+
+<strong>Deadline:</strong>
+
+30 July 2026
+
+</p>
+
+<div class="job-actions">
+
+<button class="viewBtn">
+
+👁 View
+
+</button>
+
+<button class="saveBtn">
+
+⭐ Save
+
+</button>
+
+<button class="shareJobBtn">
+
+📤 Share
+
+</button>
+
+<button class="reportJobBtn">
+
+🚩 Report
+
+</button>
+
+<button class="applyBtn">
+
+📩 Apply
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= APPLY MODAL ================= -->
+
+<div
+id="applyModal"
+class="modal"
+style="display:none;"
+>
+
+<div class="modal-content">
+
+<h2>Apply For Job</h2>
+
+<input
+type="text"
+id="applicantName"
+placeholder="Full Name"
+>
+
+<input
+type="email"
+id="applicantEmail"
+placeholder="Email"
+>
+
+<input
+type="tel"
+id="applicantPhone"
+placeholder="Phone Number"
+>
+
+<input
+type="text"
+id="expectedSalary"
+placeholder="Expected Salary"
+>
+
+<select id="availability">
+
+<option>Immediately</option>
+
+<option>2 Weeks</option>
+
+<option>1 Month</option>
+
+<option>Negotiable</option>
+
+</select>
+
+<textarea
+id="coverLetter"
+placeholder="Write your cover letter..."
+rows="6"
+></textarea>
+
+<label>
+
+Upload CV
+
+</label>
+
+<input
+type="file"
+id="resumeUpload"
+accept=".pdf,.doc,.docx"
+>
+
+<label>
+
+Upload Portfolio
+
+</label>
+
+<input
+type="file"
+id="portfolioUpload"
+multiple
+>
+
+<div class="modal-buttons">
+
+<button id="submitApplication">
+
+Submit Application
+
+</button>
+
+<button id="cancelApplication">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= MY APPLICATIONS ================= -->
+
+<div class="dashboard-card">
+
+<h3>📩 My Applications</h3>
+
+<div id="applicationsContainer">
+
+<div class="application-card">
+
+<h4>Frontend Developer</h4>
+
+<p>Rhockstar Technologies</p>
+
+<small>Applied Today</small>
+
+<span class="status pending">
+🟡 Pending Review
+</span>
+
+<button class="viewApplicationBtn">
+View
+</button>
+
+<button class="withdrawApplicationBtn">
+Withdraw
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= SAVED JOBS ================= -->
+
+<div class="dashboard-card">
+
+<div class="section-header">
+
+<h3>⭐ Saved Jobs</h3>
+
+<button id="viewSavedJobs">
+
+View All
+
+</button>
+
+</div>
+
+<div id="savedJobsContainer">
+
+<p>No saved jobs yet.</p>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= RECENTLY VIEWED ================= -->
+
+<div class="dashboard-card">
+
+<h3>🕒 Recently Viewed Jobs</h3>
+
+<div id="recentJobsContainer">
+
+<p>No recently viewed jobs.</p>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= JOB ALERTS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🔔 Job Alerts</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="technologyAlert"
+checked
+>
+
+Technology Jobs
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="remoteAlert"
+checked
+>
+
+Remote Jobs
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="engineeringAlert"
+>
+
+Engineering Jobs
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="businessAlert"
+>
+
+Business Jobs
+
+</label>
+
+<button id="saveAlertsBtn">
+
+Save Alerts
+
+</button>
+
+</div>
+
+
+
+<!-- ================= RECRUITER DASHBOARD ================= -->
+
+<div class="dashboard-card">
+
+<h3>👨‍💼 Recruiter Dashboard</h3>
+
+<div class="stats-grid">
+
+<div class="stat-box">
+
+<h2 id="postedJobs">
+
+0
+
+</h2>
+
+<p>Posted Jobs</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="totalApplicants">
+
+0
+
+</h2>
+
+<p>Applicants</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="shortlistedApplicants">
+
+0
+
+</h2>
+
+<p>Shortlisted</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="interviewScheduled">
+
+0
+
+</h2>
+
+<p>Interviews</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= APPLICANTS ================= -->
+
+<div class="dashboard-card">
+
+<h3>👥 Applicants</h3>
+
+<div id="applicantsContainer">
+
+<div class="applicant-card">
+
+<img
+src="images/profile.jpg"
+class="connection-avatar"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<div>
+
+<h4>John Doe</h4>
+
+<p>Frontend Developer</p>
+
+<small>Applied Today</small>
+
+</div>
+
+<div>
+
+<button class="viewApplicantBtn">
+
+View
+
+</button>
+
+<button class="shortlistBtn">
+
+Shortlist
+
+</button>
+
+<button class="interviewBtn">
+
+Interview
+
+</button>
+
+<button class="rejectBtn">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= CAREER TOOLS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🚀 Career Center</h3>
+
+<div class="career-grid">
+
+<button id="resumeBuilderBtn">
+
+📄 Resume Builder
+
+</button>
+
+<button id="resumeCheckerBtn">
+
+✅ Resume Checker
+
+</button>
+
+<button id="coverLetterBtn">
+
+✍ Cover Letter Generator
+
+</button>
+
+<button id="portfolioBuilderBtn">
+
+🎨 Portfolio Builder
+
+</button>
+
+<button id="careerTipsBtn">
+
+💡 Career Tips
+
+</button>
+
+<button id="interviewTipsBtn">
+
+🎤 Interview Tips
+
+</button>
+
+<button id="skillAssessmentBtn">
+
+📝 Skill Assessment
+
+</button>
+
+<button id="certificateBtn">
+
+🏆 Certificates
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= FREELANCE JOBS ================= -->
+
+<div class="dashboard-card">
+
+<h3>💻 Freelance Opportunities</h3>
+
+<div id="freelanceJobsContainer">
+
+</div>
+
+</div>
+
+
+
+<!-- ================= INTERNSHIPS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🎓 Internship Opportunities</h3>
+
+<div id="internshipContainer">
+
+</div>
+
+</div>
+
+
+
+<!-- ================= SCHOLARSHIPS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🎓 Scholarships</h3>
+
+<div id="scholarshipContainer">
+
+</div>
+
+</div>
+
+
+
+<!-- ================= EVENTS ================= -->
+
+<div class="dashboard-card">
+
+<h3>📅 Career Events</h3>
+
+<div id="careerEventsContainer">
+
+</div>
+
+</div>
+
+
+
+<!-- ================= BUSINESS OPPORTUNITIES ================= -->
+
+<div class="dashboard-card">
+
+<h3>💼 Business Opportunities</h3>
+
+<div id="businessOpportunityContainer">
+
+</div>
+
+</div>
+
+
+
+<!-- ================= JOBS PAGINATION ================= -->
+
+<div class="pagination">
+
+<button id="previousJobs">
+
+⬅ Previous
+
+</button>
+
+<span id="jobPageNumber">
+
+1 of 1
+
+</span>
+
+<button id="nextJobs">
+
+Next ➡
+
+</button>
+
+</div>
 
 </section>
-
 <!-- ================= NOTIFICATIONS ================= -->
-<section
-    id="notifications"
-    class="page"
+<section id="notifications" class="page">
+
+<div class="page-header">
+
+<h2>🔔 Notifications Center</h2>
+
+<div class="page-actions">
+
+<button id="refreshNotificationsBtn">
+🔄 Refresh
+</button>
+
+<button id="markAllReadBtn">
+✓ Mark All Read
+</button>
+
+<button id="clearNotificationsBtn">
+🗑 Clear All
+</button>
+
+<button id="notificationSettingsBtn">
+⚙ Settings
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= SEARCH ================= -->
+
+<div class="dashboard-card">
+
+<div class="notification-search">
+
+<input
+type="search"
+id="searchNotifications"
+placeholder="Search notifications..."
+autocomplete="off"
 >
 
-    <div class="notifications-header">
+<button id="searchNotificationBtn">
 
-        <h2>🔔 Notifications</h2>
+🔍 Search
 
-        <div class="notification-actions">
+</button>
 
-            <button
-                id="markAllReadBtn"
-                class="readAll"
-            >
-                ✓ Mark All Read
-            </button>
+</div>
 
-            <button
-                id="clearNotificationsBtn"
-                class="clearBtn"
-            >
-                🗑 Clear All
-            </button>
+</div>
 
-        </div>
 
-    </div>
 
-    <!-- NOTIFICATION STATISTICS -->
-    <div class="notification-stats">
+<!-- ================= STATISTICS ================= -->
 
-        <div class="stat-box">
+<div class="dashboard-card">
 
-            <h3 id="totalNotifications">
-                4
-            </h3>
+<h3>📊 Notification Statistics</h3>
 
-            <p>Total Notifications</p>
+<div class="stats-grid">
 
-        </div>
+<div class="stat-box">
 
-        <div class="stat-box">
+<h2 id="totalNotifications">
 
-            <h3 id="unreadNotifications">
-                4
-            </h3>
+4
 
-            <p>Unread Notifications</p>
+</h2>
 
-        </div>
+<p>Total</p>
 
-    </div>
+</div>
 
-    <!-- FILTER -->
-    <div class="notification-filter">
+<div class="stat-box">
 
-        <button
-            class="filter-btn active"
-        >
-            📋 All
-        </button>
+<h2 id="unreadNotifications">
 
-        <button
-            class="filter-btn"
-        >
-            📩 Unread
-        </button>
+4
 
-    </div>
+</h2>
 
-    
-        <!-- ================= NOTIFICATION LIST ================= -->
-    <div id="notificationContainer">
+<p>Unread</p>
 
-        <div class="notification-card unread">
+</div>
 
-            <img
-                src="images/profile.jpg"
-                class="notification-avatar"
-                alt="Jane Smith"
-                onerror="this.src='images/default-avatar.png'"
-            >
+<div class="stat-box">
 
-            <div class="notification-content">
+<h2 id="todayNotifications">
 
-                <p>
-                    🔔 <strong>Jane Smith</strong> sent you a connection request.
-                </p>
+2
 
-                <small>2 minutes ago</small>
+</h2>
 
-            </div>
+<p>Today</p>
 
-            <div class="notification-buttons">
+</div>
 
-                <button class="markReadBtn">
-                    ✓ Mark Read
-                </button>
+<div class="stat-box">
 
-                <button class="deleteNotificationBtn">
-                    🗑 Delete
-                </button>
+<h2 id="mentionsNotifications">
 
-            </div>
+0
 
-        </div>
+</h2>
 
-        <div class="notification-card unread">
+<p>Mentions</p>
 
-            <img
-                src="images/profile.jpg"
-                class="notification-avatar"
-                alt="Michael Brown"
-                onerror="this.src='images/default-avatar.png'"
-            >
+</div>
 
-            <div class="notification-content">
+<div class="stat-box">
 
-                <p>
-                    ❤️ <strong>Michael Brown</strong> liked your post.
-                </p>
+<h2 id="jobNotifications">
 
-                <small>18 minutes ago</small>
+1
 
-            </div>
+</h2>
 
-            <div class="notification-buttons">
+<p>Jobs</p>
 
-                <button class="markReadBtn">
-                    ✓ Mark Read
-                </button>
+</div>
 
-                <button class="deleteNotificationBtn">
-                    🗑 Delete
-                </button>
+<div class="stat-box">
 
-            </div>
+<h2 id="messageNotifications">
 
-        </div>
+0
 
-        <div class="notification-card unread">
+</h2>
 
-            <img
-                src="images/profile.jpg"
-                class="notification-avatar"
-                alt="Sarah Johnson"
-                onerror="this.src='images/default-avatar.png'"
-            >
+<p>Messages</p>
 
-            <div class="notification-content">
+</div>
 
-                <p>
-                    💬 <strong>Sarah Johnson</strong> commented on your post.
-                </p>
+</div>
 
-                <small>Yesterday</small>
+</div>
 
-            </div>
 
-            <div class="notification-buttons">
 
-                <button class="markReadBtn">
-                    ✓ Mark Read
-                </button>
+<!-- ================= FILTERS ================= -->
 
-                <button class="deleteNotificationBtn">
-                    🗑 Delete
-                </button>
+<div class="dashboard-card">
 
-            </div>
+<h3>📂 Filter Notifications</h3>
 
-        </div>
+<div class="notification-filter">
 
-        <div class="notification-card unread">
+<button class="filter-btn active">
 
-            <img
-                src="images/profile.jpg"
-                class="notification-avatar"
-                alt="Job Alert"
-                onerror="this.src='images/default-avatar.png'"
-            >
+📋 All
 
-            <div class="notification-content">
+</button>
 
-                <p>
-                    🎯 A new <strong>Frontend Developer</strong> job matches your profile.
-                </p>
+<button class="filter-btn">
 
-                <small>12 hours ago</small>
+📩 Unread
 
-            </div>
+</button>
 
-            <div class="notification-buttons">
+<button class="filter-btn">
 
-                <button class="markReadBtn">
-                    ✓ Mark Read
-                </button>
+❤️ Likes
 
-                <button class="deleteNotificationBtn">
-                    🗑 Delete
-                </button>
+</button>
 
-            </div>
+<button class="filter-btn">
 
-        </div>
+💬 Comments
 
-    </div>
+</button>
 
-    <!-- NOTIFICATION SETTINGS -->
-    <div class="notification-settings">
+<button class="filter-btn">
 
-        <button
-            id="notificationSettingsBtn"
-            class="primary-btn"
-        >
-            ⚙ Notification Settings
-        </button>
+🤝 Connections
 
-    </div>
+</button>
+
+<button class="filter-btn">
+
+💼 Jobs
+
+</button>
+
+<button class="filter-btn">
+
+📨 Messages
+
+</button>
+
+<button class="filter-btn">
+
+🎂 Birthdays
+
+</button>
+
+<button class="filter-btn">
+
+❤️ Dating
+
+</button>
+
+<button class="filter-btn">
+
+🏆 Achievements
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= QUICK ACTIONS ================= -->
+
+<div class="dashboard-card">
+
+<h3>⚡ Quick Actions</h3>
+
+<div class="quick-actions-grid">
+
+<button id="acceptAllRequests">
+
+🤝 Accept All Requests
+
+</button>
+
+<button id="deleteReadNotifications">
+
+🗑 Delete Read
+
+</button>
+
+<button id="muteNotifications">
+
+🔕 Mute Notifications
+
+</button>
+
+<button id="downloadNotifications">
+
+📄 Export
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= NOTIFICATION FEED ================= -->
+
+<div id="notificationContainer">
+
+<!-- Connection Request -->
+
+<div class="notification-card unread connection">
+
+<div class="notification-left">
+
+<img
+src="images/profile.jpg"
+class="notification-avatar"
+alt="Jane Smith"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<span class="notification-icon">
+🤝
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>Jane Smith</h4>
+
+<p>sent you a connection request.</p>
+
+<small>2 minutes ago</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="acceptRequestBtn">
+✅ Accept
+</button>
+
+<button class="declineRequestBtn">
+❌ Decline
+</button>
+
+<button class="markReadBtn">
+✓ Read
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Like -->
+
+<div class="notification-card unread like">
+
+<div class="notification-left">
+
+<img
+src="images/profile.jpg"
+class="notification-avatar"
+alt="Michael Brown"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<span class="notification-icon">
+
+❤️
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>Michael Brown</h4>
+
+<p>liked your latest post.</p>
+
+<small>18 minutes ago</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="viewPostBtn">
+
+👁 View
+
+</button>
+
+<button class="deleteNotificationBtn">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Comment -->
+
+<div class="notification-card unread comment">
+
+<div class="notification-left">
+
+<img
+src="images/profile.jpg"
+class="notification-avatar"
+alt="Sarah Johnson"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<span class="notification-icon">
+
+💬
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>Sarah Johnson</h4>
+
+<p>commented on your post.</p>
+
+<small>Yesterday</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="replyCommentBtn">
+
+Reply
+
+</button>
+
+<button class="viewPostBtn">
+
+View
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Message -->
+
+<div class="notification-card unread message">
+
+<div class="notification-left">
+
+<img
+src="images/profile.jpg"
+class="notification-avatar"
+alt="John Doe"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<span class="notification-icon">
+
+📨
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>John Doe</h4>
+
+<p>sent you a new message.</p>
+
+<small>25 minutes ago</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="openChatBtn">
+
+💬 Chat
+
+</button>
+
+<button class="markReadBtn">
+
+Read
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Job -->
+
+<div class="notification-card unread jobs">
+
+<div class="notification-left">
+
+<img
+src="images/company.png"
+class="notification-avatar"
+alt="Job"
+onerror="this.src='images/default-company.png'"
+>
+
+<span class="notification-icon">
+
+💼
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>Frontend Developer</h4>
+
+<p>matches your profile.</p>
+
+<small>12 hours ago</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="viewJobBtn">
+
+View Job
+
+</button>
+
+<button class="saveJobBtn">
+
+⭐ Save
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Dating Match -->
+
+<div class="notification-card unread dating">
+
+<div class="notification-left">
+
+<img
+src="images/profile.jpg"
+class="notification-avatar"
+alt="Jessica"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<span class="notification-icon">
+
+❤️
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>Jessica Williams</h4>
+
+<p>liked your dating profile.</p>
+
+<small>1 hour ago</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="viewProfileBtn">
+
+View
+
+</button>
+
+<button class="sendLikeBtn">
+
+❤️ Like Back
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Profile View -->
+
+<div class="notification-card profile-view">
+
+<div class="notification-left">
+
+<img
+src="images/profile.jpg"
+class="notification-avatar"
+alt="Visitor"
+onerror="this.src='images/default-avatar.png'"
+>
+
+<span class="notification-icon">
+
+👀
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>David Peter</h4>
+
+<p>viewed your profile.</p>
+
+<small>3 hours ago</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="viewProfileBtn">
+
+Open Profile
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- Birthday -->
+
+<div class="notification-card birthday">
+
+<div class="notification-left">
+
+<span class="notification-icon">
+
+🎂
+
+</span>
+
+</div>
+
+<div class="notification-content">
+
+<h4>Happy Birthday!</h4>
+
+<p>Wish Sarah Johnson a happy birthday.</p>
+
+<small>Today</small>
+
+</div>
+
+<div class="notification-buttons">
+
+<button class="wishBtn">
+
+🎉 Wish
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= TODAY'S ACTIVITY ================= -->
+
+<div class="dashboard-card">
+
+<h3>📅 Today's Activity</h3>
+
+<div class="activity-timeline">
+
+<div class="timeline-item">
+
+<span>08:30 AM</span>
+
+<p>❤️ Michael Brown liked your post.</p>
+
+</div>
+
+<div class="timeline-item">
+
+<span>10:15 AM</span>
+
+<p>🤝 Jane Smith sent you a connection request.</p>
+
+</div>
+
+<div class="timeline-item">
+
+<span>12:05 PM</span>
+
+<p>💬 Sarah Johnson commented on your post.</p>
+
+</div>
+
+<div class="timeline-item">
+
+<span>02:10 PM</span>
+
+<p>💼 New Software Engineer job matches your profile.</p>
+
+</div>
+
+<div class="timeline-item">
+
+<span>04:40 PM</span>
+
+<p>❤️ Jessica Williams liked your dating profile.</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= UPCOMING EVENTS ================= -->
+
+<div class="dashboard-card">
+
+<h3>📆 Upcoming Events</h3>
+
+<div id="eventNotifications">
+
+<div class="event-card">
+
+<h4>Career Webinar</h4>
+
+<p>Building a Successful Tech Career</p>
+
+<small>Tomorrow • 6:00 PM</small>
+
+<button class="joinEventBtn">
+
+Join Event
+
+</button>
+
+</div>
+
+<div class="event-card">
+
+<h4>Networking Meetup</h4>
+
+<p>Rhockstar Connect Lagos Meetup</p>
+
+<small>Saturday • 2:00 PM</small>
+
+<button class="joinEventBtn">
+
+Attend
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= ACHIEVEMENTS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🏆 Achievements</h3>
+
+<div class="achievement-list">
+
+<div class="achievement-card">
+
+🏅 First Connection
+
+</div>
+
+<div class="achievement-card">
+
+🔥 First Post
+
+</div>
+
+<div class="achievement-card">
+
+💼 First Job Application
+
+</div>
+
+<div class="achievement-card">
+
+❤️ First Dating Match
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= NOTIFICATION PREFERENCES ================= -->
+
+<div class="dashboard-card">
+
+<h3>⚙ Notification Preferences</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="connectionAlerts"
+checked
+>
+
+Connection Requests
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="messageAlerts"
+checked
+>
+
+Messages
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="commentAlerts"
+checked
+>
+
+Comments
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="likeAlerts"
+checked
+>
+
+Likes
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="jobAlerts"
+checked
+>
+
+Job Alerts
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="datingAlerts"
+checked
+>
+
+Dating Notifications
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="birthdayAlerts"
+checked
+>
+
+Birthday Reminders
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="eventAlerts"
+checked
+>
+
+Events & Webinars
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="emailAlerts"
+checked
+>
+
+Email Notifications
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="pushAlerts"
+checked
+>
+
+Push Notifications
+
+</label>
+
+<button
+id="saveNotificationSettings"
+class="primary-btn"
+>
+
+💾 Save Preferences
+
+</button>
+
+</div>
+
+
+
+<!-- ================= BLOCKED USERS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🚫 Blocked Users</h3>
+
+<div id="blockedUsersContainer">
+
+<p>No blocked users.</p>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= PAGINATION ================= -->
+
+<div class="pagination">
+
+<button id="previousNotificationPage">
+
+⬅ Previous
+
+</button>
+
+<span id="notificationPage">
+
+1 of 1
+
+</span>
+
+<button id="nextNotificationPage">
+
+Next ➡
+
+</button>
+
+</div>
+
+
+
+<!-- ================= EMPTY STATE ================= -->
+
+<div
+id="emptyNotifications"
+style="display:none;"
+class="empty-state"
+>
+
+<img
+src="images/empty-notification.png"
+alt="No Notifications"
+onerror="this.style.display='none'"
+>
+
+<h3>No Notifications</h3>
+
+<p>
+
+You're all caught up. New notifications will appear here.
+
+</p>
+
+<button id="refreshNotificationBtn">
+
+🔄 Refresh
+
+</button>
+
+</div>
 
 </section>
 
 <!-- ================= SETTINGS ================= -->
 <section
-    id="settings"
-    class="page"
+id="settings"
+class="page"
 >
 
-    <h2>⚙ Settings</h2>
+<div class="page-header">
 
-    <!-- ACCOUNT SETTINGS -->
-    <div class="dashboard-card">
+<h2>⚙ Settings</h2>
 
-        <h3>👤 Account Settings</h3>
+<div class="page-actions">
 
-        <div class="form-group">
+<button id="saveAllSettingsBtn">
 
-            <label for="settingsName">
-                Full Name
-            </label>
+💾 Save All
 
-            <input
-                type="text"
-                id="settingsName"
-                placeholder="Enter your full name"
-            >
+</button>
 
-        </div>
+<button id="resetSettingsBtn">
 
-        <div class="form-group">
+🔄 Reset
 
-            <label for="settingsEmail">
-                Email Address
-            </label>
+</button>
 
-            <input
-                type="email"
-                id="settingsEmail"
-                placeholder="Enter your email address"
-            >
+</div>
 
-        </div>
+</div>
 
-        <div class="form-group">
 
-            <label for="settingsUsername">
-                Username
-            </label>
 
-            <input
-                type="text"
-                id="settingsUsername"
-                placeholder="@username"
-            >
+<!-- ================= ACCOUNT ================= -->
 
-        </div>
+<div class="dashboard-card">
 
-        <button
-            id="saveAccountBtn"
-            class="primary-btn"
-        >
-            💾 Save Changes
-        </button>
+<h3>👤 Account Information</h3>
 
-    </div>
+<div class="profile-preview">
 
-    <!-- SECURITY -->
-    <div class="dashboard-card">
+<img
+id="settingsAvatar"
+src="images/profile.jpg"
+class="profile-avatar"
+onerror="this.src='images/default-avatar.png'"
+>
 
-        <h3>🔒 Security</h3>
+<div>
 
-        <div class="form-group">
+<h3 id="settingsDisplayName">
+Elijah Peter
+</h3>
 
-            <label for="currentPassword">
-                Current Password
-            </label>
+<p>
+@rhockstar
+</p>
 
-            <input
-                type="password"
-                id="currentPassword"
-                placeholder="Current Password"
-            >
+<button id="changeProfilePictureBtn">
 
-        </div>
+📷 Change Picture
 
-        <div class="form-group">
+</button>
 
-            <label for="newPassword">
-                New Password
-            </label>
+</div>
 
-            <input
-                type="password"
-                id="newPassword"
-                placeholder="New Password"
-            >
+</div>
 
-        </div>
-
-        <div class="form-group">
-
-            <label for="confirmPassword">
-                Confirm New Password
-            </label>
-
-            <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm Password"
-            >
-
-        </div>
-
-        <button
-            id="changePasswordBtn"
-            class="primary-btn"
-        >
-            🔑 Change Password
-        </button>
-
-    </div>
-
-    <!-- APPEARANCE -->
-    <div class="dashboard-card">
-
-        <h3>🎨 Appearance</h3>
-
-        <label>
-            <input
-                type="checkbox"
-                id="darkMode"
-                checked
-            >
-            Enable Dark Mode
-        </label>
-
-        <label>
-            <input
-                type="checkbox"
-                id="animations"
-                checked
-            >
-            Enable Animations
-        </label>
+<div class="form-group">
 
-    </div>
+<label>Full Name</label>
 
-    <!-- PRIVACY -->
-    <div class="dashboard-card">
+<input
+type="text"
+id="settingsName"
+placeholder="Full Name"
+>
 
-        <h3>🛡 Privacy</h3>
+</div>
 
-        <label>
-            <input
-                type="checkbox"
-                id="privateProfile"
-            >
-            Private Profile
-        </label>
+<div class="form-group">
 
-        <label>
-            <input
-                type="checkbox"
-                id="showEmail"
-                checked
-            >
-            Show Email Address
-        </label>
+<label>Username</label>
 
-        <label>
-            <input
-                type="checkbox"
-                id="showPhone"
-            >
-            Show Phone Number
-        </label>
+<input
+type="text"
+id="settingsUsername"
+placeholder="@username"
+>
 
-    </div>
+</div>
 
-    <!-- NOTIFICATION PREFERENCES -->
-    <div class="dashboard-card">
+<div class="form-group">
 
-        <h3>🔔 Notification Preferences</h3>
+<label>Email Address</label>
 
-        <label>
-            <input
-                type="checkbox"
-                id="emailNotifications"
-                checked
-            >
-            Email Notifications
-        </label>
+<input
+type="email"
+id="settingsEmail"
+placeholder="Email Address"
+>
 
-        <label>
-            <input
-                type="checkbox"
-                id="jobNotifications"
-                checked
-            >
-            Job Alerts
-        </label>
+</div>
 
-        <label>
-            <input
-                type="checkbox"
-                id="messageNotifications"
-                checked
-            >
-            Message Notifications
-        </label>
+<div class="form-group">
 
-    </div>
+<label>Phone Number</label>
 
-    <!-- STORAGE -->
-    <div class="dashboard-card">
+<input
+type="tel"
+id="settingsPhone"
+placeholder="+234..."
+>
 
-        <h3>📊 Storage & Activity</h3>
+</div>
 
-        <div class="stats-grid">
+<div class="form-group">
 
-            <div class="stat-box">
+<label>Location</label>
 
-                <h3 id="totalPosts">0</h3>
+<input
+type="text"
+id="settingsLocation"
+placeholder="City, Country"
+>
 
-                <p>Posts</p>
+</div>
 
-            </div>
+<div class="form-group">
 
-            <div class="stat-box">
+<label>Website</label>
 
-                <h3 id="settingsConnections">0</h3>
+<input
+type="url"
+id="settingsWebsite"
+placeholder="https://"
+>
 
-                <p>Connections</p>
+</div>
 
-            </div>
+<div class="form-group">
 
-            <div class="stat-box">
+<label>Bio</label>
 
-                <h3 id="savedJobs">0</h3>
+<textarea
+id="settingsBio"
+rows="4"
+></textarea>
 
-                <p>Saved Jobs</p>
+</div>
 
-            </div>
+<button
+id="saveAccountBtn"
+class="primary-btn"
+>
 
-        </div>
+💾 Save Account
 
-    </div>
+</button>
 
-    <!-- DANGER ZONE -->
-    <div class="dashboard-card danger-zone">
+</div>
 
-        <h3>⚠ Danger Zone</h3>
 
-        <button
-            id="downloadDataBtn"
-            class="secondary-btn"
-        >
-            📥 Download My Data
-        </button>
 
-        <button
-            id="deleteAccountBtn"
-            class="danger-btn"
-        >
-            🗑 Delete Account
-        </button>
+<!-- ================= SECURITY ================= -->
 
-    </div>
+<div class="dashboard-card">
 
-</section>
-</main>
+<h3>🔒 Security Center</h3>
+
+<div class="form-group">
+
+<label>Current Password</label>
+
+<input
+type="password"
+id="currentPassword"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>New Password</label>
+
+<input
+type="password"
+id="newPassword"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input
+type="password"
+id="confirmPassword"
+>
+
+</div>
+
+<button
+id="changePasswordBtn"
+class="primary-btn"
+>
+
+🔑 Change Password
+
+</button>
+
+<hr>
+
+<label>
+
+<input
+type="checkbox"
+id="twoFactorAuth"
+>
+
+Enable Two Factor Authentication
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="loginAlerts"
+checked
+>
+
+Notify Me of New Login
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="rememberDevice"
+checked
+>
+
+Remember This Device
+
+</label>
+
+<button id="logoutEverywhereBtn">
+
+🚪 Logout From All Devices
+
+</button>
+
+</div>
+
+
+
+<!-- ================= LOGIN HISTORY ================= -->
+
+<div class="dashboard-card">
+
+<h3>🖥 Login History</h3>
+
+<div id="loginHistoryContainer">
+
+<div class="history-card">
+
+<h4>Chrome on Windows</h4>
+
+<p>Lagos, Nigeria</p>
+
+<small>Just now</small>
+
+</div>
+
+<div class="history-card">
+
+<h4>Android Device</h4>
+
+<p>Yesterday</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= APPEARANCE ================= -->
+
+<div class="dashboard-card">
+
+<h3>🎨 Appearance</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="darkMode"
+checked
+>
+
+Dark Mode
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="lightMode"
+>
+
+Light Mode
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="animations"
+checked
+>
+
+Enable Animations
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="glassEffect"
+checked
+>
+
+Glass Effect
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="compactMode"
+>
+
+Compact Layout
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="showOnlineStatus"
+checked
+>
+
+Show Online Status
+
+</label>
+
+<div class="form-group">
+
+<label>Theme Color</label>
+
+<select id="themeColor">
+
+<option value="gold">Gold</option>
+
+<option value="blue">Blue</option>
+
+<option value="green">Green</option>
+
+<option value="purple">Purple</option>
+
+<option value="red">Red</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= PRIVACY ================= -->
+
+<div class="dashboard-card">
+
+<h3>🛡 Privacy</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="privateProfile"
+>
+
+Private Profile
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="hideOnlineStatus"
+>
+
+Hide Online Status
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="showEmail"
+checked
+>
+
+Show Email
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="showPhone"
+>
+
+Show Phone Number
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="allowMessages"
+checked
+>
+
+Allow Messages From Everyone
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="allowFriendRequests"
+checked
+>
+
+Allow Connection Requests
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="showProfileViews"
+checked
+>
+
+Show Profile Views
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="readReceipts"
+checked
+>
+
+Read Receipts
+
+</label>
+
+</div>
+
+
+
+<!-- ================= NOTIFICATIONS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🔔 Notifications</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="emailNotifications"
+checked
+>
+
+Email Notifications
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="pushNotifications"
+checked
+>
+
+Push Notifications
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="messageNotifications"
+checked
+>
+
+Messages
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="jobNotifications"
+checked
+>
+
+Job Alerts
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="connectionNotifications"
+checked
+>
+
+Connection Requests
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="commentNotifications"
+checked
+>
+
+Comments
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="likeNotifications"
+checked
+>
+
+Likes
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="birthdayNotifications"
+checked
+>
+
+Birthday Reminders
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="datingNotifications"
+checked
+>
+
+Dating Matches
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="eventNotifications"
+checked
+>
+
+Events & Meetups
+
+</label>
+
+</div>
+
+
+
+<!-- ================= DATING SETTINGS ================= -->
+
+<div class="dashboard-card">
+
+<h3>❤️ Dating Preferences</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="enableDating"
+checked
+>
+
+Enable Dating Mode
+
+</label>
+
+<div class="form-group">
+
+<label>Interested In</label>
+
+<select id="interestedIn">
+
+<option>Women</option>
+
+<option>Men</option>
+
+<option>Everyone</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Age Range</label>
+
+<input
+type="text"
+id="ageRange"
+placeholder="18 - 35"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>Maximum Distance (KM)</label>
+
+<input
+type="number"
+id="matchDistance"
+value="50"
+>
+
+</div>
+
+<label>
+
+<input
+type="checkbox"
+id="showDatingProfile"
+checked
+>
+
+Show Dating Profile
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="onlyVerifiedUsers"
+>
+
+Only Match Verified Users
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="hideDatingProfile"
+>
+
+Pause Dating Profile
+
+</label>
+
+<button
+id="saveDatingSettingsBtn"
+class="primary-btn"
+>
+
+❤️ Save Dating Preferences
+
+</button>
+
+</div>
+
+<!-- ================= STORAGE ================= -->
+
+<div class="dashboard-card">
+
+<h3>💾 Storage & Activity</h3>
+
+<div class="stats-grid">
+
+<div class="stat-box">
+
+<h2 id="totalPosts">0</h2>
+
+<p>Posts</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="settingsConnections">0</h2>
+
+<p>Connections</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="savedJobs">0</h2>
+
+<p>Saved Jobs</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="totalMessages">0</h2>
+
+<p>Messages</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="profileViews">0</h2>
+
+<p>Profile Views</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="totalMatches">0</h2>
+
+<p>Dating Matches</p>
+
+</div>
+
+</div>
+
+<button id="refreshStatisticsBtn">
+
+🔄 Refresh Statistics
+
+</button>
+
+</div>
+
+
+
+<!-- ================= BACKUP ================= -->
+
+<div class="dashboard-card">
+
+<h3>☁ Backup & Restore</h3>
+
+<p>
+
+Backup your account data before changing devices.
+
+</p>
+
+<button id="backupBtn">
+
+☁ Backup Account
+
+</button>
+
+<button id="restoreBtn">
+
+📂 Restore Backup
+
+</button>
+
+<button id="exportBtn">
+
+📥 Export My Data
+
+</button>
+
+</div>
+
+
+
+<!-- ================= VERIFIED ACCOUNT ================= -->
+
+<div class="dashboard-card">
+
+<h3>✔ Verification</h3>
+
+<p>
+
+Status:
+<strong id="verificationStatus">
+
+Not Verified
+
+</strong>
+
+</p>
+
+<button id="verifyAccountBtn">
+
+✔ Verify My Account
+
+</button>
+
+</div>
+
+
+
+<!-- ================= BLOCKED USERS ================= -->
+
+<div class="dashboard-card">
+
+<h3>🚫 Blocked Users</h3>
+
+<div id="blockedUsersContainer">
+
+<p>
+
+No blocked users.
+
+</p>
+
+</div>
+
+<button id="manageBlockedUsers">
+
+Manage Blocked Users
+
+</button>
+
+</div>
+
+
+
+<!-- ================= LANGUAGE ================= -->
+
+<div class="dashboard-card">
+
+<h3>🌍 Language & Region</h3>
+
+<div class="form-group">
+
+<label>
+
+Language
+
+</label>
+
+<select id="language">
+
+<option>English</option>
+
+<option>French</option>
+
+<option>Spanish</option>
+
+<option>Portuguese</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Country
+
+</label>
+
+<select id="country">
+
+<option>Nigeria</option>
+
+<option>Ghana</option>
+
+<option>United States</option>
+
+<option>United Kingdom</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= ACCESSIBILITY ================= -->
+
+<div class="dashboard-card">
+
+<h3>♿ Accessibility</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="largeText"
+>
+
+Large Text
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="highContrast"
+>
+
+High Contrast
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="reduceMotion"
+>
+
+Reduce Motion
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="screenReaderMode"
+>
+
+Screen Reader Mode
+
+</label>
+
+</div>
+
+
+
+<!-- ================= DEVELOPER ================= -->
+
+<div class="dashboard-card">
+
+<h3>🛠 Developer Options</h3>
+
+<button id="clearCacheBtn">
+
+🧹 Clear Cache
+
+</button>
+
+<button id="reloadAppBtn">
+
+🔄 Reload App
+
+</button>
+
+<button id="resetPreferencesBtn">
+
+♻ Reset Preferences
+
+</button>
+
+</div>
+
+
+
+<!-- ================= HELP ================= -->
+
+<div class="dashboard-card">
+
+<h3>❓ Help & Support</h3>
+
+<button id="faqBtn">
+
+📖 FAQ
+
+</button>
+
+<button id="contactSupportBtn">
+
+💬 Contact Support
+
+</button>
+
+<button id="reportBugBtn">
+
+🐞 Report Bug
+
+</button>
+
+<button id="sendFeedbackBtn">
+
+⭐ Send Feedback
+
+</button>
+
+</div>
+
+
+
+<!-- ================= ABOUT ================= -->
+
+<div class="dashboard-card">
+
+<h3>ℹ About Rhockstar Connect</h3>
+
+<p>
+
+Version 1.0.0
+
+</p>
+
+<p>
+
+Developed by Rhockstar Nation
+
+</p>
+
+<button id="checkUpdatesBtn">
+
+⬆ Check for Updates
+
+</button>
+
+</div>
+
+
+
+<!-- ================= DANGER ZONE ================= -->
+
+<div class="dashboard-card danger-zone">
+
+<h3>⚠ Danger Zone</h3>
+
+<p>
+
+These actions cannot be undone.
+
+</p>
+
+<button
+id="downloadDataBtn"
+class="secondary-btn"
+>
+
+📥 Download My Data
+
+</button>
+
+<button
+id="deactivateAccountBtn"
+class="secondary-btn"
+>
+
+⏸ Deactivate Account
+
+</button>
+
+<button
+id="logoutBtn"
+class="secondary-btn"
+>
+
+🚪 Logout
+
+</button>
+
+<button
+id="deleteAccountBtn"
+class="danger-btn"
+>
+
+🗑 Permanently Delete Account
+
+</button>
+
+</div>
+
 </section>
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
