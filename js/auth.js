@@ -5,10 +5,9 @@
 
 const SESSION_KEY = "rhockstar_session";
 
-/**
- * Save login session
- * Call this from login.js after successful login.
- */
+/* ==========================
+   SAVE LOGIN SESSION
+========================== */
 function loginUser(userData) {
 
     if (!userData) return;
@@ -20,121 +19,110 @@ function loginUser(userData) {
 
 }
 
-/**
- * Get current logged in user
- */
+/* ==========================
+   GET CURRENT USER
+========================== */
 function getCurrentUser() {
 
-    return JSON.parse(
-        localStorage.getItem(SESSION_KEY)
-    );
+    const user = localStorage.getItem(SESSION_KEY);
+
+    return user ? JSON.parse(user) : null;
 
 }
 
-/**
- * Check if user is logged in
- */
+/* ==========================
+   CHECK LOGIN STATUS
+========================== */
 function isLoggedIn() {
 
     return getCurrentUser() !== null;
 
 }
 
-/**
- * Show Home or Dashboard
- * Runs only on index.html
- */
+/* ==========================
+   SHOW HOME OR DASHBOARD
+========================== */
 function checkSession() {
 
     const home = document.getElementById("home");
     const dashboard = document.getElementById("dashboard");
     const footer = document.querySelector(".footer");
 
-    if (!home && !dashboard) return;
-
     if (isLoggedIn()) {
 
-        if (home)
-            home.style.display = "none";
+        if (home) home.style.display = "none";
 
-        if (dashboard)
-            dashboard.style.display = "flex";
+        if (dashboard) dashboard.style.display = "flex";
 
-        if (footer)
-            footer.style.display = "none";
+        if (footer) footer.style.display = "none";
 
     } else {
 
-        if (home)
-            home.style.display = "block";
+        if (home) home.style.display = "block";
 
-        if (dashboard)
-            dashboard.style.display = "none";
+        if (dashboard) dashboard.style.display = "none";
 
-        if (footer)
-            footer.style.display = "block";
+        if (footer) footer.style.display = "block";
 
     }
 
 }
 
-/**
- * Logout
- */
+/* ==========================
+   LOGOUT
+========================== */
 function logoutUser() {
 
-    const confirmLogout = confirm(
+    const answer = confirm(
         "Are you sure you want to log out?"
     );
 
-    if (!confirmLogout) return;
+    if (!answer) return;
 
     localStorage.removeItem(SESSION_KEY);
+
+    sessionStorage.clear();
 
     location.href = "index.html";
 
 }
 
-/**
- * Protect pages that require login
- *
- * Example:
- * requireLogin();
- */
+/* ==========================
+   REQUIRE LOGIN
+========================== */
 function requireLogin() {
 
     if (!isLoggedIn()) {
 
-        location.href = "login.html";
+        location.replace("login.html");
 
     }
 
 }
 
-/**
- * Prevent logged in users from opening
- * login or register pages.
- */
+/* ==========================
+   REDIRECT IF ALREADY LOGGED IN
+========================== */
 function redirectIfLoggedIn() {
 
     if (isLoggedIn()) {
 
-        location.href = "index.html";
+        location.replace("index.html");
 
     }
 
 }
 
-/**
- * Initialize Authentication
- */
+/* ==========================
+   INITIALIZE AUTH
+========================== */
 function initAuth() {
 
     const page = window.location.pathname
         .split("/")
         .pop();
 
-    // Login page
+    // Prevent logged in users from opening login/register
     if (
         page === "login.html" ||
         page === "register.html"
@@ -145,13 +133,18 @@ function initAuth() {
 
     }
 
-    // Main website
+    // Show correct page
     checkSession();
 
-    const logoutBtn =
-        document.getElementById("logout");
+    // Logout Button
+    const logoutBtn = document.getElementById("logout");
 
     if (logoutBtn) {
+
+        logoutBtn.removeEventListener(
+            "click",
+            logoutUser
+        );
 
         logoutBtn.addEventListener(
             "click",
@@ -161,3 +154,11 @@ function initAuth() {
     }
 
 }
+
+/* ==========================
+   START AUTH
+========================== */
+document.addEventListener(
+    "DOMContentLoaded",
+    initAuth
+);
