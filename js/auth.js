@@ -1,164 +1,322 @@
-// =========================================
+// ===============================
+// RHOCKSTAR CONNECT
 // auth.js
-// Rhockstar Connect Authentication Manager
-// =========================================
+// ===============================
 
-const SESSION_KEY = "rhockstar_session";
+"use strict";
 
-/* ==========================
-   SAVE LOGIN SESSION
-========================== */
-function loginUser(userData) {
+// ===============================
+// AUTH CLASS
+// ===============================
 
-    if (!userData) return;
+class Auth {
 
-    localStorage.setItem(
-        SESSION_KEY,
-        JSON.stringify(userData)
-    );
+    // ---------------------------
+    // Register
+    // ---------------------------
 
-}
+    static register(user) {
 
-/* ==========================
-   GET CURRENT USER
-========================== */
-function getCurrentUser() {
+        const users = StorageManager.getArray(STORAGE_KEYS.USERS);
 
-    const user = localStorage.getItem(SESSION_KEY);
+        const exists = users.find(u =>
 
-    return user ? JSON.parse(user) : null;
+            u.email.toLowerCase() === user.email.toLowerCase()
 
-}
-
-/* ==========================
-   CHECK LOGIN STATUS
-========================== */
-function isLoggedIn() {
-
-    return getCurrentUser() !== null;
-
-}
-
-/* ==========================
-   SHOW HOME OR DASHBOARD
-========================== */
-function checkSession() {
-
-    const home = document.getElementById("home");
-    const dashboard = document.getElementById("dashboard");
-    const footer = document.querySelector(".footer");
-
-    if (isLoggedIn()) {
-
-        if (home) home.style.display = "none";
-
-        if (dashboard) dashboard.style.display = "flex";
-
-        if (footer) footer.style.display = "none";
-
-    } else {
-
-        if (home) home.style.display = "block";
-
-        if (dashboard) dashboard.style.display = "none";
-
-        if (footer) footer.style.display = "block";
-
-    }
-
-}
-
-/* ==========================
-   LOGOUT
-========================== */
-function logoutUser() {
-
-    const answer = confirm(
-        "Are you sure you want to log out?"
-    );
-
-    if (!answer) return;
-
-    localStorage.removeItem(SESSION_KEY);
-
-    sessionStorage.clear();
-
-    location.href = "index.html";
-
-}
-
-/* ==========================
-   REQUIRE LOGIN
-========================== */
-function requireLogin() {
-
-    if (!isLoggedIn()) {
-
-        location.replace("login.html");
-
-    }
-
-}
-
-/* ==========================
-   REDIRECT IF ALREADY LOGGED IN
-========================== */
-function redirectIfLoggedIn() {
-
-    if (isLoggedIn()) {
-
-        location.replace("index.html");
-
-    }
-
-}
-
-/* ==========================
-   INITIALIZE AUTH
-========================== */
-function initAuth() {
-
-    const page = window.location.pathname
-        .split("/")
-        .pop();
-
-    // Prevent logged in users from opening login/register
-    if (
-        page === "login.html" ||
-        page === "register.html"
-    ) {
-
-        redirectIfLoggedIn();
-        return;
-
-    }
-
-    // Show correct page
-    checkSession();
-
-    // Logout Button
-    const logoutBtn = document.getElementById("logout");
-
-    if (logoutBtn) {
-
-        logoutBtn.removeEventListener(
-            "click",
-            logoutUser
         );
 
-        logoutBtn.addEventListener(
-            "click",
-            logoutUser
+        if (exists) {
+
+            AppUtils.showToast(
+
+                "Email already exists.",
+
+                "error"
+
+            );
+
+            return false;
+
+        }
+
+        user.id = AppUtils.generateId();
+
+        user.createdAt = new Date().toISOString();
+
+        user.updatedAt = new Date().toISOString();
+
+        user.verified = false;
+
+        user.online = true;
+
+        users.push(user);
+
+        StorageManager.save(
+
+            STORAGE_KEYS.USERS,
+
+            users
+
         );
+
+        StorageManager.save(
+
+            STORAGE_KEYS.USER,
+
+            user
+
+        );
+
+        return true;
+
+    }
+
+    // ---------------------------
+    // Login
+    // ---------------------------
+
+    static login(email, password) {
+
+        const users = StorageManager.getArray(
+
+            STORAGE_KEYS.USERS
+
+        );
+
+        const user = users.find(u =>
+
+            u.email.toLowerCase() === email.toLowerCase() &&
+
+            u.password === password
+
+        );
+
+        if (!user) {
+
+            AppUtils.showToast(
+
+                "Invalid email or password.",
+
+                "error"
+
+            );
+
+            return false;
+
+        }
+
+        user.online = true;
+
+        user.lastLogin = new Date().toISOString();
+
+        StorageManager.save(
+
+            STORAGE_KEYS.USER,
+
+            user
+
+        );
+
+        StorageManager.updateItem(
+
+            STORAGE_KEYS.USERS,
+
+            user.id,
+
+            {
+
+                online: true,
+
+                lastLogin: user.lastLogin
+
+            }
+
+        );
+
+        return true;
+
+    }
+
+    // ---------------------------
+    // Logout
+    // ---------------------------
+
+    static logout() {
+
+        const user = this.currentUser();
+
+        if (user) {
+
+            StorageManager.updateItem(
+
+                STORAGE_KEYS.USERS,
+
+                user.id,
+
+                {
+
+                    online: false
+
+                }
+
+            );
+
+        }
+
+        StorageManager.remove(
+
+            STORAGE_KEYS.USER
+
+        );
+
+        window.location.href = "login.html";
+
+    }
+
+    // ---------------------------
+    // Current User
+    // ---------------------------
+
+    static currentUser() {
+
+        return StorageManager.get(
+
+            STORAGE_KEYS.USER
+
+        );
+
+    }
+
+    // ---------------------------
+    // Logged In?
+    // ---------------------------
+
+    static isLoggedIn() {
+
+        return this.currentUser() !== null;
+
+    }
+
+    // ---------------------------
+    // Update Current User
+    // ---------------------------
+
+    static updateCurrentUser(data) {
+
+        const user = this.currentUser();
+
+        if (!user) return;
+
+        const updated = {
+
+            ...user,
+
+            ...data,
+
+            updatedAt: new Date().toISOString()
+
+        };
+
+        StorageManager.save(
+
+            STORAGE_KEYS.USER,
+
+            updated
+
+        );
+
+        StorageManager.updateItem(
+
+            STORAGE_KEYS.USERS,
+
+            updated.id,
+
+            updated
+
+        );
+
+    }
+
+    // ---------------------------
+    // Require Login
+    // ---------------------------
+
+    static requireLogin() {
+
+        if (!this.isLoggedIn()) {
+
+            window.location.href =
+
+                "login.html";
+
+        }
 
     }
 
 }
 
-/* ==========================
-   START AUTH
-========================== */
+// ===============================
+// AUTO PROTECT DASHBOARD
+// ===============================
+
 document.addEventListener(
+
     "DOMContentLoaded",
-    initAuth
+
+    () => {
+
+        if (
+
+            window.location.pathname.includes(
+
+                "dashboard"
+
+            )
+
+        ) {
+
+            Auth.requireLogin();
+
+        }
+
+    }
+
 );
+
+// ===============================
+// LOGOUT BUTTON
+// ===============================
+
+const logoutBtn = document.getElementById(
+
+    "logoutBtn"
+
+);
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+
+        "click",
+
+        () => {
+
+            if (
+
+                confirm(
+
+                    "Are you sure you want to logout?"
+
+                )
+
+            ) {
+
+                Auth.logout();
+
+            }
+
+        }
+
+    );
+
+}
