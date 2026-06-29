@@ -1,115 +1,51 @@
-// ================= ELEMENTS =================
 const loginForm = document.getElementById("loginForm");
-const loginId = document.getElementById("loginId");
-const passwordInput = document.getElementById("password");
 const messageBox = document.getElementById("messageBox");
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
 
-const showPassword = document.getElementById("showPassword");
-const rememberMe = document.getElementById("rememberMe");
-const loginBtn = document.getElementById("loginBtn");
-
-// ================= STORAGE KEYS =================
-const USERS_KEY = "rhockstarUsers";
-const SESSION_KEY = "rhockstar_session";
-const REMEMBER_KEY = "rhockstar_remember";
-
-// ================= SHOW MESSAGE =================
-function showMessage(type, text) {
-  messageBox.className = "message-box " + type;
-  messageBox.innerText = text;
-  messageBox.style.display = "block";
+if (togglePassword) {
+  togglePassword.addEventListener("click", () => {
+    if (password.type === "password") {
+      password.type = "text";
+      togglePassword.textContent = "🙈";
+    } else {
+      password.type = "password";
+      togglePassword.textContent = "👁";
+    }
+  });
 }
 
-// ================= RESET BUTTON =================
-function resetBtn() {
-  loginBtn.classList.remove("loading");
-  loginBtn.innerText = "Login";
-  loginBtn.disabled = false;
-}
-
-// ================= AUTO LOGIN CHECK =================
-const savedSession =
-  JSON.parse(localStorage.getItem(SESSION_KEY)) ||
-  JSON.parse(sessionStorage.getItem(SESSION_KEY));
-
-if (savedSession) {
-  window.location.href = "index.html";
-}
-
-// ================= LOAD REMEMBERED USER =================
-const remembered = localStorage.getItem(REMEMBER_KEY);
-if (remembered) {
-  loginId.value = remembered;
-  rememberMe.checked = true;
-}
-
-// ================= SHOW / HIDE PASSWORD =================
-showPassword.addEventListener("change", () => {
-  passwordInput.type = showPassword.checked ? "text" : "password";
-});
-
-// ================= LOGIN =================
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  loginBtn.classList.add("loading");
-  loginBtn.innerText = "Logging in...";
-  loginBtn.disabled = true;
+  const loginId = document.getElementById("loginId").value.trim();
+  const passwordValue = password.value.trim();
+  const rememberMe = document.getElementById("rememberMe").checked;
 
-  const idValue = loginId.value.trim().toLowerCase();
-  const passValue = passwordInput.value.trim();
+  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  if (!idValue || !passValue) {
-    showMessage("error", "Please fill in all fields");
-    return resetBtn();
-  }
-
-  const users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
-
-  // ================= FIND USER (EMAIL OR USERNAME) =================
   const user = users.find(
     u =>
-      u.email.toLowerCase() === idValue ||
-      (u.username && u.username.toLowerCase() === idValue)
+      (u.email === loginId || u.username === loginId) &&
+      u.password === passwordValue
   );
 
   if (!user) {
-    showMessage("error", "User not found");
-    return resetBtn();
+    messageBox.textContent = "Invalid username/email or password.";
+    messageBox.style.color = "red";
+    return;
   }
 
-  if (user.password !== passValue) {
-    showMessage("error", "Incorrect password");
-    return resetBtn();
-  }
-
-  // ================= SESSION DATA =================
-  const sessionData = {
-    id: user.id,
-    name: user.name,
-    username: user.username || null,
-    email: user.email,
-    profileImage: user.profileImage,
-    loginTime: new Date().toISOString()
-  };
-
-  // ================= SAVE SESSION =================
-  if (rememberMe.checked) {
-    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+  if (rememberMe) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
   } else {
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    sessionStorage.setItem("currentUser", JSON.stringify(user));
   }
 
-  // ================= REMEMBER LOGIN ID =================
-  if (rememberMe.checked) {
-    localStorage.setItem(REMEMBER_KEY, idValue);
-  } else {
-    localStorage.removeItem(REMEMBER_KEY);
-  }
-
-  showMessage("success", "Login successful! Redirecting...");
+  messageBox.textContent = "Login successful!";
+  messageBox.style.color = "green";
 
   setTimeout(() => {
-    window.location.href = "index.html";
-  }, 1200);
+    window.location.href = "dashboard.html"; // Change if your dashboard has another name
+  }, 1000);
 });
