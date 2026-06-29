@@ -1,96 +1,152 @@
 // ================= ELEMENTS =================
 const form = document.getElementById("registerForm");
+const messageBox = document.getElementById("messageBox");
+const registerBtn = document.getElementById("registerBtn");
+
+const fullName = document.getElementById("fullName");
+const username = document.getElementById("username");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
 
 // ================= STORAGE KEY =================
 const USERS_KEY = "rhockstarUsers";
 
+// ================= SHOW MESSAGE =================
+function showMessage(type, text) {
+  messageBox.className = "message-box " + type;
+  messageBox.innerText = text;
+}
+
+// ================= PASSWORD STRENGTH =================
+function checkStrength(pass) {
+  let strength = 0;
+
+  if (pass.length >= 8) strength++;
+  if (/[A-Z]/.test(pass)) strength++;
+  if (/[a-z]/.test(pass)) strength++;
+  if (/[0-9]/.test(pass)) strength++;
+  if (/[@$!%*?&.#_-]/.test(pass)) strength++;
+
+  const bar = document.getElementById("strengthBar");
+  if (!bar) return;
+
+  bar.style.width = (strength * 20) + "%";
+
+  if (strength <= 2) bar.style.background = "#ef4444";
+  else if (strength === 3 || strength === 4) bar.style.background = "#f59e0b";
+  else bar.style.background = "#22c55e";
+}
+
+// live strength check
+password.addEventListener("input", () => {
+  checkStrength(password.value);
+});
+
+// ================= TOGGLE PASSWORD =================
+document.getElementById("togglePassword").addEventListener("click", () => {
+  password.type = password.type === "password" ? "text" : "password";
+});
+
 // ================= REGISTER =================
 form.addEventListener("submit", function (e) {
-
   e.preventDefault();
 
-  const name = document.getElementById("fullName").value.trim();
-  const email = document.getElementById("email").value.trim().toLowerCase();
-  const password = document.getElementById("password").value;
+  registerBtn.classList.add("loading");
+  registerBtn.innerText = "Creating Account...";
 
-  // ================= PASSWORD RULE =================
+  const nameValue = fullName.value.trim();
+  const usernameValue = username.value.trim().toLowerCase();
+  const emailValue = email.value.trim().toLowerCase();
+  const passwordValue = password.value;
+  const confirmValue = confirmPassword.value;
+
+  // reset message
+  messageBox.style.display = "block";
+
+  // ================= VALIDATION =================
+
+  if (nameValue.length < 3) {
+    showMessage("error", "Name must be at least 3 characters");
+    return resetBtn();
+  }
+
+  if (usernameValue.length < 3) {
+    showMessage("error", "Username must be at least 3 characters");
+    return resetBtn();
+  }
+
+  if (!emailValue.includes("@")) {
+    showMessage("error", "Enter a valid email address");
+    return resetBtn();
+  }
+
+  if (passwordValue !== confirmValue) {
+    showMessage("error", "Passwords do not match");
+    return resetBtn();
+  }
+
   const passwordPattern =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-]).{8,}$/;
 
-  // ================= NAME VALIDATION =================
-  if (name.length < 3) {
-    alert("Please enter a valid full name.");
-    return;
-  }
-
-  // ================= EMAIL VALIDATION =================
-  if (!email.includes("@")) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  // ================= PASSWORD VALIDATION =================
-  if (!passwordPattern.test(password)) {
-
-    alert(
-      "Password must contain:\n\n" +
-      "• At least 8 characters\n" +
-      "• One uppercase letter\n" +
-      "• One lowercase letter\n" +
-      "• One number\n" +
-      "• One special character"
+  if (!passwordPattern.test(passwordValue)) {
+    showMessage(
+      "error",
+      "Password is too weak. Use uppercase, lowercase, number & symbol."
     );
-
-    return;
+    return resetBtn();
   }
 
   // ================= LOAD USERS =================
-  let users =
-    JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+  let users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
 
-  // ================= CHECK EXISTING EMAIL =================
-  const existingUser = users.find(
-    user => user.email === email
-  );
+  // ================= DUPLICATE CHECK =================
+  const emailExists = users.find(u => u.email === emailValue);
+  const usernameExists = users.find(u => u.username === usernameValue);
 
-  if (existingUser) {
-    alert("An account with this email already exists.");
-    return;
+  if (emailExists) {
+    showMessage("error", "Email already exists");
+    return resetBtn();
+  }
+
+  if (usernameExists) {
+    showMessage("error", "Username already taken");
+    return resetBtn();
   }
 
   // ================= CREATE USER =================
   const newUser = {
     id: Date.now(),
-    name: name,
-    email: email,
-    password: password,
+    name: nameValue,
+    username: usernameValue,
+    email: emailValue,
+    password: passwordValue,
 
     title: "Member",
-
     bio: "Welcome to Rhockstar Connect.",
 
     profileImage:
       "https://ui-avatars.com/api/?name=" +
-      encodeURIComponent(name) +
+      encodeURIComponent(nameValue) +
       "&background=0D8ABC&color=fff",
 
     joinedAt: new Date().toISOString()
   };
 
-  // ================= SAVE USER =================
   users.push(newUser);
-
-  localStorage.setItem(
-    USERS_KEY,
-    JSON.stringify(users)
-  );
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
 
   // ================= SUCCESS =================
-  alert("Registration successful!");
+  showMessage("success", "Account created successfully!");
 
-  form.reset();
-
-  // ================= REDIRECT =================
-  window.location.href = "login.html";
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 1200);
 
 });
+
+// ================= RESET BUTTON =================
+function resetBtn() {
+  registerBtn.classList.remove("loading");
+  registerBtn.innerText = "Create Account";
+}
