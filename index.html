@@ -3573,7 +3573,7 @@ Clear
 
     </div>
 
-    <div id="blockedUsersContainer">
+    <div id="connectionsBlockedUsersContainer">
 
     </div>
 
@@ -4153,7 +4153,7 @@ Can we connect?
             </button>
 
             <button
-                id="viewProfileBtn"
+                id="viewDatingProfileBtn"
                 title="View Profile"
             >
                 👤
@@ -5246,7 +5246,7 @@ View Company
 </div>
 
 <div class="stat-box">
-<h2 id="jobAlerts">0</h2>
+<h2 id="jobAlertsCount">0</h2>
 <p>Alerts</p>
 </div>
 
@@ -6426,7 +6426,7 @@ onerror="this.src='images/default-avatar.png'"
 
 <div class="notification-buttons">
 
-<button class="viewProfileBtn">
+<button id="viewVisitorProfileBtn">
 
 View
 
@@ -6477,7 +6477,7 @@ onerror="this.src='images/default-avatar.png'"
 
 <div class="notification-buttons">
 
-<button class="viewProfileBtn">
+<button id="viewVisitorProfileBtn">
 
 Open Profile
 
@@ -6587,7 +6587,7 @@ Open Profile
 
 <h3>📆 Upcoming Events</h3>
 
-<div id="eventNotifications">
+<div id="eventNotificationsContainer">
 
 <div class="event-card">
 
@@ -6722,11 +6722,11 @@ Likes
 <label>
 
 <input
-type="checkbox"
-id="jobAlerts"
-checked
+    type="checkbox"
+    id="jobAlertsToggle"
+    checked
 >
-
+    
 Job Alerts
 
 </label>
@@ -6810,7 +6810,7 @@ class="primary-btn"
 
 <h3>🚫 Blocked Users</h3>
 
-<div id="blockedUsersContainer">
+<div id="notificationsBlockedUsersContainer">
 
 <p>No blocked users.</p>
 
@@ -7356,7 +7356,7 @@ Show Profile Views
 
 <input
 type="checkbox"
-id="readReceipts"
+id="privacyReadReceipts"
 checked
 >
 
@@ -7400,11 +7400,9 @@ Push Notifications
 
 <label>
 
-<input
-type="checkbox"
-id="messageNotifications"
-checked
->
+<h2 id="messageNotificationsCount">
+    0
+</h2>
 
 Messages
 
@@ -7736,7 +7734,7 @@ Not Verified
 
 <h3>🚫 Blocked Users</h3>
 
-<div id="blockedUsersContainer">
+<div id="settingsBlockedUsersContainer">
 
 <p>
 
