@@ -1,279 +1,296 @@
-// =========================================
+// ===============================
+// RHOCKSTAR CONNECT
 // profile.js
-// Rhockstar Connect Profile Manager
-// =========================================
+// ===============================
 
-const PROFILE_KEY = "rhockstar_profile";
-const PROFILE_PHOTO = "profilePhoto";
-const COVER_PHOTO = "coverPhoto";
+"use strict";
 
-/* ==========================
-   Initialize
-========================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-function initProfile() {
+    initializeProfile();
 
-    loadProfile();
+});
 
-    initProfileEditor();
+// ===============================
+// INITIALIZE
+// ===============================
 
-    initProfilePhoto();
-
-    initCoverPhoto();
-
-}
-
-/* ==========================
-   Profile Editor
-========================== */
-
-function initProfileEditor() {
-
-    const editBtn =
-        document.getElementById("editProfileBtn") ||
-        document.getElementById("profileEditBtn");
-
-    const cancelBtn =
-        document.getElementById("cancel");
-
-    const saveBtn =
-        document.getElementById("saveBtn");
-
-    const profilePage =
-        document.getElementById("profile");
-
-    const editSection =
-        document.getElementById("profileEditSection");
-
-    if (editBtn) {
-
-        editBtn.addEventListener("click", () => {
-
-            if (profilePage)
-                profilePage.style.display = "none";
-
-            if (editSection)
-                editSection.style.display = "block";
-
-        });
-
-    }
-
-    if (cancelBtn) {
-
-        cancelBtn.addEventListener("click", () => {
-
-            if (editSection)
-                editSection.style.display = "none";
-
-            if (profilePage)
-                profilePage.style.display = "block";
-
-        });
-
-    }
-
-    if (saveBtn) {
-
-        saveBtn.addEventListener("click", saveProfile);
-
-    }
-
-}
-
-/* ==========================
-   Save Profile
-========================== */
-
-function saveProfile() {
-
-    const profile = {
-
-        name: $("editFullName")?.value || "",
-
-        username: $("editUName")?.value || "",
-
-        email: $("editE")?.value || "",
-
-        phone: $("editTel")?.value || "",
-
-        location: $("editL")?.value || "",
-
-        title: $("editTitle")?.value || "",
-
-        bio: $("editBio")?.value || "",
-
-        skills: $("editSkills")?.value || ""
-
-    };
-
-    Storage.set(PROFILE_KEY, profile);
+function initializeProfile() {
 
     loadProfile();
 
-    const profilePage =
-        $("profile");
+    initializeAvatarUpload();
 
-    const editSection =
-        $("profileEditSection");
-
-    if (editSection)
-        editSection.style.display = "none";
-
-    if (profilePage)
-        profilePage.style.display = "block";
-
-    alert("Profile updated successfully.");
+    initializeProfileButtons();
 
 }
 
-/* ==========================
-   Load Profile
-========================== */
+// ===============================
+// LOAD PROFILE
+// ===============================
 
 function loadProfile() {
 
-    const profile = Storage.get(PROFILE_KEY);
+    const user = Auth.currentUser();
 
-    if (!profile) return;
+    if (!user) return;
 
-    if ($("displayName"))
-        $("displayName").textContent = profile.name;
+    setValue("profileName", user.fullName);
+    setValue("profileUsername", user.username);
+    setValue("profileEmail", user.email);
+    setValue("profilePhone", user.phone);
+    setValue("profileLocation", user.location);
+    setValue("profileBio", user.bio);
+    setValue("profileProfession", user.profession);
+    setValue("profileWebsite", user.website);
 
-    if ($("myN"))
-        $("myN").textContent = profile.name;
-
-    if ($("displayUsername"))
-        $("displayUsername").textContent = profile.username;
-
-    if ($("myE"))
-        $("myE").textContent = profile.email;
-
-    if ($("myPhone"))
-        $("myPhone").textContent = profile.phone;
-
-    if ($("myL"))
-        $("myL").textContent = profile.location;
-
-    if ($("displayTitle"))
-        $("displayTitle").textContent = profile.title;
-
-    if ($("myPT"))
-        $("myPT").textContent = profile.title;
-
-    if ($("displayBio"))
-        $("displayBio").textContent = profile.bio;
-
-    if ($("abtMe"))
-        $("abtMe").textContent = profile.bio;
-
-    if ($("mySkills"))
-        $("mySkills").textContent = profile.skills;
-
-    if ($("myS"))
-        $("myS").textContent = profile.skills;
+    setImage("profileAvatar", user.photo);
+    setImage("settingsAvatar", user.photo);
 
 }
 
-/* ==========================
-   Upload Profile Picture
-========================== */
+// ===============================
+// SAVE PROFILE
+// ===============================
 
-function initProfilePhoto() {
+function saveProfile() {
 
-    const upload =
-        $("uploadPic");
+    const user = Auth.currentUser();
 
-    if (!upload) return;
+    if (!user) return;
 
-    const saved =
-        localStorage.getItem(PROFILE_PHOTO);
+    const updated = {
 
-    if (saved) {
+        fullName: getValue("profileName"),
 
-        if ($("profileAvatar"))
-            $("profileAvatar").src = saved;
+        username: getValue("profileUsername"),
 
-        if ($("profilePicPreview"))
-            $("profilePicPreview").src = saved;
+        email: getValue("profileEmail"),
 
-    }
+        phone: getValue("profilePhone"),
 
-    upload.addEventListener("change", function () {
+        location: getValue("profileLocation"),
 
-        const file = this.files[0];
+        bio: getValue("profileBio"),
 
-        if (!file) return;
+        profession: getValue("profileProfession"),
 
-        const reader =
-            new FileReader();
+        website: getValue("profileWebsite")
 
-        reader.onload = function (e) {
+    };
 
-            const image = e.target.result;
+    Auth.updateCurrentUser(updated);
 
-            if ($("profileAvatar"))
-                $("profileAvatar").src = image;
+    AppUtils.showToast(
 
-            if ($("profilePicPreview"))
-                $("profilePicPreview").src = image;
+        "Profile updated successfully."
 
-            localStorage.setItem(
-                PROFILE_PHOTO,
-                image
-            );
-
-        };
-
-        reader.readAsDataURL(file);
-
-    });
+    );
 
 }
 
-/* ==========================
-   Upload Cover Photo
-========================== */
+// ===============================
+// AVATAR UPLOAD
+// ===============================
 
-function initCoverPhoto() {
+function initializeAvatarUpload() {
 
-    const upload =
-        $("uploadCover");
+    const input = document.getElementById(
 
-    if (!upload) return;
+        "profileImageInput"
 
-    const saved =
-        localStorage.getItem(COVER_PHOTO);
+    );
 
-    if (saved && $("coverPhoto")) {
+    if (!input) return;
 
-        $("coverPhoto").src = saved;
+    input.addEventListener("change", () => {
 
-    }
+        if (!input.files.length) return;
 
-    upload.addEventListener("change", function () {
+        const reader = new FileReader();
 
-        const file = this.files[0];
+        reader.onload = e => {
 
-        if (!file) return;
+            setImage(
 
-        const reader =
-            new FileReader();
+                "profileAvatar",
 
-        reader.onload = function (e) {
-
-            if ($("coverPhoto"))
-                $("coverPhoto").src = e.target.result;
-
-            localStorage.setItem(
-                COVER_PHOTO,
                 e.target.result
+
             );
+
+            setImage(
+
+                "settingsAvatar",
+
+                e.target.result
+
+            );
+
+            Auth.updateCurrentUser({
+
+                photo: e.target.result
+
+            });
 
         };
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(
+
+            input.files[0]
+
+        );
 
     });
 
 }
+
+// ===============================
+// BUTTONS
+// ===============================
+
+function initializeProfileButtons() {
+
+    const saveBtn = document.getElementById(
+
+        "saveProfileBtn"
+
+    );
+
+    if (saveBtn) {
+
+        saveBtn.addEventListener(
+
+            "click",
+
+            saveProfile
+
+        );
+
+    }
+
+}
+
+// ===============================
+// HELPERS
+// ===============================
+
+function getValue(id) {
+
+    const el = document.getElementById(id);
+
+    return el ? el.value.trim() : "";
+
+}
+
+function setValue(id, value) {
+
+    const el = document.getElementById(id);
+
+    if (el) {
+
+        el.value = value || "";
+
+    }
+
+}
+
+function setImage(id, src) {
+
+    const img = document.getElementById(id);
+
+    if (!img) return;
+
+    if (src && src !== "") {
+
+        img.src = src;
+
+    }
+
+}
+
+// ===============================
+// PROFILE COUNTERS
+// ===============================
+
+function updateProfileStats() {
+
+    setText(
+
+        "postsCount",
+
+        StorageManager.getArray(
+
+            STORAGE_KEYS.POSTS
+
+        ).length
+
+    );
+
+    setText(
+
+        "connectionsCount",
+
+        StorageManager.getArray(
+
+            STORAGE_KEYS.CONNECTIONS
+
+        ).length
+
+    );
+
+    setText(
+
+        "followersCount",
+
+        StorageManager.getArray(
+
+            STORAGE_KEYS.FOLLOWERS
+
+        ).length
+
+    );
+
+    setText(
+
+        "followingCount",
+
+        StorageManager.getArray(
+
+            STORAGE_KEYS.FOLLOWING
+
+        ).length
+
+    );
+
+}
+
+// ===============================
+// TEXT
+// ===============================
+
+function setText(id, value) {
+
+    const el = document.getElementById(id);
+
+    if (el) {
+
+        el.textContent = value;
+
+    }
+
+}
+
+// ===============================
+// PUBLIC
+// ===============================
+
+window.Profile = {
+
+    loadProfile,
+
+    saveProfile,
+
+    updateProfileStats
+
+};
