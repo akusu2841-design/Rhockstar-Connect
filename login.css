@@ -1,288 +1,97 @@
-/* ================= RESET ================= */
+// ================= ELEMENTS =================
+const form = document.getElementById("loginForm");
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+const loginId = document.getElementById("loginId");
+const password = document.getElementById("password");
+
+const loginBtn = document.getElementById("loginBtn");
+const messageBox = document.getElementById("messageBox");
+
+const rememberMe = document.getElementById("rememberMe");
+const togglePassword = document.getElementById("togglePassword");
+
+// ================= STORAGE KEY =================
+const USERS_KEY = "rhockstarUsers";
+const CURRENT_USER = "rhockstarCurrentUser";
+
+// ================= MESSAGE FUNCTION =================
+function showMessage(type, text) {
+  messageBox.className = "message-box " + type;
+  messageBox.innerText = text;
+  messageBox.style.display = "block";
 }
 
-/* ================= BODY ================= */
-
-body{
-  min-height:100vh;
-  background:radial-gradient(circle at top,#0f172a,#020617);
-  color:white;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-
-  padding:20px;
+// ================= BUTTON RESET =================
+function resetBtn() {
+  loginBtn.classList.remove("loading");
+  loginBtn.innerText = "Login";
 }
 
-/* ================= NAV LINKS ================= */
+// ================= LOGIN =================
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-.auth-nav{
-  display:flex;
-  gap:15px;
-  margin-bottom:10px;
-  flex-wrap:wrap;
-}
+  loginBtn.classList.add("loading");
+  loginBtn.innerText = "Logging in...";
 
-a{
-  color:#38bdf8;
-  text-decoration:none;
-  font-weight:bold;
-  transition:.3s ease;
-}
+  const idValue = loginId.value.trim().toLowerCase();
+  const passValue = password.value;
 
-a:hover{
-  color:#8b5cf6;
-}
+  // ================= LOAD USERS =================
+  const users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
 
-/* ================= LOGIN CARD ================= */
+  // ================= FIND USER =================
+  const user = users.find(u =>
+    u.email === idValue || u.username === idValue
+  );
 
-.loginPage{
-  width:100%;
-  max-width:520px;
-
-  background:rgba(17,24,39,.92);
-  backdrop-filter:blur(15px);
-
-  padding:35px;
-  margin-top:15px;
-
-  border-radius:22px;
-  border:1px solid rgba(139,92,246,.25);
-
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
-  animation:fadeIn .4s ease;
-}
-
-/* animation */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* ================= TITLE ================= */
-
-.loginPage h2{
-  text-align:center;
-  margin-bottom:5px;
-
-  color:#38bdf8;
-  font-size:2rem;
-}
-
-.sub-text{
-  text-align:center;
-  color:#94a3b8;
-  margin-bottom:25px;
-  font-size:14px;
-}
-
-/* ================= MESSAGE BOX ================= */
-
-.message-box{
-  margin-bottom:15px;
-  padding:12px;
-  border-radius:12px;
-  font-size:14px;
-  display:none;
-}
-
-.message-box.success{
-  display:block;
-  background:rgba(34,197,94,.15);
-  border:1px solid #22c55e;
-  color:#22c55e;
-}
-
-.message-box.error{
-  display:block;
-  background:rgba(239,68,68,.15);
-  border:1px solid #ef4444;
-  color:#ef4444;
-}
-
-/* ================= FORM ================= */
-
-#loginForm{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-/* ================= LABEL ================= */
-
-#loginForm label{
-  color:#38bdf8;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-/* ================= INPUTS ================= */
-
-#loginForm input[type="text"],
-#loginForm input[type="password"]{
-  width:100%;
-  padding:14px;
-
-  background:#0f172a;
-  color:white;
-
-  border:1px solid #1e293b;
-  border-radius:12px;
-
-  outline:none;
-  transition:.3s ease;
-}
-
-#loginForm input:focus{
-  border-color:#38bdf8;
-  box-shadow:0 0 12px rgba(56,189,248,.3);
-  transform:scale(1.01);
-}
-
-/* ================= PASSWORD WRAPPER ================= */
-
-.password-wrapper{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.password-wrapper input{
-  flex:1;
-}
-
-.password-wrapper button{
-  width:45px;
-  height:45px;
-  border-radius:10px;
-  background:#1e293b;
-  border:1px solid #334155;
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.password-wrapper button:hover{
-  background:#38bdf8;
-  color:#000;
-}
-
-/* ================= CHECKBOX / OPTIONS ================= */
-
-.login-options{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:5px;
-}
-
-.terms{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:13px;
-  color:#cbd5e1;
-}
-
-.terms input{
-  width:16px;
-  height:16px;
-  accent-color:#38bdf8;
-}
-
-/* ================= BUTTON ================= */
-
-#loginBtn{
-  margin-top:10px;
-  padding:14px;
-
-  border:none;
-  border-radius:50px;
-
-  background:linear-gradient(135deg,#38bdf8,#8b5cf6);
-
-  color:white;
-  font-size:1rem;
-  font-weight:bold;
-
-  cursor:pointer;
-  transition:.3s ease;
-  position:relative;
-  overflow:hidden;
-}
-
-/* loading state */
-#loginBtn.loading{
-  pointer-events:none;
-  opacity:.7;
-}
-
-#loginBtn.loading::after{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  background:rgba(255,255,255,.2);
-  animation:loading 1s infinite;
-}
-
-@keyframes loading{
-  0%{transform:translateX(-100%);}
-  100%{transform:translateX(100%);}
-}
-
-#loginBtn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 30px rgba(56,189,248,.25);
-}
-
-/* ================= FOOTER ================= */
-
-.login-link{
-  text-align:center;
-  margin-top:15px;
-  font-size:14px;
-  color:#94a3b8;
-}
-
-.login-link a{
-  color:#38bdf8;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:768px){
-
-  .loginPage{
-    padding:25px;
+  if (!user) {
+    showMessage("error", "User not found");
+    return resetBtn();
   }
 
-  .loginPage h2{
-    font-size:1.6rem;
+  // ================= CHECK PASSWORD =================
+  if (user.password !== passValue) {
+    showMessage("error", "Incorrect password");
+    return resetBtn();
   }
 
-  #loginBtn{
-    width:100%;
+  // ================= LOGIN SUCCESS =================
+  const sessionData = {
+    id: user.id,
+    name: user.name,
+    username: user.username,
+    email: user.email,
+    profileImage: user.profileImage,
+    loginTime: new Date().toISOString()
+  };
+
+  // ================= REMEMBER ME =================
+  if (rememberMe.checked) {
+    localStorage.setItem(CURRENT_USER, JSON.stringify(sessionData));
+  } else {
+    sessionStorage.setItem(CURRENT_USER, JSON.stringify(sessionData));
   }
 
-  .login-options{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:10px;
-  }
+  showMessage("success", "Login successful!");
 
-  .password-wrapper button{
-    width:40px;
-    height:40px;
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1200);
+});
+
+// ================= PASSWORD TOGGLE =================
+togglePassword.addEventListener("click", () => {
+  password.type = password.type === "password" ? "text" : "password";
+});
+
+// ================= AUTO LOGIN CHECK =================
+window.addEventListener("load", () => {
+  const savedUser =
+    JSON.parse(localStorage.getItem(CURRENT_USER)) ||
+    JSON.parse(sessionStorage.getItem(CURRENT_USER));
+
+  if (savedUser) {
+    window.location.href = "index.html";
   }
-}
+});
