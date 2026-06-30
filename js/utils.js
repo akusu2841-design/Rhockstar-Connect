@@ -7,76 +7,235 @@
 "use strict";
 
 // ===============================
-// SELECTORS
+// DOM SELECTORS
 // ===============================
 
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
+const $ = selector => document.querySelector(selector);
+
+const $$ = selector => document.querySelectorAll(selector);
 
 // ===============================
 // RANDOM ID
 // ===============================
 
 function generateId(length = 20) {
+
     const chars =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    let result = "";
+    let id = "";
 
     for (let i = 0; i < length; i++) {
-        result += chars.charAt(
+
+        id += chars.charAt(
+
             Math.floor(Math.random() * chars.length)
+
         );
+
     }
 
-    return result;
+    return id;
+
 }
 
 // ===============================
-// DATE & TIME
+// UNIVERSAL UUID
+// ===============================
+
+function uuid() {
+
+    if (
+
+        window.crypto &&
+
+        typeof crypto.randomUUID === "function"
+
+    ) {
+
+        return crypto.randomUUID();
+
+    }
+
+    return generateId(36);
+
+}
+
+// ===============================
+// DATE
 // ===============================
 
 function currentDate() {
+
     return new Date().toLocaleDateString();
+
 }
 
 function currentTime() {
+
     return new Date().toLocaleTimeString([], {
+
         hour: "2-digit",
+
         minute: "2-digit"
+
     });
+
 }
 
 function currentDateTime() {
+
     return new Date().toLocaleString();
+
+}
+
+function timestamp() {
+
+    return Date.now();
+
 }
 
 // ===============================
-// FORMAT NUMBERS
+// FORMATTERS
 // ===============================
 
-function formatNumber(number) {
+function formatNumber(number = 0) {
 
     return Number(number).toLocaleString();
 
 }
 
+function formatMoney(amount = 0) {
+
+    return "₦" + Number(amount).toLocaleString();
+
+}
+
+function capitalize(text = "") {
+
+    if (!text) return "";
+
+    return text.charAt(0).toUpperCase()
+
+        + text.slice(1);
+
+}
+
+function capitalizeWords(text = "") {
+
+    return text
+
+        .split(" ")
+
+        .map(word => capitalize(word))
+
+        .join(" ");
+
+}
+
 // ===============================
-// SHOW MESSAGE
+// VALIDATION
 // ===============================
 
-function showToast(message, type = "success") {
+function isEmpty(value) {
 
-    let toast = document.createElement("div");
+    return (
+
+        value === null ||
+
+        value === undefined ||
+
+        value.toString().trim() === ""
+
+    );
+
+}
+
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+        .test(email);
+
+}
+
+function isValidPhone(phone) {
+
+    return /^[0-9+\-()\s]{7,20}$/
+
+        .test(phone);
+
+}
+
+function passwordStrength(password) {
+
+    let score = 0;
+
+    if (password.length >= 8)
+
+        score++;
+
+    if (/[A-Z]/.test(password))
+
+        score++;
+
+    if (/[a-z]/.test(password))
+
+        score++;
+
+    if (/[0-9]/.test(password))
+
+        score++;
+
+    if (/[^A-Za-z0-9]/.test(password))
+
+        score++;
+
+    return score;
+
+}
+// ===============================
+// TOAST NOTIFICATIONS
+// ===============================
+
+function showToast(
+
+    message,
+
+    type = "success",
+
+    duration = 3000
+
+) {
+
+    let container = document.getElementById(
+
+        "toastContainer"
+
+    );
+
+    if (!container) {
+
+        container = document.createElement("div");
+
+        container.id = "toastContainer";
+
+        document.body.appendChild(container);
+
+    }
+
+    const toast = document.createElement("div");
 
     toast.className = `toast ${type}`;
 
-    toast.innerHTML = message;
+    toast.textContent = message;
 
-    document.body.appendChild(toast);
+    container.appendChild(toast);
 
     requestAnimationFrame(() => {
+
         toast.classList.add("show");
+
     });
 
     setTimeout(() => {
@@ -89,87 +248,51 @@ function showToast(message, type = "success") {
 
         }, 300);
 
-    }, 3000);
+    }, duration);
 
 }
 
 // ===============================
-// LOADING BUTTON
+// BUTTON LOADING
 // ===============================
 
-function setButtonLoading(button, loading = true) {
+function setButtonLoading(
+
+    button,
+
+    loading = true,
+
+    text = "Loading..."
+
+) {
 
     if (!button) return;
 
     if (loading) {
 
-        button.dataset.original = button.innerHTML;
+        if (!button.dataset.originalText) {
+
+            button.dataset.originalText =
+
+                button.innerHTML;
+
+        }
 
         button.disabled = true;
 
-        button.innerHTML = "Loading...";
+        button.innerHTML = text;
 
     } else {
 
         button.disabled = false;
 
-        button.innerHTML = button.dataset.original || button.innerHTML;
+        button.innerHTML =
+
+            button.dataset.originalText ||
+
+            button.innerHTML;
 
     }
-
-}
-
-// ===============================
-// EMPTY CHECK
-// ===============================
-
-function isEmpty(value) {
-
-    return value === null ||
-           value === undefined ||
-           value.toString().trim() === "";
-
-}
-
-// ===============================
-// EMAIL VALIDATION
-// ===============================
-
-function isValidEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-}
-
-// ===============================
-// PHONE VALIDATION
-// ===============================
-
-function isValidPhone(phone) {
-
-    return /^[0-9+\-()\s]{7,20}$/.test(phone);
-
-}
-
-// ===============================
-// PASSWORD STRENGTH
-// ===============================
-
-function passwordStrength(password) {
-
-    let score = 0;
-
-    if (password.length >= 8) score++;
-
-    if (/[A-Z]/.test(password)) score++;
-
-    if (/[a-z]/.test(password)) score++;
-
-    if (/[0-9]/.test(password)) score++;
-
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-
-    return score;
 
 }
 
@@ -183,20 +306,148 @@ async function copyText(text) {
 
         await navigator.clipboard.writeText(text);
 
-        showToast("Copied successfully.");
+        showToast(
+
+            "Copied successfully."
+
+        );
+
+        return true;
 
     }
 
     catch {
 
-        showToast("Copy failed.", "error");
+        showToast(
+
+            "Copy failed.",
+
+            "error"
+
+        );
+
+        return false;
 
     }
 
 }
 
 // ===============================
-// SCROLL TO TOP
+// IMAGE PREVIEW
+// ===============================
+
+function previewImage(
+
+    input,
+
+    image
+
+) {
+
+    if (
+
+        !input ||
+
+        !input.files ||
+
+        !input.files.length ||
+
+        !image
+
+    ) {
+
+        return;
+
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = e => {
+
+        image.src = e.target.result;
+
+    };
+
+    reader.readAsDataURL(
+
+        input.files[0]
+
+    );
+
+}
+
+// ===============================
+// FILE TO DATA URL
+// ===============================
+
+function fileToDataURL(file) {
+
+    return new Promise(
+
+        (resolve, reject) => {
+
+            const reader = new FileReader();
+
+            reader.onload = () =>
+
+                resolve(reader.result);
+
+            reader.onerror = reject;
+
+            reader.readAsDataURL(file);
+
+        }
+
+    );
+
+}
+
+// ===============================
+// DOWNLOAD FILE
+// ===============================
+
+function downloadFile(
+
+    filename,
+
+    content,
+
+    type = "text/plain"
+
+) {
+
+    const blob = new Blob(
+
+        [content],
+
+        {
+
+            type
+
+        }
+
+    );
+
+    const url =
+
+        URL.createObjectURL(blob);
+
+    const a =
+
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download = filename;
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+// ===============================
+// SCROLL HELPERS
 // ===============================
 
 function scrollTopSmooth() {
@@ -211,26 +462,17 @@ function scrollTopSmooth() {
 
 }
 
-// ===============================
-// IMAGE PREVIEW
-// ===============================
+function scrollBottomSmooth() {
 
-function previewImage(input, imageElement) {
+    window.scrollTo({
 
-    if (!input.files.length) return;
+        top: document.body.scrollHeight,
 
-    const reader = new FileReader();
+        behavior: "smooth"
 
-    reader.onload = function (e) {
-
-        imageElement.src = e.target.result;
-
-    };
-
-    reader.readAsDataURL(input.files[0]);
+    });
 
 }
-
 // ===============================
 // LOCAL STORAGE HELPERS
 // ===============================
@@ -249,9 +491,13 @@ function saveLocal(key, value) {
 
 function getLocal(key) {
 
-    const data = localStorage.getItem(key);
+    const value = localStorage.getItem(key);
 
-    return data ? JSON.parse(data) : null;
+    return value
+
+        ? JSON.parse(value)
+
+        : null;
 
 }
 
@@ -261,8 +507,14 @@ function removeLocal(key) {
 
 }
 
+function clearLocal() {
+
+    localStorage.clear();
+
+}
+
 // ===============================
-// SESSION STORAGE
+// SESSION STORAGE HELPERS
 // ===============================
 
 function saveSession(key, value) {
@@ -279,9 +531,13 @@ function saveSession(key, value) {
 
 function getSession(key) {
 
-    const data = sessionStorage.getItem(key);
+    const value = sessionStorage.getItem(key);
 
-    return data ? JSON.parse(data) : null;
+    return value
+
+        ? JSON.parse(value)
+
+        : null;
 
 }
 
@@ -291,11 +547,23 @@ function removeSession(key) {
 
 }
 
+function clearSession() {
+
+    sessionStorage.clear();
+
+}
+
 // ===============================
-// DEBOUNCE
+// FUNCTION HELPERS
 // ===============================
 
-function debounce(callback, delay = 300) {
+function debounce(
+
+    callback,
+
+    delay = 300
+
+) {
 
     let timer;
 
@@ -313,43 +581,137 @@ function debounce(callback, delay = 300) {
 
 }
 
-// ===============================
-// CAPITALIZE
-// ===============================
+function throttle(
 
-function capitalize(text) {
+    callback,
 
-    if (isEmpty(text)) return "";
+    delay = 300
 
-    return text.charAt(0).toUpperCase() + text.slice(1);
+) {
+
+    let waiting = false;
+
+    return (...args) => {
+
+        if (waiting) return;
+
+        callback(...args);
+
+        waiting = true;
+
+        setTimeout(() => {
+
+            waiting = false;
+
+        }, delay);
+
+    };
+
+}
+
+function sleep(ms) {
+
+    return new Promise(resolve => {
+
+        setTimeout(resolve, ms);
+
+    });
 
 }
 
 // ===============================
-// UUID
+// RANDOM HELPERS
 // ===============================
 
-function uuid() {
+function randomNumber(
 
-    return crypto.randomUUID();
+    min,
+
+    max
+
+) {
+
+    return Math.floor(
+
+        Math.random() *
+
+        (max - min + 1)
+
+    ) + min;
+
+}
+
+function randomItem(array) {
+
+    if (
+
+        !Array.isArray(array) ||
+
+        !array.length
+
+    ) {
+
+        return null;
+
+    }
+
+    return array[
+
+        randomNumber(
+
+            0,
+
+            array.length - 1
+
+        )
+
+    ];
 
 }
 
 // ===============================
-// NETWORK STATUS
+// NETWORK
 // ===============================
 
-window.addEventListener("online", () => {
+function isOnline() {
 
-    showToast("Back online.");
+    return navigator.onLine;
 
-});
+}
 
-window.addEventListener("offline", () => {
+window.addEventListener(
 
-    showToast("No internet connection.", "error");
+    "online",
 
-});
+    () => {
+
+        showToast(
+
+            "Back online."
+
+        );
+
+    }
+
+);
+
+window.addEventListener(
+
+    "offline",
+
+    () => {
+
+        showToast(
+
+            "No internet connection.",
+
+            "error"
+
+        );
+
+    }
+
+);
 
 // ===============================
 // GLOBAL APP OBJECT
@@ -359,28 +721,55 @@ window.AppUtils = {
 
     $,
     $$,
+
     generateId,
+    uuid,
+
     currentDate,
     currentTime,
     currentDateTime,
+    timestamp,
+
     formatNumber,
-    showToast,
-    setButtonLoading,
+    formatMoney,
+
+    capitalize,
+    capitalizeWords,
+
     isEmpty,
     isValidEmail,
     isValidPhone,
     passwordStrength,
+
+    showToast,
+    setButtonLoading,
+
     copyText,
-    scrollTopSmooth,
+
     previewImage,
+    fileToDataURL,
+    downloadFile,
+
+    scrollTopSmooth,
+    scrollBottomSmooth,
+
     saveLocal,
     getLocal,
     removeLocal,
+    clearLocal,
+
     saveSession,
     getSession,
     removeSession,
+    clearSession,
+
     debounce,
-    capitalize,
-    uuid
+    throttle,
+    sleep,
+
+    randomNumber,
+    randomItem,
+
+    isOnline
 
 };
