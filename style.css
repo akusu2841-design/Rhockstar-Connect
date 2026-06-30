@@ -65,6 +65,27 @@ body{
 
 }
 
+/* ===========================
+   COLORS
+=========================== */
+
+:root{
+
+    --primary:#5B5FFF;
+
+    --secondary:#8B5CF6;
+
+    --dark:#071126;
+
+    --dark2:#0F172A;
+
+    --light:#F8FAFC;
+
+    --text:#D6D9E0;
+
+    --card:#16213E;
+
+}
 /* ================= SCROLLBAR ================= */
 
 ::-webkit-scrollbar{
