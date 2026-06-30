@@ -1,306 +1,343 @@
+// =======================================
+// RHOCKSTAR CONNECT
+// storage.js
+// Local Storage Manager
+// =======================================
+
 "use strict";
 
-/* =========================================================
-   RHOCKSTAR CONNECT
-   storage.js
-   Handles all localStorage operations
-========================================================= */
+// ================= STORAGE KEYS =================
 
-const Storage = (() => {
+const STORAGE_KEYS = {
 
-    /* ================= STORAGE KEYS ================= */
+    USERS: "rc_users",
 
-    const KEYS = {
+    CURRENT_USER: "rc_current_user",
 
-        USERS: "rc_users",
+    POSTS: "rc_posts",
 
-        CURRENT_USER: "rc_current_user",
+    CONNECTIONS: "rc_connections",
 
-        POSTS: "rc_posts",
+    MESSAGES: "rc_messages",
 
-        MESSAGES: "rc_messages",
+    NOTIFICATIONS: "rc_notifications",
 
-        CONNECTIONS: "rc_connections",
+    JOBS: "rc_jobs",
 
-        NOTIFICATIONS: "rc_notifications",
+    SETTINGS: "rc_settings"
 
-        JOBS: "rc_jobs",
+};
 
-        SETTINGS: "rc_settings"
+// ================= SAVE =================
 
-    };
+function saveData(key, value) {
 
-    /* ================= BASIC STORAGE ================= */
+    try {
 
-    const get = key => {
+        localStorage.setItem(key, JSON.stringify(value));
 
-        try {
+        return true;
 
-            const data = localStorage.getItem(key);
+    } catch (error) {
 
-            return data ? JSON.parse(data) : null;
+        console.error(error);
 
-        } catch (error) {
+        return false;
 
-            console.error(error);
+    }
 
-            return null;
+}
 
-        }
+// ================= LOAD =================
 
-    };
+function loadData(key, defaultValue = null) {
 
-    const set = (key, value) => {
+    try {
 
-        localStorage.setItem(
+        const data = localStorage.getItem(key);
 
-            key,
+        if (!data) return defaultValue;
 
-            JSON.stringify(value)
+        return JSON.parse(data);
 
-        );
+    } catch (error) {
 
-    };
+        console.error(error);
 
-    const remove = key => {
+        return defaultValue;
 
-        localStorage.removeItem(key);
+    }
 
-    };
+}
 
-    const clear = () => {
+// ================= REMOVE =================
 
-        localStorage.clear();
+function removeData(key) {
 
-    };
+    localStorage.removeItem(key);
 
-    /* ================= USERS ================= */
+}
 
-    const getUsers = () => {
+// ================= CLEAR =================
 
-        return get(KEYS.USERS) || [];
+function clearStorage() {
 
-    };
+    localStorage.clear();
 
-    const saveUsers = users => {
+}
 
-        set(KEYS.USERS, users);
+// ================= USERS =================
 
-    };
+function getUsers() {
 
-    const addUser = user => {
+    return loadData(STORAGE_KEYS.USERS, []);
 
-        const users = getUsers();
+}
 
-        users.push(user);
+function saveUsers(users) {
 
-        saveUsers(users);
+    saveData(STORAGE_KEYS.USERS, users);
 
-    };
+}
 
-    const updateUser = user => {
+function addUser(user) {
 
-        const users = getUsers();
+    const users = getUsers();
 
-        const index = users.findIndex(
+    users.push(user);
 
-            u => u.id === user.id
+    saveUsers(users);
 
-        );
+}
 
-        if (index !== -1) {
+function updateUser(updatedUser) {
 
-            users[index] = user;
+    let users = getUsers();
 
-            saveUsers(users);
+    users = users.map(user =>
 
-        }
+        user.id === updatedUser.id ? updatedUser : user
 
-    };
+    );
 
-    const findUserByEmail = email => {
+    saveUsers(users);
 
-        return getUsers().find(
+}
 
-            user =>
+function findUserByEmail(email) {
 
-                user.email.toLowerCase() ===
+    return getUsers().find(user =>
 
-                email.toLowerCase()
+        user.email.toLowerCase() === email.toLowerCase()
 
-        );
+    );
 
-    };
+}
 
-    const findUserByUsername = username => {
+function findUserById(id) {
 
-        return getUsers().find(
+    return getUsers().find(user => user.id === id);
 
-            user =>
+}
 
-                user.username.toLowerCase() ===
+// ================= CURRENT USER =================
 
-                username.toLowerCase()
+function setCurrentUser(user) {
 
-        );
+    saveData(STORAGE_KEYS.CURRENT_USER, user);
 
-    };
+}
 
-    /* ================= CURRENT USER ================= */
+function getCurrentUser() {
 
-    const setCurrentUser = user => {
+    return loadData(STORAGE_KEYS.CURRENT_USER);
 
-        set(KEYS.CURRENT_USER, user);
+}
 
-    };
+function logoutUser() {
 
-    const getCurrentUser = () => {
+    removeData(STORAGE_KEYS.CURRENT_USER);
 
-        return get(KEYS.CURRENT_USER);
+}
 
-    };
+function isLoggedIn() {
 
-    const logout = () => {
+    return getCurrentUser() !== null;
 
-        remove(KEYS.CURRENT_USER);
+}
 
-    };
+// ================= POSTS =================
 
-    /* ================= POSTS ================= */
+function getPosts() {
 
-    const getPosts = () => {
+    return loadData(STORAGE_KEYS.POSTS, []);
 
-        return get(KEYS.POSTS) || [];
+}
 
-    };
+function savePosts(posts) {
 
-    const savePosts = posts => {
+    saveData(STORAGE_KEYS.POSTS, posts);
 
-        set(KEYS.POSTS, posts);
+}
 
-    };
+function addPost(post) {
 
-    const addPost = post => {
+    const posts = getPosts();
 
-        const posts = getPosts();
+    posts.unshift(post);
 
-        posts.unshift(post);
+    savePosts(posts);
 
-        savePosts(posts);
+}
 
-    };
+function updatePost(updatedPost) {
 
-    /* ================= MESSAGES ================= */
+    let posts = getPosts();
 
-    const getMessages = () => {
+    posts = posts.map(post =>
 
-        return get(KEYS.MESSAGES) || [];
+        post.id === updatedPost.id ? updatedPost : post
 
-    };
+    );
 
-    const saveMessages = messages => {
+    savePosts(posts);
 
-        set(KEYS.MESSAGES, messages);
+}
 
-    };
+function deletePost(postId) {
 
-    /* ================= CONNECTIONS ================= */
+    const posts = getPosts().filter(post => post.id !== postId);
 
-    const getConnections = () => {
+    savePosts(posts);
 
-        return get(KEYS.CONNECTIONS) || [];
+}
 
-    };
+// ================= CONNECTIONS =================
 
-    const saveConnections = connections => {
+function getConnections() {
 
-        set(KEYS.CONNECTIONS, connections);
+    return loadData(STORAGE_KEYS.CONNECTIONS, []);
 
-    };
+}
 
-    /* ================= NOTIFICATIONS ================= */
+function saveConnections(data) {
 
-    const getNotifications = () => {
+    saveData(STORAGE_KEYS.CONNECTIONS, data);
 
-        return get(KEYS.NOTIFICATIONS) || [];
+}
 
-    };
+// ================= MESSAGES =================
 
-    const saveNotifications = notifications => {
+function getMessages() {
 
-        set(KEYS.NOTIFICATIONS, notifications);
+    return loadData(STORAGE_KEYS.MESSAGES, []);
 
-    };
+}
 
-    /* ================= JOBS ================= */
+function saveMessages(messages) {
 
-    const getJobs = () => {
+    saveData(STORAGE_KEYS.MESSAGES, messages);
 
-        return get(KEYS.JOBS) || [];
+}
 
-    };
+// ================= NOTIFICATIONS =================
 
-    const saveJobs = jobs => {
+function getNotifications() {
 
-        set(KEYS.JOBS, jobs);
+    return loadData(STORAGE_KEYS.NOTIFICATIONS, []);
 
-    };
+}
 
-    /* ================= SETTINGS ================= */
+function saveNotifications(notifications) {
 
-    const getSettings = () => {
+    saveData(STORAGE_KEYS.NOTIFICATIONS, notifications);
 
-        return get(KEYS.SETTINGS) || {};
+}
 
-    };
+// ================= JOBS =================
 
-    const saveSettings = settings => {
+function getJobs() {
 
-        set(KEYS.SETTINGS, settings);
+    return loadData(STORAGE_KEYS.JOBS, []);
 
-    };
+}
 
-    /* ================= EXPORT ================= */
+function saveJobs(jobs) {
 
-    return {
+    saveData(STORAGE_KEYS.JOBS, jobs);
 
-        KEYS,
+}
 
-        get,
-        set,
-        remove,
-        clear,
+// ================= SETTINGS =================
 
-        getUsers,
-        saveUsers,
-        addUser,
-        updateUser,
-        findUserByEmail,
-        findUserByUsername,
+function getSettings() {
 
-        setCurrentUser,
-        getCurrentUser,
-        logout,
+    return loadData(STORAGE_KEYS.SETTINGS, {});
 
-        getPosts,
-        savePosts,
-        addPost,
+}
 
-        getMessages,
-        saveMessages,
+function saveSettings(settings) {
 
-        getConnections,
-        saveConnections,
+    saveData(STORAGE_KEYS.SETTINGS, settings);
 
-        getNotifications,
-        saveNotifications,
+}
 
-        getJobs,
-        saveJobs,
+// ================= RESET APP =================
 
-        getSettings,
-        saveSettings
+function resetApplication() {
 
-    };
+    Object.values(STORAGE_KEYS).forEach(key => {
+
+        removeData(key);
+
+    });
+
+}
+
+// ================= FIRST TIME SETUP =================
+
+(function () {
+
+    if (!loadData(STORAGE_KEYS.USERS)) {
+
+        saveUsers([]);
+
+    }
+
+    if (!loadData(STORAGE_KEYS.POSTS)) {
+
+        savePosts([]);
+
+    }
+
+    if (!loadData(STORAGE_KEYS.CONNECTIONS)) {
+
+        saveConnections([]);
+
+    }
+
+    if (!loadData(STORAGE_KEYS.MESSAGES)) {
+
+        saveMessages([]);
+
+    }
+
+    if (!loadData(STORAGE_KEYS.NOTIFICATIONS)) {
+
+        saveNotifications([]);
+
+    }
+
+    if (!loadData(STORAGE_KEYS.JOBS)) {
+
+        saveJobs([]);
+
+    }
+
+    if (!loadData(STORAGE_KEYS.SETTINGS)) {
+
+        saveSettings({});
+
+    }
 
 })();
