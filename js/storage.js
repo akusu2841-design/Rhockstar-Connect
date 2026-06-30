@@ -1,118 +1,306 @@
-// ===============================
-// RHOCKSTAR CONNECT
-// storage.js
-// ===============================
-
 "use strict";
 
-// ===============================
-// STORAGE KEYS
-// ===============================
+/* =========================================================
+   RHOCKSTAR CONNECT
+   storage.js
+   Handles all localStorage operations
+========================================================= */
 
-const STORAGE_KEYS = {
+const Storage = (() => {
 
-    USER: "rc_user",
-    USERS: "rc_users",
-    POSTS: "rc_posts",
-    COMMENTS: "rc_comments",
-    LIKES: "rc_likes",
-    CONNECTIONS: "rc_connections",
-    REQUESTS: "rc_requests",
-    MESSAGES: "rc_messages",
-    CHATS: "rc_chats",
-    JOBS: "rc_jobs",
-    APPLICATIONS: "rc_applications",
-    SAVED_JOBS: "rc_saved_jobs",
-    NOTIFICATIONS: "rc_notifications",
-    SETTINGS: "rc_settings",
-    REPORTS: "rc_reports",
-    BLOCKED_USERS: "rc_blocked_users",
-    FOLLOWERS: "rc_followers",
-    FOLLOWING: "rc_following",
-    DATING_MATCHES: "rc_dating_matches",
-    PROFILE_VISITS: "rc_profile_visits"
+    /* ================= STORAGE KEYS ================= */
 
-};
+    const KEYS = {
 
-// ===============================
-// STORAGE CLASS
-// ===============================
+        USERS: "rc_users",
 
-class StorageManager {
+        CURRENT_USER: "rc_current_user",
 
-    static save(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
-    }
+        POSTS: "rc_posts",
 
-    static get(key) {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) : null;
-    }
+        MESSAGES: "rc_messages",
 
-    static remove(key) {
+        CONNECTIONS: "rc_connections",
+
+        NOTIFICATIONS: "rc_notifications",
+
+        JOBS: "rc_jobs",
+
+        SETTINGS: "rc_settings"
+
+    };
+
+    /* ================= BASIC STORAGE ================= */
+
+    const get = key => {
+
+        try {
+
+            const data = localStorage.getItem(key);
+
+            return data ? JSON.parse(data) : null;
+
+        } catch (error) {
+
+            console.error(error);
+
+            return null;
+
+        }
+
+    };
+
+    const set = (key, value) => {
+
+        localStorage.setItem(
+
+            key,
+
+            JSON.stringify(value)
+
+        );
+
+    };
+
+    const remove = key => {
+
         localStorage.removeItem(key);
-    }
 
-    static clear() {
+    };
+
+    const clear = () => {
+
         localStorage.clear();
-    }
 
-    static exists(key) {
-        return localStorage.getItem(key) !== null;
-    }
+    };
 
-    static saveArray(key, array) {
-        this.save(key, array);
-    }
+    /* ================= USERS ================= */
 
-    static getArray(key) {
-        return this.get(key) || [];
-    }
+    const getUsers = () => {
 
-    static addItem(key, item) {
-        const data = this.getArray(key);
-        data.push(item);
-        this.save(key, data);
-        return data;
-    }
+        return get(KEYS.USERS) || [];
 
-    static updateItem(key, id, updates) {
+    };
 
-        const data = this.getArray(key);
+    const saveUsers = users => {
 
-        const index = data.findIndex(item => item.id === id);
+        set(KEYS.USERS, users);
 
-        if (index === -1) return false;
+    };
 
-        data[index] = {
-            ...data[index],
-            ...updates
-        };
+    const addUser = user => {
 
-        this.save(key, data);
+        const users = getUsers();
 
-        return true;
-    }
+        users.push(user);
 
-    static deleteItem(key, id) {
+        saveUsers(users);
 
-        const data = this.getArray(key);
+    };
 
-        const filtered = data.filter(item => item.id !== id);
+    const updateUser = user => {
 
-        this.save(key, filtered);
+        const users = getUsers();
 
-        return filtered;
-    }
+        const index = users.findIndex(
 
-    // Find one item
-    static findItem(key, callback) {
-        return this.getArray(key).find(callback);
-    }
+            u => u.id === user.id
 
-    // Replace an entire array
-    static replaceArray(key, array) {
-        this.save(key, array);
-    }
+        );
 
-            }
+        if (index !== -1) {
+
+            users[index] = user;
+
+            saveUsers(users);
+
+        }
+
+    };
+
+    const findUserByEmail = email => {
+
+        return getUsers().find(
+
+            user =>
+
+                user.email.toLowerCase() ===
+
+                email.toLowerCase()
+
+        );
+
+    };
+
+    const findUserByUsername = username => {
+
+        return getUsers().find(
+
+            user =>
+
+                user.username.toLowerCase() ===
+
+                username.toLowerCase()
+
+        );
+
+    };
+
+    /* ================= CURRENT USER ================= */
+
+    const setCurrentUser = user => {
+
+        set(KEYS.CURRENT_USER, user);
+
+    };
+
+    const getCurrentUser = () => {
+
+        return get(KEYS.CURRENT_USER);
+
+    };
+
+    const logout = () => {
+
+        remove(KEYS.CURRENT_USER);
+
+    };
+
+    /* ================= POSTS ================= */
+
+    const getPosts = () => {
+
+        return get(KEYS.POSTS) || [];
+
+    };
+
+    const savePosts = posts => {
+
+        set(KEYS.POSTS, posts);
+
+    };
+
+    const addPost = post => {
+
+        const posts = getPosts();
+
+        posts.unshift(post);
+
+        savePosts(posts);
+
+    };
+
+    /* ================= MESSAGES ================= */
+
+    const getMessages = () => {
+
+        return get(KEYS.MESSAGES) || [];
+
+    };
+
+    const saveMessages = messages => {
+
+        set(KEYS.MESSAGES, messages);
+
+    };
+
+    /* ================= CONNECTIONS ================= */
+
+    const getConnections = () => {
+
+        return get(KEYS.CONNECTIONS) || [];
+
+    };
+
+    const saveConnections = connections => {
+
+        set(KEYS.CONNECTIONS, connections);
+
+    };
+
+    /* ================= NOTIFICATIONS ================= */
+
+    const getNotifications = () => {
+
+        return get(KEYS.NOTIFICATIONS) || [];
+
+    };
+
+    const saveNotifications = notifications => {
+
+        set(KEYS.NOTIFICATIONS, notifications);
+
+    };
+
+    /* ================= JOBS ================= */
+
+    const getJobs = () => {
+
+        return get(KEYS.JOBS) || [];
+
+    };
+
+    const saveJobs = jobs => {
+
+        set(KEYS.JOBS, jobs);
+
+    };
+
+    /* ================= SETTINGS ================= */
+
+    const getSettings = () => {
+
+        return get(KEYS.SETTINGS) || {};
+
+    };
+
+    const saveSettings = settings => {
+
+        set(KEYS.SETTINGS, settings);
+
+    };
+
+    /* ================= EXPORT ================= */
+
+    return {
+
+        KEYS,
+
+        get,
+        set,
+        remove,
+        clear,
+
+        getUsers,
+        saveUsers,
+        addUser,
+        updateUser,
+        findUserByEmail,
+        findUserByUsername,
+
+        setCurrentUser,
+        getCurrentUser,
+        logout,
+
+        getPosts,
+        savePosts,
+        addPost,
+
+        getMessages,
+        saveMessages,
+
+        getConnections,
+        saveConnections,
+
+        getNotifications,
+        saveNotifications,
+
+        getJobs,
+        saveJobs,
+
+        getSettings,
+        saveSettings
+
+    };
+
+})();
