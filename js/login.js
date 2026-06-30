@@ -1,51 +1,163 @@
+// ===============================
+// RHOCKSTAR CONNECT
+// login.js
+// ===============================
+
+"use strict";
+
+// ===============================
+// ELEMENTS
+// ===============================
+
 const loginForm = document.getElementById("loginForm");
+
 const messageBox = document.getElementById("messageBox");
 
 const loginId = document.getElementById("loginId");
+
 const password = document.getElementById("password");
+
 const rememberMe = document.getElementById("rememberMe");
+
 const togglePassword = document.getElementById("togglePassword");
 
-// Show / Hide Password
-togglePassword.addEventListener("click", () => {
+// ===============================
+// SHOW / HIDE PASSWORD
+// ===============================
+
+togglePassword?.addEventListener("click", () => {
+
     if (password.type === "password") {
+
         password.type = "text";
+
         togglePassword.textContent = "🙈";
+
     } else {
+
         password.type = "password";
+
         togglePassword.textContent = "👁";
+
     }
+
 });
 
-// Login
-loginForm.addEventListener("submit", (e) => {
+// ===============================
+// LOGIN
+// ===============================
+
+loginForm?.addEventListener("submit", e => {
+
     e.preventDefault();
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    if (
 
-    const user = users.find(user =>
-        (user.email === loginId.value.trim() ||
-         user.username === loginId.value.trim()) &&
-        user.password === password.value
+        !loginId.value.trim() ||
+
+        !password.value.trim()
+
+    ) {
+
+        messageBox.textContent =
+
+            "Please enter your login details.";
+
+        messageBox.style.color = "red";
+
+        return;
+
+    }
+
+    const success = Auth.login(
+
+        loginId.value.trim(),
+
+        password.value
+
     );
 
-    if (!user) {
-        messageBox.textContent = "Invalid email/username or password.";
+    if (!success) {
+
+        messageBox.textContent =
+
+            "Invalid email/username or password.";
+
         messageBox.style.color = "red";
+
         return;
+
     }
 
-    // Save logged in user
-    if (rememberMe.checked) {
-        localStorage.setItem("currentUser", JSON.stringify(user));
+    // Remember Me
+    if (rememberMe?.checked) {
+
+        localStorage.setItem(
+
+            "rememberLogin",
+
+            "true"
+
+        );
+
     } else {
-        sessionStorage.setItem("currentUser", JSON.stringify(user));
+
+        localStorage.removeItem(
+
+            "rememberLogin"
+
+        );
+
     }
 
-    messageBox.textContent = "Login successful!";
-    messageBox.style.color = "green";
+    messageBox.textContent =
+
+        "Login successful.";
+
+    messageBox.style.color = "lime";
 
     setTimeout(() => {
-        window.location.href = "index.html"; // Change if your app page has a different name
-    }, 1000);
+
+        window.location.href = "index.html";
+
+    }, 800);
+
 });
+
+// ===============================
+// AUTO LOGIN
+// ===============================
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        if (
+
+            Auth.isLoggedIn()
+
+        ) {
+
+            if (
+
+                window.location.pathname.includes(
+
+                    "login"
+
+                )
+
+            ) {
+
+                window.location.href =
+
+                    "index.html";
+
+            }
+
+        }
+
+    }
+
+);
