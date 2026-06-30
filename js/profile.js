@@ -2897,7 +2897,383 @@ cancel?.addEventListener("click", () => {
 
 });
 
+// =========================
+// DATING PROFILE
+// =========================
 
+const datingGender = document.getElementById("datingGender");
+const interestedIn = document.getElementById("interestedIn");
+const relationshipStatus = document.getElementById("relationshipStatus");
+const lookingFor = document.getElementById("lookingFor");
+const myAge = document.getElementById("myAge");
+const myHeight = document.getElementById("myHeight");
+const myReligion = document.getElementById("myReligion");
+const myState = document.getElementById("myState");
+const datingCountry = document.getElementById("datingCountry");
+const datingOccupation = document.getElementById("datingOccupation");
+const myHobbies = document.getElementById("myHobbies");
+const smoking = document.getElementById("smoking");
+const drinking = document.getElementById("drinking");
+
+function loadDatingProfile() {
+
+    datingGender.textContent = profileData.datingGender || "Not Added";
+
+    interestedIn.textContent = profileData.interestedIn || "Not Added";
+
+    relationshipStatus.textContent =
+        profileData.relationshipStatus || "Single";
+
+    lookingFor.textContent =
+        profileData.lookingFor || "Friendship";
+
+    myAge.textContent =
+        profileData.age || "Not Added";
+
+    myHeight.textContent =
+        profileData.height || "Not Added";
+
+    myReligion.textContent =
+        profileData.religion || "Not Added";
+
+    myState.textContent =
+        profileData.state || "Not Added";
+
+    datingCountry.textContent =
+        profileData.country || "Nigeria";
+
+    datingOccupation.textContent =
+        profileData.occupation || "Not Added";
+
+    myHobbies.textContent =
+        profileData.hobbies || "Not Added";
+
+    smoking.textContent =
+        profileData.smoking || "No";
+
+    drinking.textContent =
+        profileData.drinking || "Occasionally";
+
+}
+// =========================
+// DATING GALLERY
+// =========================
+
+const uploadDatingPhotos = document.getElementById("uploadDatingPhotos");
+const datingGallery = document.getElementById("datingGallery");
+
+uploadDatingPhotos?.addEventListener("click", () => {
+
+    photoUpload.click();
+
+});
+
+photoUpload?.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function () {
+
+        if (!profileData.datingGallery) {
+
+            profileData.datingGallery = [];
+
+        }
+
+        profileData.datingGallery.push(reader.result);
+
+        saveProfile();
+
+        loadDatingGallery();
+
+        showToast("Dating photo uploaded successfully.");
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+function loadDatingGallery() {
+
+    if (!datingGallery) return;
+
+    datingGallery.innerHTML = "";
+
+    if (!profileData.datingGallery ||
+        profileData.datingGallery.length === 0) {
+
+        datingGallery.innerHTML = `
+            <p class="empty-state">
+                No dating photos uploaded yet.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    profileData.datingGallery.forEach((photo, index) => {
+
+        const card = document.createElement("div");
+
+        card.className = "photo-card";
+
+        card.innerHTML = `
+            <img src="${photo}" alt="Dating Photo">
+
+            <button class="danger-btn removeDatingPhoto"
+                data-index="${index}">
+                🗑 Delete
+            </button>
+        `;
+
+        datingGallery.appendChild(card);
+
+    });
+
+    document.querySelectorAll(".removeDatingPhoto")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const index = Number(button.dataset.index);
+
+                profileData.datingGallery.splice(index, 1);
+
+                saveProfile();
+
+                loadDatingGallery();
+
+                showToast("Dating photo removed.");
+
+            });
+
+        });
+
+}
+
+loadDatingGallery();
+
+// =========================
+// PERSONALITY & MATCH PREFERENCES
+// =========================
+
+const personality = document.getElementById("personality");
+
+const agePreference = document.getElementById("agePreference");
+const distancePreference = document.getElementById("distancePreference");
+const genderPreference = document.getElementById("genderPreference");
+
+function loadDatingPreferences() {
+
+    personality.textContent =
+        profileData.personality ||
+        "Tell people what makes you unique...";
+
+    agePreference.textContent =
+        profileData.agePreference ||
+        "18 - 30";
+
+    distancePreference.textContent =
+        profileData.distancePreference ||
+        "50 km";
+
+    genderPreference.textContent =
+        profileData.genderPreference ||
+        "Female";
+
+}
+
+function updateDatingPreferences(data = {}) {
+
+    profileData.personality =
+        data.personality ??
+        profileData.personality;
+
+    profileData.agePreference =
+        data.agePreference ??
+        profileData.agePreference;
+
+    profileData.distancePreference =
+        data.distancePreference ??
+        profileData.distancePreference;
+
+    profileData.genderPreference =
+        data.genderPreference ??
+        profileData.genderPreference;
+
+    saveProfile();
+
+    loadDatingPreferences();
+
+}
+
+loadDatingPreferences();
+
+// =========================
+// PROFILE BOOST
+// =========================
+
+const boostProfileBtn = document.getElementById("boostProfileBtn");
+
+boostProfileBtn?.addEventListener("click", () => {
+
+    if (profileData.profileBoosted) {
+
+        showToast("Your profile is already boosted.");
+
+        return;
+
+    }
+
+    profileData.profileBoosted = true;
+
+    profileData.boostDate = new Date().toISOString();
+
+    saveProfile();
+
+    boostProfileBtn.textContent = "🚀 Profile Boosted";
+
+    boostProfileBtn.disabled = true;
+
+    showToast("Your profile has been boosted.");
+
+});
+
+function loadProfileBoost() {
+
+    if (!boostProfileBtn) return;
+
+    if (profileData.profileBoosted) {
+
+        boostProfileBtn.textContent = "🚀 Profile Boosted";
+
+        boostProfileBtn.disabled = true;
+
+    } else {
+
+        boostProfileBtn.textContent = "Boost My Profile";
+
+        boostProfileBtn.disabled = false;
+
+    }
+
+}
+
+loadProfileBoost();
+
+// =========================
+// COMPATIBILITY & PROFILE COMPLETION
+// =========================
+
+const compatibilityScore = document.getElementById("compatibilityScore");
+
+const profileProgress = document.getElementById("profileProgress");
+
+const profilePercent = document.getElementById("profilePercent");
+
+function calculateProfileCompletion() {
+
+    const fields = [
+
+        profileData.fullName,
+
+        profileData.username,
+
+        profileData.email,
+
+        profileData.phone,
+
+        profileData.location,
+
+        profileData.bio,
+
+        profileData.title,
+
+        profileData.website,
+
+        profileData.profilePicture,
+
+        profileData.coverPhoto,
+
+        profileData.skills?.length,
+
+        profileData.education?.length,
+
+        profileData.experience?.length,
+
+        profileData.portfolio?.length,
+
+        profileData.cv,
+
+        profileData.country,
+
+        profileData.relationshipStatus,
+
+        profileData.personality,
+
+        profileData.datingGallery?.length,
+
+        profileData.interestedIn
+
+    ];
+
+    let completed = 0;
+
+    fields.forEach(field => {
+
+        if (field && field !== "Not Added") {
+
+            completed++;
+
+        }
+
+    });
+
+    const percent = Math.round(
+
+        (completed / fields.length) * 100
+
+    );
+
+    profileProgress.style.width = percent + "%";
+
+    profilePercent.textContent = percent + "%";
+
+    compatibilityScore.innerHTML = `
+
+        <h2>${percent}%</h2>
+
+        <p>
+
+            ${
+                percent >= 90
+
+                ? "Excellent profile. You're highly discoverable."
+
+                : percent >= 70
+
+                ? "Great profile. Add a few more details."
+
+                : percent >= 40
+
+                ? "Good start. Complete more sections."
+
+                : "Complete your profile to improve matching."
+            }
+
+        </p>
+
+    `;
+
+}
+
+calculateProfileCompletion();
 
 
 renderEverything();
