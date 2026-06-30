@@ -1,363 +1,139 @@
-// ===============================
-// RHOCKSTAR CONNECT
-// feed.js
-// Handles Posts, Likes, Comments,
-// Replies and Shares
-// ===============================
+// =====================================
+// FEED.JS
+// =====================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const postBtn = document.getElementById("postBtn");
-    const textSpace = document.getElementById("textSpace");
-    const postsContainer = document.getElementById("postsContainer");
+    initCharacterCounter();
+    initClearButton();
+    initImagePreview();
+    initVideoPreview();
 
-    if (!postBtn || !textSpace || !postsContainer) return;
+});
 
-    // ==========================
-    // LOAD POSTS
-    // ==========================
 
-    loadPosts();
+// =====================================
+// ELEMENTS
+// =====================================
 
-    // ==========================
-    // CREATE POST
-    // ==========================
+const textSpace = document.getElementById("textSpace");
+const charCount = document.getElementById("charCount");
 
-    postBtn.addEventListener("click", () => {
+const clearPostBtn = document.getElementById("clearPostBtn");
 
-        const text = textSpace.value.trim();
+const imageInput = document.getElementById("postImages");
+const videoInput = document.getElementById("postVideo");
 
-        if (!text) {
-            alert("Write something first.");
-            return;
-        }
+const mediaPreview = document.getElementById("mediaPreview");
 
-        const profilePhoto =
-            localStorage.getItem("profilePhoto") ||
-            "images/profile.jpg";
 
-        const profile =
-            JSON.parse(localStorage.getItem("rhockstar_profile")) || {};
+// =====================================
+// CHARACTER COUNTER
+// =====================================
 
-        const username =
-            profile.name || "Rhockstar User";
+function initCharacterCounter() {
 
-        const post = document.createElement("article");
+    if (!textSpace || !charCount) return;
 
-        post.className = "post-card";
+    textSpace.addEventListener("input", () => {
 
-        post.innerHTML = `
-
-            <div class="post-header">
-
-                <img
-                    src="${profilePhoto}"
-                    class="post-profile"
-                    alt="Profile">
-
-                <div>
-
-                    <h4>${username}</h4>
-
-                    <small>Just now</small>
-
-                </div>
-
-            </div>
-
-            <p>${text}</p>
-
-            <div class="post-actions">
-
-                <button class="like-btn">
-                    ❤️ <span class="like-count">0</span>
-                </button>
-
-                <button class="comment-btn-toggle">
-                    💬 Comment
-                </button>
-
-                <button class="share-btn">
-                    🔁 Share
-                </button>
-
-            </div>
-
-            <div class="comments-section" style="display:none;">
-
-                <input
-                    type="text"
-                    class="comment-input"
-                    placeholder="Write a comment...">
-
-                <button class="comment-btn">
-                    Post
-                </button>
-
-                <div class="comments-list"></div>
-
-            </div>
-
-        `;
-
-        postsContainer.prepend(post);
-
-        textSpace.value = "";
-
-        savePosts();
-
-        updatePostStats();
+        charCount.textContent = textSpace.value.length;
 
     });
 
-});
+}
 
 
-// ==========================
-// SAVE POSTS
-// ==========================
+// =====================================
+// CLEAR POST
+// =====================================
 
-function savePosts() {
+function initClearButton() {
 
-    const container =
-        document.getElementById("postsContainer");
+    if (!clearPostBtn) return;
 
-    if (!container) return;
+    clearPostBtn.addEventListener("click", () => {
 
-    localStorage.setItem(
-        "feedPosts",
-        container.innerHTML
-    );
+        textSpace.value = "";
+
+        charCount.textContent = "0";
+
+        mediaPreview.innerHTML = "";
+
+        imageInput.value = "";
+
+        videoInput.value = "";
+
+    });
 
 }
 
 
-// ==========================
-// LOAD POSTS
-// ==========================
+// =====================================
+// IMAGE PREVIEW
+// =====================================
 
-function loadPosts() {
+function initImagePreview() {
 
-    const container =
-        document.getElementById("postsContainer");
+    if (!imageInput) return;
 
-    if (!container) return;
+    imageInput.addEventListener("change", () => {
 
-    const saved =
-        localStorage.getItem("feedPosts");
+        mediaPreview.innerHTML = "";
 
-    if (saved) {
+        const files = [...imageInput.files];
 
-        container.innerHTML = saved;
+        files.forEach(file => {
 
-    }
+            const reader = new FileReader();
 
-    updatePostStats();
+            reader.onload = e => {
 
-}
+                const img = document.createElement("img");
 
+                img.src = e.target.result;
 
-// ==========================
-// UPDATE POST STATS
-// ==========================
+                img.className = "preview-image";
 
-function updatePostStats() {
+                mediaPreview.appendChild(img);
 
-    const posts =
-        document.querySelectorAll(".post-card").length;
+            };
 
-    const totalPosts =
-        document.getElementById("totalPosts");
+            reader.readAsDataURL(file);
 
-    const myPosts =
-        document.getElementById("myPosts");
+        });
 
-    if (totalPosts)
-        totalPosts.textContent = posts;
-
-    if (myPosts)
-        myPosts.textContent = posts;
+    });
 
 }
 
 
-// ==========================
-// LIKE POST
-// ==========================
+// =====================================
+// VIDEO PREVIEW
+// =====================================
 
-document.addEventListener("click", e => {
+function initVideoPreview() {
 
-    const btn = e.target.closest(".like-btn");
+    if (!videoInput) return;
 
-    if (!btn) return;
+    videoInput.addEventListener("change", () => {
 
-    const count =
-        btn.querySelector(".like-count");
+        mediaPreview.innerHTML = "";
 
-    count.textContent =
-        Number(count.textContent) + 1;
+        const file = videoInput.files[0];
 
-    savePosts();
+        if (!file) return;
 
-});
+        const video = document.createElement("video");
 
+        video.controls = true;
 
-// ==========================
-// SHOW COMMENTS
-// ==========================
+        video.className = "preview-video";
 
-document.addEventListener("click", e => {
+        video.src = URL.createObjectURL(file);
 
-    if (!e.target.classList.contains("comment-btn-toggle"))
-        return;
+        mediaPreview.appendChild(video);
 
-    const post =
-        e.target.closest(".post-card");
+    });
 
-    const section =
-        post.querySelector(".comments-section");
-
-    section.style.display =
-        section.style.display === "none"
-            ? "block"
-            : "none";
-
-});
-
-
-// ==========================
-// ADD COMMENT
-// ==========================
-
-document.addEventListener("click", e => {
-
-    if (!e.target.classList.contains("comment-btn"))
-        return;
-
-    const section =
-        e.target.closest(".comments-section");
-
-    const input =
-        section.querySelector(".comment-input");
-
-    const comments =
-        section.querySelector(".comments-list");
-
-    const text =
-        input.value.trim();
-
-    if (!text) return;
-
-    const comment =
-        document.createElement("div");
-
-    comment.className = "comment";
-
-    comment.innerHTML = `
-
-        <p class="comment-text">
-
-            ${text}
-
-        </p>
-
-        <button class="reply-btn">
-
-            Reply
-
-        </button>
-
-        <div class="reply-form" style="display:none;">
-
-            <input
-                type="text"
-                class="reply-input"
-                placeholder="Write a reply...">
-
-            <button class="send-reply-btn">
-
-                Send
-
-            </button>
-
-        </div>
-
-        <div class="replies"></div>
-
-    `;
-
-    comments.prepend(comment);
-
-    input.value = "";
-
-    savePosts();
-
-});
-
-
-// ==========================
-// REPLY SYSTEM
-// ==========================
-
-document.addEventListener("click", e => {
-
-    if (e.target.classList.contains("reply-btn")) {
-
-        const form =
-            e.target.nextElementSibling;
-
-        form.style.display =
-            form.style.display === "none"
-                ? "block"
-                : "none";
-
-    }
-
-    if (e.target.classList.contains("send-reply-btn")) {
-
-        const form =
-            e.target.parentElement;
-
-        const input =
-            form.querySelector(".reply-input");
-
-        const text =
-            input.value.trim();
-
-        if (!text) return;
-
-        const replies =
-            form.nextElementSibling;
-
-        const reply =
-            document.createElement("div");
-
-        reply.className = "reply";
-
-        reply.textContent = text;
-
-        replies.prepend(reply);
-
-        input.value = "";
-
-        form.style.display = "none";
-
-        savePosts();
-
-    }
-
-});
-
-
-// ==========================
-// SHARE POST
-// ==========================
-
-document.addEventListener("click", e => {
-
-    if (!e.target.classList.contains("share-btn"))
-        return;
-
-    alert("Post shared successfully!");
-
-});
+}
