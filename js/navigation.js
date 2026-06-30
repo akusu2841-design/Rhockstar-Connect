@@ -1,69 +1,32 @@
-// ===============================
+// ======================================
 // RHOCKSTAR CONNECT
 // navigation.js
-// ===============================
+// ======================================
 
 "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
+// =======================
+// ELEMENTS
+// =======================
 
-    initializeNavigation();
+const pages = document.querySelectorAll(".page");
+const navLinks = document.querySelectorAll(".nav-link");
 
-});
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-// ===============================
-// INITIALIZE
-// ===============================
+const menuToggle = document.getElementById("menuToggle");
+const closeMenu = document.getElementById("closeMenu");
 
-function initializeNavigation() {
+// =======================
+// SHOW PAGE
+// =======================
 
-    setupSidebarNavigation();
+function showPage(pageId) {
 
-    setupHashNavigation();
-
-    openDefaultPage();
-
-}
-
-// ===============================
-// SIDEBAR LINKS
-// ===============================
-
-function setupSidebarNavigation() {
-
-    const navLinks = document.querySelectorAll("[data-page]");
-
-    navLinks.forEach(link => {
-
-        link.addEventListener("click", function (e) {
-
-            e.preventDefault();
-
-            const page = this.dataset.page;
-
-            openPage(page);
-
-        });
-
-    });
-
-}
-
-// ===============================
-// OPEN PAGE
-// ===============================
-
-function openPage(pageId) {
-
-    document.querySelectorAll(".page").forEach(page => {
+    pages.forEach(page => {
 
         page.classList.remove("active");
-
-    });
-
-    document.querySelectorAll("[data-page]").forEach(link => {
-
-        link.classList.remove("active");
 
     });
 
@@ -75,51 +38,13 @@ function openPage(pageId) {
 
     }
 
-    const activeLink = document.querySelector(
+    navLinks.forEach(link => {
 
-        `[data-page="${pageId}"]`
+        link.classList.remove("active");
 
-    );
+        if (link.dataset.page === pageId) {
 
-    if (activeLink) {
-
-        activeLink.classList.add("active");
-
-    }
-
-    history.replaceState(
-
-        null,
-
-        "",
-
-        "#" + pageId
-
-    );
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-// ===============================
-// HASH SUPPORT
-// ===============================
-
-function setupHashNavigation() {
-
-    window.addEventListener("hashchange", () => {
-
-        const page = location.hash.replace("#", "");
-
-        if (page !== "") {
-
-            openPage(page);
+            link.classList.add("active");
 
         }
 
@@ -127,104 +52,94 @@ function setupHashNavigation() {
 
 }
 
-// ===============================
-// DEFAULT PAGE
-// ===============================
+// =======================
+// NAVIGATION
+// =======================
 
-function openDefaultPage() {
+navLinks.forEach(link => {
 
-    const page = location.hash.replace("#", "");
+    link.addEventListener("click", function (e) {
 
-    if (page) {
+        e.preventDefault();
 
-        openPage(page);
+        const page = this.dataset.page;
 
-        return;
+        showPage(page);
+
+        closeSidebar();
+
+    });
+
+});
+
+// =======================
+// SIDEBAR
+// =======================
+
+function openSidebar() {
+
+    if (!sidebar) return;
+
+    sidebar.classList.add("show");
+
+    if (sidebarOverlay) {
+
+        sidebarOverlay.classList.add("show");
 
     }
 
-    const firstPage = document.querySelector(".page");
+}
 
-    if (!firstPage) return;
+function closeSidebar() {
 
-    openPage(firstPage.id);
+    if (!sidebar) return;
+
+    sidebar.classList.remove("show");
+
+    if (sidebarOverlay) {
+
+        sidebarOverlay.classList.remove("show");
+
+    }
 
 }
 
-// ===============================
+// =======================
 // MOBILE MENU
-// ===============================
+// =======================
 
-const menuBtn = document.getElementById("menuBtn");
+if (menuToggle) {
 
-const sidebar = document.getElementById("sidebar");
-
-if (menuBtn && sidebar) {
-
-    menuBtn.addEventListener("click", () => {
-
-        sidebar.classList.toggle("show");
-
-    });
+    menuToggle.addEventListener("click", openSidebar);
 
 }
 
-// ===============================
-// CLOSE MOBILE MENU
-// ===============================
+if (closeMenu) {
 
-document.querySelectorAll("[data-page]").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        if (window.innerWidth <= 768 && sidebar) {
-
-            sidebar.classList.remove("show");
-
-        }
-
-    });
-
-});
-
-// ===============================
-// ESC CLOSE MENU
-// ===============================
-
-document.addEventListener("keydown", e => {
-
-    if (e.key === "Escape") {
-
-        if (sidebar) {
-
-            sidebar.classList.remove("show");
-
-        }
-
-    }
-
-});
-
-// ===============================
-// ACTIVE PAGE NAME
-// ===============================
-
-function currentPage() {
-
-    const active = document.querySelector(".page.active");
-
-    return active ? active.id : "";
+    closeMenu.addEventListener("click", closeSidebar);
 
 }
 
-// ===============================
-// PUBLIC
-// ===============================
+if (sidebarOverlay) {
 
-window.Navigation = {
+    sidebarOverlay.addEventListener("click", closeSidebar);
 
-    openPage,
+}
 
-    currentPage
+// =======================
+// DEFAULT PAGE
+// =======================
 
-};
+document.addEventListener("DOMContentLoaded", () => {
+
+    showPage("feed");
+
+});
+
+// =======================
+// PUBLIC FUNCTIONS
+// =======================
+
+window.showPage = showPage;
+window.openSidebar = openSidebar;
+window.closeSidebar = closeSidebar;
