@@ -1,18 +1,35 @@
 // ======================================
-// FIREBASE CONFIG
+// RHOCKSTAR CONNECT
+// firebase.js
 // ======================================
 
+// ---------- Firebase App ----------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+// ---------- Authentication ----------
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+// ---------- Firestore ----------
+import {
+    getFirestore
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-import { getStorage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+// ---------- Storage ----------
+import {
+    getStorage
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+// ---------- Analytics ----------
+import {
+    getAnalytics,
+    isSupported
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
 
 
 // ======================================
-// CONFIG
+// FIREBASE CONFIG
 // ======================================
 
 const firebaseConfig = {
@@ -27,19 +44,58 @@ const firebaseConfig = {
 
     messagingSenderId: "1015640312772",
 
-    appId: "1:1015640312772:web:15c2497a29720b23c33291"
+    appId: "1:1015640312772:web:15c2497a29720b23c33291",
+
+    measurementId: "G-24LGXEWZL6"
 
 };
 
 
 // ======================================
-// INITIALIZE
+// INITIALIZE FIREBASE
 // ======================================
 
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
+const auth = getAuth(app);
 
-export const db = getFirestore(app);
+const db = getFirestore(app);
 
-export const storage = getStorage(app);
+const storage = getStorage(app);
+
+
+// ======================================
+// ANALYTICS
+// (Only works on HTTPS or localhost)
+// ======================================
+
+let analytics = null;
+
+isSupported().then((supported) => {
+
+    if (supported) {
+
+        analytics = getAnalytics(app);
+
+    }
+
+});
+
+
+// ======================================
+// EXPORTS
+// ======================================
+
+export {
+
+    app,
+
+    auth,
+
+    db,
+
+    storage,
+
+    analytics
+
+};
