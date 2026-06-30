@@ -1,74 +1,174 @@
+// ===============================
+// RHOCKSTAR CONNECT
+// register.js
+// ===============================
+
+"use strict";
+
+// ===============================
+// ELEMENTS
+// ===============================
+
 const registerForm = document.getElementById("registerForm");
+
 const messageBox = document.getElementById("messageBox");
 
+const fullName = document.getElementById("fullName");
+
+const username = document.getElementById("username");
+
+const email = document.getElementById("email");
+
 const password = document.getElementById("password");
+
 const confirmPassword = document.getElementById("confirmPassword");
+
 const togglePassword = document.getElementById("togglePassword");
+
 const strengthBar = document.getElementById("strengthBar");
 
-// Show / Hide Password
-togglePassword.addEventListener("click", () => {
+// ===============================
+// SHOW / HIDE PASSWORD
+// ===============================
+
+togglePassword?.addEventListener("click", () => {
+
     if (password.type === "password") {
+
         password.type = "text";
+
         togglePassword.textContent = "🙈";
+
     } else {
+
         password.type = "password";
+
         togglePassword.textContent = "👁";
+
     }
+
 });
 
-// Password Strength
-password.addEventListener("input", () => {
+// ===============================
+// PASSWORD STRENGTH
+// ===============================
+
+password?.addEventListener("input", () => {
+
     let strength = 0;
 
-    if (password.value.length >= 8) strength++;
-    if (/[A-Z]/.test(password.value)) strength++;
-    if (/[a-z]/.test(password.value)) strength++;
-    if (/\d/.test(password.value)) strength++;
-    if (/[^A-Za-z0-9]/.test(password.value)) strength++;
+    const value = password.value;
 
-    strengthBar.style.width = (strength * 20) + "%";
+    if (value.length >= 8) strength++;
+
+    if (/[A-Z]/.test(value)) strength++;
+
+    if (/[a-z]/.test(value)) strength++;
+
+    if (/\d/.test(value)) strength++;
+
+    if (/[^A-Za-z0-9]/.test(value)) strength++;
+
+    strengthBar.style.width = `${strength * 20}%`;
+
 });
 
-// Register
-registerForm.addEventListener("submit", (e) => {
+// ===============================
+// REGISTER
+// ===============================
+
+registerForm?.addEventListener("submit", e => {
+
     e.preventDefault();
 
-    const fullName = document.getElementById("fullName").value.trim();
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
+    if (
 
-    if (password.value !== confirmPassword.value) {
-        messageBox.textContent = "Passwords do not match.";
+        !fullName.value.trim() ||
+
+        !username.value.trim() ||
+
+        !email.value.trim() ||
+
+        !password.value.trim()
+
+    ) {
+
+        messageBox.textContent =
+
+            "Please fill in all fields.";
+
         messageBox.style.color = "red";
+
         return;
+
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (
 
-    const exists = users.some(user =>
-        user.email === email || user.username === username
-    );
+        password.value !==
 
-    if (exists) {
-        messageBox.textContent = "Username or email already exists.";
+        confirmPassword.value
+
+    ) {
+
+        messageBox.textContent =
+
+            "Passwords do not match.";
+
         messageBox.style.color = "red";
+
         return;
+
     }
 
-    users.push({
-        fullName,
-        username,
-        email,
-        password: password.value
+    const success = Auth.register({
+
+        fullName:
+
+            fullName.value.trim(),
+
+        username:
+
+            username.value.trim(),
+
+        email:
+
+            email.value.trim(),
+
+        password:
+
+            password.value
+
     });
 
-    localStorage.setItem("users", JSON.stringify(users));
+    if (!success) {
 
-    messageBox.textContent = "Registration successful!";
-    messageBox.style.color = "green";
+        messageBox.textContent =
+
+            "Email or username already exists.";
+
+        messageBox.style.color = "red";
+
+        return;
+
+    }
+
+    messageBox.textContent =
+
+        "Registration successful!";
+
+    messageBox.style.color = "lime";
+
+    registerForm.reset();
+
+    strengthBar.style.width = "0%";
 
     setTimeout(() => {
-        window.location.href = "login.html";
+
+        window.location.href =
+
+            "login.html";
+
     }, 1000);
+
 });
