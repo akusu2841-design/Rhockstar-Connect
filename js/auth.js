@@ -1,185 +1,200 @@
 // ======================================
 // RHOCKSTAR CONNECT
 // auth.js
+// Shared Authentication Functions
 // ======================================
 
-"use strict";
+// ---------- Message Box ----------
+function showMessage(message, type = "info") {
+    const box = document.getElementById("messageBox");
 
-// =========================
-// REGISTER
-// =========================
+    if (!box) return;
 
-function registerUser(userData) {
+    box.textContent = message;
+    box.className = `message-box ${type}`;
+    box.style.display = "block";
 
-    const users = getUsers();
+    clearTimeout(box.timer);
 
-    const emailExists = users.some(user =>
-        user.email.toLowerCase() === userData.email.toLowerCase()
-    );
+    box.timer = setTimeout(() => {
+        box.style.display = "none";
+    }, 5000);
+}
 
-    if (emailExists) {
+window.showMessage = showMessage;
 
-        return {
-            success: false,
-            message: "Email already exists."
-        };
 
+// ---------- Loading Button ----------
+function setButtonLoading(button, loading = true) {
+
+    if (!button) return;
+
+    if (loading) {
+        button.dataset.original = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = "Please wait...";
+    } else {
+        button.disabled = false;
+        button.innerHTML =
+            button.dataset.original || "Submit";
     }
+}
 
-    userData.id = generateId();
-    userData.createdAt = new Date().toISOString();
+window.setButtonLoading = setButtonLoading;
 
-    userData.profilePhoto = "images/default-avatar.png";
-    userData.coverPhoto = "images/default-cover.jpg";
 
-    userData.posts = 0;
-    userData.followers = 0;
-    userData.following = 0;
-    userData.connections = 0;
+// ---------- Password Visibility ----------
+function setupPasswordToggle(buttonId, inputId) {
 
-    addUser(userData);
+    const button = document.getElementById(buttonId);
+    const input = document.getElementById(inputId);
 
-    return {
-        success: true,
-        message: "Account created successfully."
-    };
+    if (!button || !input) return;
+
+    button.addEventListener("click", () => {
+
+        if (input.type === "password") {
+            input.type = "text";
+            button.textContent = "🙈";
+        } else {
+            input.type = "password";
+            button.textContent = "👁";
+        }
+
+    });
 
 }
 
-// =========================
-// LOGIN
-// =========================
+window.setupPasswordToggle = setupPasswordToggle;
 
-function loginUser(email, password) {
 
-    const user = findUserByEmail(email);
+// ---------- Password Strength ----------
+function getPasswordStrength(password) {
 
-    if (!user) {
+    let score = 0;
 
-        return {
-            success: false,
-            message: "Account not found."
-        };
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
 
-    }
-
-    if (user.password !== password) {
-
-        return {
-            success: false,
-            message: "Incorrect password."
-        };
-
-    }
-
-    setCurrentUser(user);
-
-    return {
-        success: true,
-        user
-    };
+    return score;
 
 }
 
-// =========================
-// LOGOUT
-// =========================
+window.getPasswordStrength = getPasswordStrength;
 
+
+// ---------- Update Strength Bar ----------
+function setupStrengthBar(inputId, barId) {
+
+    const input = document.getElementById(inputId);
+    const bar = document.getElementById(barId);
+
+    if (!input || !bar) return;
+
+    input.addEventListener("input", () => {
+
+        const score = getPasswordStrength(input.value);
+
+        let width = "0%";
+        let color = "#ff3b30";
+
+        switch (score) {
+
+            case 1:
+                width = "20%";
+                color = "#ff3b30";
+                break;
+
+            case 2:
+                width = "40%";
+                color = "#ff9500";
+                break;
+
+            case 3:
+                width = "60%";
+                color = "#ffd60a";
+                break;
+
+            case 4:
+                width = "80%";
+                color = "#32d74b";
+                break;
+
+            case 5:
+                width = "100%";
+                color = "#00c853";
+                break;
+
+        }
+
+        bar.style.width = width;
+        bar.style.background = color;
+
+    });
+
+}
+
+window.setupStrengthBar = setupStrengthBar;
+
+
+// ---------- Email Validation ----------
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+}
+
+window.isValidEmail = isValidEmail;
+
+
+// ---------- Username Validation ----------
+function isValidUsername(username) {
+
+    return /^[a-zA-Z0-9_]{3,20}$/.test(username);
+
+}
+
+window.isValidUsername = isValidUsername;
+
+
+// ---------- Password Validation ----------
+function isStrongPassword(password) {
+
+    return password.length >= 8 &&
+        /[A-Z]/.test(password) &&
+        /[a-z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[^A-Za-z0-9]/.test(password);
+
+}
+
+window.isStrongPassword = isStrongPassword;
+
+
+// ---------- Redirect If Logged In ----------
+function redirectIfLoggedIn() {
+
+    const user = localStorage.getItem("currentUser");
+
+    if (user) {
+        window.location.href = "index.html";
+    }
+
+}
+
+window.redirectIfLoggedIn = redirectIfLoggedIn;
+
+
+// ---------- Logout ----------
 function logout() {
 
-    logoutUser();
+    localStorage.removeItem("currentUser");
 
     window.location.href = "login.html";
 
 }
 
-// =========================
-// CURRENT USER
-// =========================
-
-function currentUser() {
-
-    return getCurrentUser();
-
-}
-
-// =========================
-// CHECK LOGIN
-// =========================
-
-function requireLogin() {
-
-    if (!isLoggedIn()) {
-
-        window.location.href = "login.html";
-
-    }
-
-}
-
-// =========================
-// UPDATE SESSION
-// =========================
-
-function refreshCurrentUser() {
-
-    const current = getCurrentUser();
-
-    if (!current) return;
-
-    const latest = findUserById(current.id);
-
-    if (latest) {
-
-        setCurrentUser(latest);
-
-    }
-
-}
-
-// =========================
-// AUTO REDIRECT
-// =========================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const page = location.pathname.toLowerCase();
-
-    // Already logged in
-    if (
-        isLoggedIn() &&
-        (
-            page.includes("login") ||
-            page.includes("register")
-        )
-    ) {
-
-        window.location.href = "index.html";
-
-    }
-
-    // Dashboard protection
-    if (
-        page.includes("index") &&
-        document.getElementById("dashboard")
-    ) {
-
-        requireLogin();
-
-    }
-
-});
-
-// =========================
-// LOGOUT BUTTON
-// =========================
-
-document.addEventListener("click", e => {
-
-    if (e.target.id === "logout") {
-
-        logout();
-
-    }
-
-});
+window.logout = logout;
