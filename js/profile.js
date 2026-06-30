@@ -2529,7 +2529,7 @@ function renderEverything() {
    FILE UPLOADS
 ========================================== */
 
-const portfolioUpload = document.getElementById("portfolioUpload");
+const portfolioUpload = document.getElementById("portfolioUploadInput");
 const certificateUpload = document.getElementById("certificateUpload");
 const cvUpload = document.getElementById("cvUpload");
 const photoUpload = document.getElementById("photoUpload");
@@ -2759,6 +2759,7 @@ addEducationBtn?.addEventListener("click", () => {
 ========================================== */
 
 const profileEditBtn = document.getElementById("profileEditBtn");
+const profileEditBottomBtn = document.getElementById("profileEditBottomBtn");
 const shareProfileBtn = document.getElementById("shareProfileBtn");
 const copyProfileBtn = document.getElementById("copyProfileBtn");
 const downloadProfileBtn = document.getElementById("downloadProfileBtn");
@@ -2768,23 +2769,31 @@ const qrProfileBtn = document.getElementById("qrProfileBtn");
 const profileEditSection = document.getElementById("profileEditSection");
 const profileCard = document.querySelector(".profile-card");
 
-profileEditBtn?.addEventListener("click", () => {
+function openProfileEditor() {
 
     if (!profileEditSection) return;
 
     profileEditSection.style.display = "block";
 
     profileEditSection.scrollIntoView({
-
         behavior: "smooth"
-
     });
+
+}
+
+profileEditBtn?.addEventListener("click", openProfileEditor);
+
+profileEditBottomBtn?.addEventListener("click", openProfileEditor);
 
 });
 
-shareProfileBtn?.addEventListener("click", async () => {
+const shareProfileBottomBtn =
+document.getElementById("shareProfileBottomBtn");
 
-    const profileLink = window.location.href + "#profile";
+async function shareMyProfile() {
+
+    const profileLink =
+        window.location.href + "#profile";
 
     if (navigator.share) {
 
@@ -2810,18 +2819,29 @@ shareProfileBtn?.addEventListener("click", async () => {
 
     }
 
-});
+}
 
-copyProfileBtn?.addEventListener("click", () => {
+shareProfileBtn?.addEventListener("click", shareMyProfile);
 
-    const profileLink = window.location.href + "#profile";
+shareProfileBottomBtn?.addEventListener("click", shareMyProfile);
+
+const copyProfileBottomBtn =
+document.getElementById("copyProfileBottomBtn");
+
+function copyMyProfileLink() {
+
+    const profileLink =
+        window.location.href + "#profile";
 
     navigator.clipboard.writeText(profileLink);
 
     showToast("Profile link copied.");
 
-});
+}
 
+copyProfileBtn?.addEventListener("click", copyMyProfileLink);
+
+copyProfileBottomBtn?.addEventListener("click", copyMyProfileLink);
 
 downloadProfileBtn?.addEventListener("click", () => {
 
