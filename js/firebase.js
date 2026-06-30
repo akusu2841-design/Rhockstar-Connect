@@ -1,30 +1,45 @@
-// Firebase SDK
+// ======================================
+// FIREBASE CONFIG
+// ======================================
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import { getStorage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+
+// ======================================
+// CONFIG
+// ======================================
+
 const firebaseConfig = {
 
-   // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+    apiKey: "AIzaSyA-HL4-Cr5tAYZH7GTEZKKMZpHfg42beDY",
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA-HL4-Cr5tAYZH7GTEZKKMZpHfg42beDY",
-  authDomain: "rhockstar-connect.firebaseapp.com",
-  projectId: "rhockstar-connect",
-  storageBucket: "rhockstar-connect.firebasestorage.app",
-  messagingSenderId: "1015640312772",
-  appId: "1:1015640312772:web:15c2497a29720b23c33291",
-  measurementId: "G-24LGXEWZL6"
-};
+    authDomain: "rhockstar-connect.firebaseapp.com",
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    projectId: "rhockstar-connect",
+
+    storageBucket: "rhockstar-connect.firebasestorage.app",
+
+    messagingSenderId: "1015640312772",
+
+    appId: "1:1015640312772:web:15c2497a29720b23c33291"
 
 };
+
+
+// ======================================
+// INITIALIZE
+// ======================================
 
 export const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+
+export const db = getFirestore(app);
+
+export const storage = getStorage(app);
