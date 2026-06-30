@@ -1,174 +1,185 @@
-// ===============================
-// RHOCKSTAR CONNECT
-// register.js
-// ===============================
+import { auth, db } from "./firebase.js";
 
-"use strict";
+import {
+    createUserWithEmailAndPassword,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-// ===============================
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+// =========================
 // ELEMENTS
-// ===============================
+// =========================
 
-const registerForm = document.getElementById("registerForm");
-
-const messageBox = document.getElementById("messageBox");
+const form = document.getElementById("registerForm");
 
 const fullName = document.getElementById("fullName");
-
 const username = document.getElementById("username");
-
 const email = document.getElementById("email");
-
 const password = document.getElementById("password");
-
 const confirmPassword = document.getElementById("confirmPassword");
+const terms = document.getElementById("terms");
 
-const togglePassword = document.getElementById("togglePassword");
+const registerBtn = document.getElementById("registerBtn");
 
-const strengthBar = document.getElementById("strengthBar");
 
-// ===============================
-// SHOW / HIDE PASSWORD
-// ===============================
+// =========================
+// PAGE SETUP
+// =========================
 
-togglePassword?.addEventListener("click", () => {
+setupPasswordToggle("togglePassword", "password");
+setupStrengthBar("password", "strengthBar");
 
-    if (password.type === "password") {
 
-        password.type = "text";
-
-        togglePassword.textContent = "🙈";
-
-    } else {
-
-        password.type = "password";
-
-        togglePassword.textContent = "👁";
-
-    }
-
-});
-
-// ===============================
-// PASSWORD STRENGTH
-// ===============================
-
-password?.addEventListener("input", () => {
-
-    let strength = 0;
-
-    const value = password.value;
-
-    if (value.length >= 8) strength++;
-
-    if (/[A-Z]/.test(value)) strength++;
-
-    if (/[a-z]/.test(value)) strength++;
-
-    if (/\d/.test(value)) strength++;
-
-    if (/[^A-Za-z0-9]/.test(value)) strength++;
-
-    strengthBar.style.width = `${strength * 20}%`;
-
-});
-
-// ===============================
+// =========================
 // REGISTER
-// ===============================
+// =========================
 
-registerForm?.addEventListener("submit", e => {
+form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    if (
+    const name = fullName.value.trim();
+    const user = username.value.trim().toLowerCase();
+    const mail = email.value.trim().toLowerCase();
+    const pass = password.value;
+    const confirm = confirmPassword.value;
 
-        !fullName.value.trim() ||
+    if (!name) {
+        return showMessage("Enter your full name.", "error");
+    }
 
-        !username.value.trim() ||
+    if (!isValidUsername(user)) {
+        return showMessage(
+            "Username must be 3 to 20 characters and contain only letters, numbers and underscores.",
+            "error"
+        );
+    }
 
-        !email.value.trim() ||
+    if (!isValidEmail(mail)) {
+        return showMessage("Enter a valid email.", "error");
+    }
 
-        !password.value.trim()
+    if (!isStrongPassword(pass)) {
+        return showMessage(
+            "Password is not strong enough.",
+            "error"
+        );
+    }
 
-    ) {
+    if (pass !== confirm) {
+        return showMessage(
+            "Passwords do not match.",
+            "error"
+        );
+    }
 
-        messageBox.textContent =
+    if (!terms.checked) {
+        return showMessage(
+            "Accept the Terms before continuing.",
+            "error"
+        );
+    }
 
-            "Please fill in all fields.";
+    try {
 
-        messageBox.style.color = "red";
+        setButtonLoading(registerBtn, true);
 
-        return;
+        // Firebase Auth
+        const result = await createUserWithEmailAndPassword(
+            auth,
+            mail,
+            pass
+        );
+
+        // Update profile
+        await updateProfile(result.user, {
+            displayName: name
+        });
+
+        // Firestore profile
+        await setDoc(doc(db, "users", result.user.uid), {
+
+            uid: result.user.uid,
+
+            fullName: name,
+
+            username: user,
+
+            email: mail,
+
+            photoURL: "",
+
+            coverURL: "",
+
+            bio: "",
+
+            title: "",
+
+            country: "",
+
+            location: "",
+
+            verified: false,
+
+            followers: 0,
+
+            following: 0,
+
+            connections: 0,
+
+            posts: 0,
+
+            createdAt: serverTimestamp()
+
+        });
+
+        showMessage(
+            "Account created successfully.",
+            "success"
+        );
+
+        setTimeout(() => {
+
+            window.location.href = "login.html";
+
+        }, 1500);
 
     }
 
-    if (
+    catch (error) {
 
-        password.value !==
+        let message = error.message;
 
-        confirmPassword.value
+        switch (error.code) {
 
-    ) {
+            case "auth/email-already-in-use":
+                message = "Email already exists.";
+                break;
 
-        messageBox.textContent =
+            case "auth/weak-password":
+                message = "Password is too weak.";
+                break;
 
-            "Passwords do not match.";
+            case "auth/invalid-email":
+                message = "Invalid email.";
+                break;
 
-        messageBox.style.color = "red";
+        }
 
-        return;
-
-    }
-
-    const success = Auth.register({
-
-        fullName:
-
-            fullName.value.trim(),
-
-        username:
-
-            username.value.trim(),
-
-        email:
-
-            email.value.trim(),
-
-        password:
-
-            password.value
-
-    });
-
-    if (!success) {
-
-        messageBox.textContent =
-
-            "Email or username already exists.";
-
-        messageBox.style.color = "red";
-
-        return;
+        showMessage(message, "error");
 
     }
 
-    messageBox.textContent =
+    finally {
 
-        "Registration successful!";
+        setButtonLoading(registerBtn, false);
 
-    messageBox.style.color = "lime";
-
-    registerForm.reset();
-
-    strengthBar.style.width = "0%";
-
-    setTimeout(() => {
-
-        window.location.href =
-
-            "login.html";
-
-    }, 1000);
+    }
 
 });
