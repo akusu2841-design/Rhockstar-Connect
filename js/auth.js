@@ -1,397 +1,185 @@
-// ===============================
+// ======================================
 // RHOCKSTAR CONNECT
 // auth.js
-// ===============================
+// ======================================
 
 "use strict";
 
-// ===============================
-// AUTH CLASS
-// ===============================
+// =========================
+// REGISTER
+// =========================
 
-class Auth {
+function registerUser(userData) {
 
-    // ===========================
-    // REGISTER
-    // ===========================
+    const users = getUsers();
 
-    static register(user) {
+    const emailExists = users.some(user =>
+        user.email.toLowerCase() === userData.email.toLowerCase()
+    );
 
-        const users = StorageManager.getArray(
-            STORAGE_KEYS.USERS
-        );
+    if (emailExists) {
 
-        const exists = users.find(u =>
-
-            u.email.toLowerCase() === user.email.toLowerCase() ||
-
-            u.username.toLowerCase() === user.username.toLowerCase()
-
-        );
-
-        if (exists) {
-
-            AppUtils.showToast(
-                "Email or username already exists.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-        const newUser = {
-
-            id: AppUtils.generateId(),
-
-            fullName: user.fullName,
-
-            username: user.username,
-
-            email: user.email,
-
-            password: user.password,
-
-            avatar: "images/default-avatar.png",
-
-            cover: "images/default-cover.jpg",
-
-            verified: false,
-
-            online: false,
-
-            createdAt: new Date().toISOString(),
-
-            updatedAt: new Date().toISOString(),
-
-            lastLogin: null,
-
-            profileCompleted: false
-
+        return {
+            success: false,
+            message: "Email already exists."
         };
 
-        users.push(newUser);
+    }
 
-        StorageManager.save(
-            STORAGE_KEYS.USERS,
-            users
-        );
+    userData.id = generateId();
+    userData.createdAt = new Date().toISOString();
 
-        return true;
+    userData.profilePhoto = "images/default-avatar.png";
+    userData.coverPhoto = "images/default-cover.jpg";
+
+    userData.posts = 0;
+    userData.followers = 0;
+    userData.following = 0;
+    userData.connections = 0;
+
+    addUser(userData);
+
+    return {
+        success: true,
+        message: "Account created successfully."
+    };
+
+}
+
+// =========================
+// LOGIN
+// =========================
+
+function loginUser(email, password) {
+
+    const user = findUserByEmail(email);
+
+    if (!user) {
+
+        return {
+            success: false,
+            message: "Account not found."
+        };
 
     }
 
-    // ===========================
-    // LOGIN
-    // ===========================
+    if (user.password !== password) {
 
-    static login(loginId, password) {
-
-        const users = StorageManager.getArray(
-            STORAGE_KEYS.USERS
-        );
-
-        const user = users.find(u =>
-
-            (
-                u.email.toLowerCase() === loginId.toLowerCase() ||
-
-                u.username.toLowerCase() === loginId.toLowerCase()
-            )
-
-            &&
-
-            u.password === password
-
-        );
-
-        if (!user) {
-
-            AppUtils.showToast(
-                "Invalid email/username or password.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-        user.online = true;
-
-        user.lastLogin = new Date().toISOString();
-
-        user.updatedAt = new Date().toISOString();
-
-        StorageManager.updateItem(
-
-            STORAGE_KEYS.USERS,
-
-            user.id,
-
-            {
-
-                online: true,
-
-                lastLogin: user.lastLogin,
-
-                updatedAt: user.updatedAt
-
-            }
-
-        );
-
-        StorageManager.save(
-
-            STORAGE_KEYS.USER,
-
-            user
-
-        );
-
-        return true;
+        return {
+            success: false,
+            message: "Incorrect password."
+        };
 
     }
-        // ===========================
-    // LOGOUT
-    // ===========================
 
-    static logout() {
+    setCurrentUser(user);
 
-        const user = this.currentUser();
+    return {
+        success: true,
+        user
+    };
 
-        if (user) {
+}
 
-            user.online = false;
+// =========================
+// LOGOUT
+// =========================
 
-            user.updatedAt = new Date().toISOString();
+function logout() {
 
-            StorageManager.updateItem(
+    logoutUser();
 
-                STORAGE_KEYS.USERS,
+    window.location.href = "login.html";
 
-                user.id,
+}
 
-                {
+// =========================
+// CURRENT USER
+// =========================
 
-                    online: false,
+function currentUser() {
 
-                    updatedAt: user.updatedAt
+    return getCurrentUser();
 
-                }
+}
 
-            );
+// =========================
+// CHECK LOGIN
+// =========================
 
-        }
+function requireLogin() {
 
-        StorageManager.remove(
-
-            STORAGE_KEYS.USER
-
-        );
+    if (!isLoggedIn()) {
 
         window.location.href = "login.html";
 
     }
 
-    // ===========================
-    // CURRENT USER
-    // ===========================
+}
 
-    static currentUser() {
+// =========================
+// UPDATE SESSION
+// =========================
 
-        return StorageManager.get(
+function refreshCurrentUser() {
 
-            STORAGE_KEYS.USER
+    const current = getCurrentUser();
 
-        );
+    if (!current) return;
 
-    }
+    const latest = findUserById(current.id);
 
-    // ===========================
-    // IS LOGGED IN
-    // ===========================
+    if (latest) {
 
-    static isLoggedIn() {
-
-        return this.currentUser() !== null;
-
-    }
-
-    // ===========================
-    // UPDATE CURRENT USER
-    // ===========================
-
-    static updateCurrentUser(data) {
-
-        const currentUser = this.currentUser();
-
-        if (!currentUser) return false;
-
-        const updatedUser = {
-
-            ...currentUser,
-
-            ...data,
-
-            updatedAt: new Date().toISOString()
-
-        };
-
-        StorageManager.save(
-
-            STORAGE_KEYS.USER,
-
-            updatedUser
-
-        );
-
-        StorageManager.updateItem(
-
-            STORAGE_KEYS.USERS,
-
-            updatedUser.id,
-
-            updatedUser
-
-        );
-
-        return true;
-
-    }
-
-    // ===========================
-    // CHANGE PASSWORD
-    // ===========================
-
-    static changePassword(
-
-        currentPassword,
-
-        newPassword
-
-    ) {
-
-        const user = this.currentUser();
-
-        if (!user) return false;
-
-        if (user.password !== currentPassword) {
-
-            AppUtils.showToast(
-
-                "Current password is incorrect.",
-
-                "error"
-
-            );
-
-            return false;
-
-        }
-
-        this.updateCurrentUser({
-
-            password: newPassword
-
-        });
-
-        AppUtils.showToast(
-
-            "Password changed successfully.",
-
-            "success"
-
-        );
-
-        return true;
-
-    }
-        // ===========================
-    // DELETE ACCOUNT
-    // ===========================
-
-    static deleteAccount() {
-
-        const user = this.currentUser();
-
-        if (!user) return false;
-
-        StorageManager.deleteItem(
-
-            STORAGE_KEYS.USERS,
-
-            user.id
-
-        );
-
-        StorageManager.remove(
-
-            STORAGE_KEYS.USER
-
-        );
-
-        AppUtils.showToast(
-
-            "Account deleted.",
-
-            "success"
-
-        );
-
-        setTimeout(() => {
-
-            window.location.href = "register.html";
-
-        }, 1000);
-
-        return true;
-
-    }
-
-    // ===========================
-    // REQUIRE LOGIN
-    // ===========================
-
-    static requireLogin() {
-
-        if (!this.isLoggedIn()) {
-
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-    }
-
-    // ===========================
-    // GET ALL USERS
-    // ===========================
-
-    static getAllUsers() {
-
-        return StorageManager.getArray(
-
-            STORAGE_KEYS.USERS
-
-        );
-
-    }
-
-    // ===========================
-    // FIND USER BY ID
-    // ===========================
-
-    static findUserById(id) {
-
-        return StorageManager.findItem(
-
-            STORAGE_KEYS.USERS,
-
-            user => user.id === id
-
-        );
+        setCurrentUser(latest);
 
     }
 
 }
+
+// =========================
+// AUTO REDIRECT
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const page = location.pathname.toLowerCase();
+
+    // Already logged in
+    if (
+        isLoggedIn() &&
+        (
+            page.includes("login") ||
+            page.includes("register")
+        )
+    ) {
+
+        window.location.href = "index.html";
+
+    }
+
+    // Dashboard protection
+    if (
+        page.includes("index") &&
+        document.getElementById("dashboard")
+    ) {
+
+        requireLogin();
+
+    }
+
+});
+
+// =========================
+// LOGOUT BUTTON
+// =========================
+
+document.addEventListener("click", e => {
+
+    if (e.target.id === "logout") {
+
+        logout();
+
+    }
+
+});
