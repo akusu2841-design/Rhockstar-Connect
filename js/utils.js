@@ -1,775 +1,420 @@
-// ===============================
-// RHOCKSTAR CONNECT
-// utils.js
-// Global Utility Functions
-// ===============================
-
 "use strict";
 
-// ===============================
-// DOM SELECTORS
-// ===============================
+/* =========================================================
+   RHOCKSTAR CONNECT
+   utils.js
+   Shared helper functions
+========================================================= */
 
-const $ = selector => document.querySelector(selector);
+const Utils = (() => {
 
-const $$ = selector => document.querySelectorAll(selector);
+    /* ================= SELECTORS ================= */
 
-// ===============================
-// RANDOM ID
-// ===============================
+    const $ = (selector, parent = document) => parent.querySelector(selector);
 
-function generateId(length = 20) {
+    const $$ = (selector, parent = document) =>
+        [...parent.querySelectorAll(selector)];
 
-    const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    /* ================= EVENTS ================= */
 
-    let id = "";
+    const on = (element, event, callback, options = false) => {
+        if (!element) return;
+        element.addEventListener(event, callback, options);
+    };
 
-    for (let i = 0; i < length; i++) {
+    const off = (element, event, callback) => {
+        if (!element) return;
+        element.removeEventListener(event, callback);
+    };
 
-        id += chars.charAt(
+    /* ================= SHOW / HIDE ================= */
 
-            Math.floor(Math.random() * chars.length)
+    const show = element => {
+        if (!element) return;
+        element.classList.remove("hidden");
+    };
 
-        );
+    const hide = element => {
+        if (!element) return;
+        element.classList.add("hidden");
+    };
 
-    }
+    const toggle = element => {
+        if (!element) return;
+        element.classList.toggle("hidden");
+    };
 
-    return id;
+    /* ================= CLASS HELPERS ================= */
 
-}
+    const addClass = (element, className) => {
+        if (!element) return;
+        element.classList.add(className);
+    };
 
-// ===============================
-// UNIVERSAL UUID
-// ===============================
+    const removeClass = (element, className) => {
+        if (!element) return;
+        element.classList.remove(className);
+    };
 
-function uuid() {
+    const toggleClass = (element, className) => {
+        if (!element) return;
+        element.classList.toggle(className);
+    };
 
-    if (
+    /* ================= HTML ================= */
 
-        window.crypto &&
+    const escapeHTML = text => {
 
-        typeof crypto.randomUUID === "function"
+        const div = document.createElement("div");
 
-    ) {
+        div.textContent = text;
 
-        return crypto.randomUUID();
-
-    }
-
-    return generateId(36);
-
-}
-
-// ===============================
-// DATE
-// ===============================
-
-function currentDate() {
-
-    return new Date().toLocaleDateString();
-
-}
-
-function currentTime() {
-
-    return new Date().toLocaleTimeString([], {
-
-        hour: "2-digit",
-
-        minute: "2-digit"
-
-    });
-
-}
-
-function currentDateTime() {
-
-    return new Date().toLocaleString();
-
-}
-
-function timestamp() {
-
-    return Date.now();
-
-}
-
-// ===============================
-// FORMATTERS
-// ===============================
-
-function formatNumber(number = 0) {
-
-    return Number(number).toLocaleString();
-
-}
-
-function formatMoney(amount = 0) {
-
-    return "₦" + Number(amount).toLocaleString();
-
-}
-
-function capitalize(text = "") {
-
-    if (!text) return "";
-
-    return text.charAt(0).toUpperCase()
-
-        + text.slice(1);
-
-}
-
-function capitalizeWords(text = "") {
-
-    return text
-
-        .split(" ")
-
-        .map(word => capitalize(word))
-
-        .join(" ");
-
-}
-
-// ===============================
-// VALIDATION
-// ===============================
-
-function isEmpty(value) {
-
-    return (
-
-        value === null ||
-
-        value === undefined ||
-
-        value.toString().trim() === ""
-
-    );
-
-}
-
-function isValidEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-        .test(email);
-
-}
-
-function isValidPhone(phone) {
-
-    return /^[0-9+\-()\s]{7,20}$/
-
-        .test(phone);
-
-}
-
-function passwordStrength(password) {
-
-    let score = 0;
-
-    if (password.length >= 8)
-
-        score++;
-
-    if (/[A-Z]/.test(password))
-
-        score++;
-
-    if (/[a-z]/.test(password))
-
-        score++;
-
-    if (/[0-9]/.test(password))
-
-        score++;
-
-    if (/[^A-Za-z0-9]/.test(password))
-
-        score++;
-
-    return score;
-
-}
-// ===============================
-// TOAST NOTIFICATIONS
-// ===============================
-
-function showToast(
-
-    message,
-
-    type = "success",
-
-    duration = 3000
-
-) {
-
-    let container = document.getElementById(
-
-        "toastContainer"
-
-    );
-
-    if (!container) {
-
-        container = document.createElement("div");
-
-        container.id = "toastContainer";
-
-        document.body.appendChild(container);
-
-    }
-
-    const toast = document.createElement("div");
-
-    toast.className = `toast ${type}`;
-
-    toast.textContent = message;
-
-    container.appendChild(toast);
-
-    requestAnimationFrame(() => {
-
-        toast.classList.add("show");
-
-    });
-
-    setTimeout(() => {
-
-        toast.classList.remove("show");
-
-        setTimeout(() => {
-
-            toast.remove();
-
-        }, 300);
-
-    }, duration);
-
-}
-
-// ===============================
-// BUTTON LOADING
-// ===============================
-
-function setButtonLoading(
-
-    button,
-
-    loading = true,
-
-    text = "Loading..."
-
-) {
-
-    if (!button) return;
-
-    if (loading) {
-
-        if (!button.dataset.originalText) {
-
-            button.dataset.originalText =
-
-                button.innerHTML;
-
-        }
-
-        button.disabled = true;
-
-        button.innerHTML = text;
-
-    } else {
-
-        button.disabled = false;
-
-        button.innerHTML =
-
-            button.dataset.originalText ||
-
-            button.innerHTML;
-
-    }
-
-}
-
-// ===============================
-// COPY TEXT
-// ===============================
-
-async function copyText(text) {
-
-    try {
-
-        await navigator.clipboard.writeText(text);
-
-        showToast(
-
-            "Copied successfully."
-
-        );
-
-        return true;
-
-    }
-
-    catch {
-
-        showToast(
-
-            "Copy failed.",
-
-            "error"
-
-        );
-
-        return false;
-
-    }
-
-}
-
-// ===============================
-// IMAGE PREVIEW
-// ===============================
-
-function previewImage(
-
-    input,
-
-    image
-
-) {
-
-    if (
-
-        !input ||
-
-        !input.files ||
-
-        !input.files.length ||
-
-        !image
-
-    ) {
-
-        return;
-
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = e => {
-
-        image.src = e.target.result;
+        return div.innerHTML;
 
     };
 
-    reader.readAsDataURL(
+    /* ================= CREATE ELEMENT ================= */
 
-        input.files[0]
+    const create = (tag, className = "", html = "") => {
 
-    );
+        const element = document.createElement(tag);
 
-}
+        if (className)
+            element.className = className;
 
-// ===============================
-// FILE TO DATA URL
-// ===============================
+        if (html)
+            element.innerHTML = html;
 
-function fileToDataURL(file) {
+        return element;
 
-    return new Promise(
+    };
 
-        (resolve, reject) => {
+    /* ================= RANDOM ID ================= */
 
-            const reader = new FileReader();
+    const randomID = (length = 12) => {
 
-            reader.onload = () =>
+        const chars =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-                resolve(reader.result);
+        let id = "";
 
-            reader.onerror = reject;
+        for (let i = 0; i < length; i++) {
 
-            reader.readAsDataURL(file);
-
-        }
-
-    );
-
-}
-
-// ===============================
-// DOWNLOAD FILE
-// ===============================
-
-function downloadFile(
-
-    filename,
-
-    content,
-
-    type = "text/plain"
-
-) {
-
-    const blob = new Blob(
-
-        [content],
-
-        {
-
-            type
+            id += chars.charAt(
+                Math.floor(Math.random() * chars.length)
+            );
 
         }
 
-    );
+        return id;
 
-    const url =
+    };
 
-        URL.createObjectURL(blob);
+    /* ================= UUID ================= */
 
-    const a =
+    const uuid = () => {
 
-        document.createElement("a");
+        return crypto.randomUUID
+            ? crypto.randomUUID()
+            : randomID(30);
 
-    a.href = url;
+    };
 
-    a.download = filename;
+    /* ================= DATE ================= */
 
-    a.click();
+    const formatDate = date => {
 
-    URL.revokeObjectURL(url);
+        return new Date(date).toLocaleDateString();
 
-}
+    };
 
-// ===============================
-// SCROLL HELPERS
-// ===============================
+    const formatTime = date => {
 
-function scrollTopSmooth() {
+        return new Date(date).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
 
-    window.scrollTo({
+    };
 
-        top: 0,
+    const timeAgo = timestamp => {
 
-        behavior: "smooth"
+        const seconds =
+            Math.floor((Date.now() - timestamp) / 1000);
 
-    });
+        if (seconds < 60)
+            return "Just now";
 
-}
+        if (seconds < 3600)
+            return `${Math.floor(seconds / 60)} mins ago`;
 
-function scrollBottomSmooth() {
+        if (seconds < 86400)
+            return `${Math.floor(seconds / 3600)} hrs ago`;
 
-    window.scrollTo({
+        return `${Math.floor(seconds / 86400)} days ago`;
 
-        top: document.body.scrollHeight,
+    };
 
-        behavior: "smooth"
+    /* ================= VALIDATION ================= */
 
-    });
+    const validateEmail = email => {
 
-}
-// ===============================
-// LOCAL STORAGE HELPERS
-// ===============================
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-function saveLocal(key, value) {
+    };
 
-    localStorage.setItem(
+    const validateUsername = username => {
 
-        key,
+        return /^[a-zA-Z0-9_]{3,20}$/.test(username);
 
-        JSON.stringify(value)
+    };
 
-    );
+    const validatePassword = password => {
 
-}
+        return password.length >= 6;
 
-function getLocal(key) {
+    };
 
-    const value = localStorage.getItem(key);
+    /* ================= COPY ================= */
 
-    return value
+    const copy = async text => {
 
-        ? JSON.parse(value)
+        try {
 
-        : null;
+            await navigator.clipboard.writeText(text);
 
-}
+            toast("Copied successfully.");
 
-function removeLocal(key) {
+            return true;
 
-    localStorage.removeItem(key);
+        } catch {
 
-}
+            toast("Unable to copy.", "error");
 
-function clearLocal() {
+            return false;
 
-    localStorage.clear();
+        }
 
-}
+    };
 
-// ===============================
-// SESSION STORAGE HELPERS
-// ===============================
+    /* ================= FILE SIZE ================= */
 
-function saveSession(key, value) {
+    const formatBytes = bytes => {
 
-    sessionStorage.setItem(
+        if (bytes === 0)
+            return "0 Bytes";
 
-        key,
+        const k = 1024;
 
-        JSON.stringify(value)
+        const sizes = [
+            "Bytes",
+            "KB",
+            "MB",
+            "GB"
+        ];
 
-    );
+        const i = Math.floor(
+            Math.log(bytes) / Math.log(k)
+        );
 
-}
+        return (
+            parseFloat((bytes / Math.pow(k, i)).toFixed(2)) +
+            " " +
+            sizes[i]
+        );
 
-function getSession(key) {
+    };
 
-    const value = sessionStorage.getItem(key);
+    /* ================= IMAGE PREVIEW ================= */
 
-    return value
+    const previewImage = (file, imgElement) => {
 
-        ? JSON.parse(value)
+        if (!file || !imgElement)
+            return;
 
-        : null;
+        const reader = new FileReader();
 
-}
+        reader.onload = e => {
 
-function removeSession(key) {
+            imgElement.src = e.target.result;
 
-    sessionStorage.removeItem(key);
+        };
 
-}
+        reader.readAsDataURL(file);
 
-function clearSession() {
+    };
 
-    sessionStorage.clear();
+    /* ================= DOWNLOAD ================= */
 
-}
+    const download = (url, filename = "") => {
 
-// ===============================
-// FUNCTION HELPERS
-// ===============================
+        const link = document.createElement("a");
 
-function debounce(
+        link.href = url;
 
-    callback,
+        link.download = filename;
 
-    delay = 300
+        link.click();
 
-) {
+    };
 
-    let timer;
+    /* ================= DEBOUNCE ================= */
 
-    return (...args) => {
+    const debounce = (callback, delay = 300) => {
 
-        clearTimeout(timer);
+        let timer;
 
-        timer = setTimeout(() => {
+        return (...args) => {
+
+            clearTimeout(timer);
+
+            timer = setTimeout(() => {
+
+                callback(...args);
+
+            }, delay);
+
+        };
+
+    };
+
+    /* ================= THROTTLE ================= */
+
+    const throttle = (callback, limit = 300) => {
+
+        let waiting = false;
+
+        return (...args) => {
+
+            if (waiting)
+                return;
 
             callback(...args);
 
-        }, delay);
+            waiting = true;
+
+            setTimeout(() => {
+
+                waiting = false;
+
+            }, limit);
+
+        };
 
     };
 
-}
+    /* ================= TOAST ================= */
 
-function throttle(
+    const toast = (
+        message,
+        type = "success"
+    ) => {
 
-    callback,
+        let toastBox = $("#toast");
 
-    delay = 300
+        if (!toastBox) {
 
-) {
+            toastBox = document.createElement("div");
 
-    let waiting = false;
+            toastBox.id = "toast";
 
-    return (...args) => {
+            document.body.appendChild(toastBox);
 
-        if (waiting) return;
+        }
 
-        callback(...args);
+        toastBox.className = `toast ${type}`;
 
-        waiting = true;
+        toastBox.textContent = message;
+
+        toastBox.classList.add("show");
 
         setTimeout(() => {
 
-            waiting = false;
+            toastBox.classList.remove("show");
 
-        }, delay);
+        }, 3000);
 
     };
 
-}
+    /* ================= NETWORK ================= */
 
-function sleep(ms) {
+    const isOnline = () => navigator.onLine;
 
-    return new Promise(resolve => {
+    /* ================= CHARACTER COUNT ================= */
 
-        setTimeout(resolve, ms);
+    const updateCounter = (
+        input,
+        counter,
+        max
+    ) => {
 
-    });
+        if (!input || !counter)
+            return;
 
-}
+        counter.textContent = input.value.length;
 
-// ===============================
-// RANDOM HELPERS
-// ===============================
+        if (input.value.length > max) {
 
-function randomNumber(
+            counter.style.color = "red";
 
-    min,
+        } else {
 
-    max
+            counter.style.color = "";
 
-) {
+        }
 
-    return Math.floor(
+    };
 
-        Math.random() *
+    /* ================= RETURN ================= */
 
-        (max - min + 1)
+    return {
 
-    ) + min;
+        $,
+        $$,
 
-}
+        on,
+        off,
 
-function randomItem(array) {
+        show,
+        hide,
+        toggle,
 
-    if (
+        addClass,
+        removeClass,
+        toggleClass,
 
-        !Array.isArray(array) ||
+        escapeHTML,
 
-        !array.length
+        create,
 
-    ) {
+        randomID,
+        uuid,
 
-        return null;
+        formatDate,
+        formatTime,
+        timeAgo,
 
-    }
+        validateEmail,
+        validateUsername,
+        validatePassword,
 
-    return array[
+        copy,
 
-        randomNumber(
+        formatBytes,
 
-            0,
+        previewImage,
 
-            array.length - 1
+        download,
 
-        )
+        debounce,
+        throttle,
 
-    ];
+        toast,
 
-}
+        isOnline,
 
-// ===============================
-// NETWORK
-// ===============================
+        updateCounter
 
-function isOnline() {
+    };
 
-    return navigator.onLine;
-
-}
-
-window.addEventListener(
-
-    "online",
-
-    () => {
-
-        showToast(
-
-            "Back online."
-
-        );
-
-    }
-
-);
-
-window.addEventListener(
-
-    "offline",
-
-    () => {
-
-        showToast(
-
-            "No internet connection.",
-
-            "error"
-
-        );
-
-    }
-
-);
-
-// ===============================
-// GLOBAL APP OBJECT
-// ===============================
-
-window.AppUtils = {
-
-    $,
-    $$,
-
-    generateId,
-    uuid,
-
-    currentDate,
-    currentTime,
-    currentDateTime,
-    timestamp,
-
-    formatNumber,
-    formatMoney,
-
-    capitalize,
-    capitalizeWords,
-
-    isEmpty,
-    isValidEmail,
-    isValidPhone,
-    passwordStrength,
-
-    showToast,
-    setButtonLoading,
-
-    copyText,
-
-    previewImage,
-    fileToDataURL,
-    downloadFile,
-
-    scrollTopSmooth,
-    scrollBottomSmooth,
-
-    saveLocal,
-    getLocal,
-    removeLocal,
-    clearLocal,
-
-    saveSession,
-    getSession,
-    removeSession,
-    clearSession,
-
-    debounce,
-    throttle,
-    sleep,
-
-    randomNumber,
-    randomItem,
-
-    isOnline
-
-};
+})();
