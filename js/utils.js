@@ -1,420 +1,259 @@
-"use strict";
+// ===========================================
+// UTILS.JS
+// Common Helper Functions
+// ===========================================
 
-/* =========================================================
-   RHOCKSTAR CONNECT
-   utils.js
-   Shared helper functions
-========================================================= */
 
-const Utils = (() => {
+// ===========================================
+// SELECTORS
+// ===========================================
 
-    /* ================= SELECTORS ================= */
+export function $(selector) {
+    return document.querySelector(selector);
+}
 
-    const $ = (selector, parent = document) => parent.querySelector(selector);
+export function $$(selector) {
+    return document.querySelectorAll(selector);
+}
 
-    const $$ = (selector, parent = document) =>
-        [...parent.querySelectorAll(selector)];
+export function byId(id) {
+    return document.getElementById(id);
+}
 
-    /* ================= EVENTS ================= */
 
-    const on = (element, event, callback, options = false) => {
-        if (!element) return;
-        element.addEventListener(event, callback, options);
-    };
+// ===========================================
+// SHOW
+// ===========================================
 
-    const off = (element, event, callback) => {
-        if (!element) return;
-        element.removeEventListener(event, callback);
-    };
+export function show(element) {
 
-    /* ================= SHOW / HIDE ================= */
+    if (!element) return;
 
-    const show = element => {
-        if (!element) return;
-        element.classList.remove("hidden");
-    };
+    element.classList.remove("hidden");
 
-    const hide = element => {
-        if (!element) return;
-        element.classList.add("hidden");
-    };
+}
 
-    const toggle = element => {
-        if (!element) return;
-        element.classList.toggle("hidden");
-    };
 
-    /* ================= CLASS HELPERS ================= */
+// ===========================================
+// HIDE
+// ===========================================
 
-    const addClass = (element, className) => {
-        if (!element) return;
-        element.classList.add(className);
-    };
+export function hide(element) {
 
-    const removeClass = (element, className) => {
-        if (!element) return;
-        element.classList.remove(className);
-    };
+    if (!element) return;
 
-    const toggleClass = (element, className) => {
-        if (!element) return;
-        element.classList.toggle(className);
-    };
+    element.classList.add("hidden");
 
-    /* ================= HTML ================= */
+}
 
-    const escapeHTML = text => {
 
-        const div = document.createElement("div");
+// ===========================================
+// TOGGLE
+// ===========================================
 
-        div.textContent = text;
+export function toggle(element) {
 
-        return div.innerHTML;
+    if (!element) return;
 
-    };
+    element.classList.toggle("hidden");
 
-    /* ================= CREATE ELEMENT ================= */
+}
 
-    const create = (tag, className = "", html = "") => {
 
-        const element = document.createElement(tag);
+// ===========================================
+// ENABLE BUTTON
+// ===========================================
 
-        if (className)
-            element.className = className;
+export function enable(button) {
 
-        if (html)
-            element.innerHTML = html;
+    if (!button) return;
 
-        return element;
+    button.disabled = false;
 
-    };
+}
 
-    /* ================= RANDOM ID ================= */
 
-    const randomID = (length = 12) => {
+// ===========================================
+// DISABLE BUTTON
+// ===========================================
 
-        const chars =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+export function disable(button) {
 
-        let id = "";
+    if (!button) return;
 
-        for (let i = 0; i < length; i++) {
+    button.disabled = true;
 
-            id += chars.charAt(
-                Math.floor(Math.random() * chars.length)
-            );
+}
 
-        }
 
-        return id;
+// ===========================================
+// SET BUTTON LOADING
+// ===========================================
 
-    };
+export function setLoading(button, text = "Loading...") {
 
-    /* ================= UUID ================= */
+    if (!button) return;
 
-    const uuid = () => {
+    button.dataset.original = button.innerHTML;
 
-        return crypto.randomUUID
-            ? crypto.randomUUID()
-            : randomID(30);
+    button.disabled = true;
 
-    };
+    button.innerHTML = text;
 
-    /* ================= DATE ================= */
+}
 
-    const formatDate = date => {
 
-        return new Date(date).toLocaleDateString();
+// ===========================================
+// REMOVE BUTTON LOADING
+// ===========================================
 
-    };
+export function stopLoading(button) {
 
-    const formatTime = date => {
+    if (!button) return;
 
-        return new Date(date).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit"
-        });
+    button.disabled = false;
 
-    };
+    if (button.dataset.original) {
 
-    const timeAgo = timestamp => {
+        button.innerHTML = button.dataset.original;
 
-        const seconds =
-            Math.floor((Date.now() - timestamp) / 1000);
+    }
 
-        if (seconds < 60)
-            return "Just now";
+}
 
-        if (seconds < 3600)
-            return `${Math.floor(seconds / 60)} mins ago`;
 
-        if (seconds < 86400)
-            return `${Math.floor(seconds / 3600)} hrs ago`;
+// ===========================================
+// TOAST
+// ===========================================
 
-        return `${Math.floor(seconds / 86400)} days ago`;
+export function toast(message) {
 
-    };
+    alert(message);
 
-    /* ================= VALIDATION ================= */
+}
 
-    const validateEmail = email => {
 
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+// ===========================================
+// FORMAT DATE
+// ===========================================
 
-    };
+export function formatDate(date) {
 
-    const validateUsername = username => {
+    return new Date(date).toLocaleString();
 
-        return /^[a-zA-Z0-9_]{3,20}$/.test(username);
+}
 
-    };
 
-    const validatePassword = password => {
+// ===========================================
+// CURRENT DATE
+// ===========================================
 
-        return password.length >= 6;
+export function now() {
 
-    };
+    return new Date();
 
-    /* ================= COPY ================= */
+}
 
-    const copy = async text => {
 
-        try {
+// ===========================================
+// RANDOM ID
+// ===========================================
 
-            await navigator.clipboard.writeText(text);
+export function generateId() {
 
-            toast("Copied successfully.");
+    return crypto.randomUUID();
 
-            return true;
+}
 
-        } catch {
 
-            toast("Unable to copy.", "error");
+// ===========================================
+// TRIM STRING
+// ===========================================
 
-            return false;
+export function clean(text) {
 
-        }
+    return text.trim();
 
-    };
+}
 
-    /* ================= FILE SIZE ================= */
 
-    const formatBytes = bytes => {
+// ===========================================
+// CHECK EMPTY
+// ===========================================
 
-        if (bytes === 0)
-            return "0 Bytes";
+export function isEmpty(text) {
 
-        const k = 1024;
+    return clean(text) === "";
 
-        const sizes = [
-            "Bytes",
-            "KB",
-            "MB",
-            "GB"
-        ];
+}
 
-        const i = Math.floor(
-            Math.log(bytes) / Math.log(k)
-        );
 
-        return (
-            parseFloat((bytes / Math.pow(k, i)).toFixed(2)) +
-            " " +
-            sizes[i]
-        );
+// ===========================================
+// EMAIL VALIDATION
+// ===========================================
 
-    };
+export function isEmail(email) {
 
-    /* ================= IMAGE PREVIEW ================= */
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    const previewImage = (file, imgElement) => {
+}
 
-        if (!file || !imgElement)
-            return;
 
-        const reader = new FileReader();
+// ===========================================
+// PASSWORD VALIDATION
+// ===========================================
 
-        reader.onload = e => {
+export function strongPassword(password) {
 
-            imgElement.src = e.target.result;
+    return password.length >= 6;
 
-        };
+}
 
-        reader.readAsDataURL(file);
 
-    };
+// ===========================================
+// COPY TEXT
+// ===========================================
 
-    /* ================= DOWNLOAD ================= */
+export async function copy(text) {
 
-    const download = (url, filename = "") => {
+    await navigator.clipboard.writeText(text);
 
-        const link = document.createElement("a");
+}
 
-        link.href = url;
 
-        link.download = filename;
+// ===========================================
+// SCROLL TOP
+// ===========================================
 
-        link.click();
+export function scrollTopSmooth() {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+// ===========================================
+// PREVIEW IMAGE
+// ===========================================
+
+export function previewImage(file, img) {
+
+    if (!file || !img) return;
+
+    const reader = new FileReader();
+
+    reader.onload = e => {
+
+        img.src = e.target.result;
 
     };
 
-    /* ================= DEBOUNCE ================= */
+    reader.readAsDataURL(file);
 
-    const debounce = (callback, delay = 300) => {
-
-        let timer;
-
-        return (...args) => {
-
-            clearTimeout(timer);
-
-            timer = setTimeout(() => {
-
-                callback(...args);
-
-            }, delay);
-
-        };
-
-    };
-
-    /* ================= THROTTLE ================= */
-
-    const throttle = (callback, limit = 300) => {
-
-        let waiting = false;
-
-        return (...args) => {
-
-            if (waiting)
-                return;
-
-            callback(...args);
-
-            waiting = true;
-
-            setTimeout(() => {
-
-                waiting = false;
-
-            }, limit);
-
-        };
-
-    };
-
-    /* ================= TOAST ================= */
-
-    const toast = (
-        message,
-        type = "success"
-    ) => {
-
-        let toastBox = $("#toast");
-
-        if (!toastBox) {
-
-            toastBox = document.createElement("div");
-
-            toastBox.id = "toast";
-
-            document.body.appendChild(toastBox);
-
-        }
-
-        toastBox.className = `toast ${type}`;
-
-        toastBox.textContent = message;
-
-        toastBox.classList.add("show");
-
-        setTimeout(() => {
-
-            toastBox.classList.remove("show");
-
-        }, 3000);
-
-    };
-
-    /* ================= NETWORK ================= */
-
-    const isOnline = () => navigator.onLine;
-
-    /* ================= CHARACTER COUNT ================= */
-
-    const updateCounter = (
-        input,
-        counter,
-        max
-    ) => {
-
-        if (!input || !counter)
-            return;
-
-        counter.textContent = input.value.length;
-
-        if (input.value.length > max) {
-
-            counter.style.color = "red";
-
-        } else {
-
-            counter.style.color = "";
-
-        }
-
-    };
-
-    /* ================= RETURN ================= */
-
-    return {
-
-        $,
-        $$,
-
-        on,
-        off,
-
-        show,
-        hide,
-        toggle,
-
-        addClass,
-        removeClass,
-        toggleClass,
-
-        escapeHTML,
-
-        create,
-
-        randomID,
-        uuid,
-
-        formatDate,
-        formatTime,
-        timeAgo,
-
-        validateEmail,
-        validateUsername,
-        validatePassword,
-
-        copy,
-
-        formatBytes,
-
-        previewImage,
-
-        download,
-
-        debounce,
-        throttle,
-
-        toast,
-
-        isOnline,
-
-        updateCounter
-
-    };
-
-})();
+}
