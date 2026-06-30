@@ -11,303 +11,22 @@
 
 class Auth {
 
-    // ---------------------------
-    // Register
-    // ---------------------------
+    // ===========================
+    // REGISTER
+    // ===========================
 
     static register(user) {
-
-        const users = StorageManager.getArray(STORAGE_KEYS.USERS);
-
-        const exists = users.find(u =>
-
-            u.email.toLowerCase() === user.email.toLowerCase()
-
-        );
-
-        if (exists) {
-
-            AppUtils.showToast(
-
-                "Email already exists.",
-
-                "error"
-
-            );
-
-            return false;
-
-        }
-
-        user.id = AppUtils.generateId();
-
-        user.createdAt = new Date().toISOString();
-
-        user.updatedAt = new Date().toISOString();
-
-        user.verified = false;
-
-        user.online = true;
-
-        users.push(user);
-
-        StorageManager.save(
-
-            STORAGE_KEYS.USERS,
-
-            users
-
-        );
-
-        StorageManager.save(
-
-            STORAGE_KEYS.USER,
-
-            user
-
-        );
-
-        return true;
-
-    }
-
-    // ---------------------------
-    // Login
-    // ---------------------------
-
-    static login(email, password) {
 
         const users = StorageManager.getArray(
-
             STORAGE_KEYS.USERS
-
         );
-
-        const user = users.find(u =>
-
-            u.email.toLowerCase() === email.toLowerCase() &&
-
-            u.password === password
-
-        );
-
-        if (!user) {
-
-            AppUtils.showToast(
-
-                "Invalid email or password.",
-
-                "error"
-
-            );
-
-            return false;
-
-        }
-
-        user.online = true;
-
-        user.lastLogin = new Date().toISOString();
-
-        StorageManager.save(
-
-            STORAGE_KEYS.USER,
-
-            user
-
-        );
-
-        StorageManager.updateItem(
-
-            STORAGE_KEYS.USERS,
-
-            user.id,
-
-            {
-
-                online: true,
-
-                lastLogin: user.lastLogin
-
-            }
-
-        );
-
-        return true;
-
-    }
-
-    // ---------------------------
-    // Logout
-    // ---------------------------
-
-    static logout() {
-
-        const user = this.currentUser();
-
-        if (user) {
-
-            StorageManager.updateItem(
-
-                STORAGE_KEYS.USERS,
-
-                user.id,
-
-                {
-
-                    online: false
-
-                }
-
-            );
-
-        }
-
-        StorageManager.remove(
-
-            STORAGE_KEYS.USER
-
-        );
-
-        window.location.href = "login.html";
-
-    }
-
-    // ---------------------------
-    // Current User
-    // ---------------------------
-
-    static currentUser() {
-
-        return StorageManager.get(
-
-            STORAGE_KEYS.USER
-
-        );
-
-    }
-
-    // ---------------------------
-    // Logged In?
-    // ---------------------------
-
-    static isLoggedIn() {
-
-        return this.currentUser() !== null;
-
-    }
-
-    // ---------------------------
-    // Update Current User
-    // ---------------------------
-
-    static updateCurrentUser(data) {
-
-        const user = this.currentUser();
-
-        if (!user) return;
-
-        const updated = {
-
-            ...user,
-
-            ...data,
-
-            updatedAt: new Date().toISOString()
-
-        };
-
-        StorageManager.save(
-
-            STORAGE_KEYS.USER,
-
-            updated
-
-        );
-
-        StorageManager.updateItem(
-
-            STORAGE_KEYS.USERS,
-
-            updated.id,
-
-            updated
-
-        );
-
-    }
-
-    // ---------------------------
-    // Require Login
-    // ---------------------------
-
-    static requireLogin() {
-
-        if (!this.isLoggedIn()) {
-
-            window.location.href =
-
-                "login.html";
-
-        }
-
-    }
-
-}
-
-// ===============================
-// AUTO PROTECT DASHBOARD
-// ===============================
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        if (
-
-            window.location.pathname.includes(
-
-                "dashboard"
-
-            )
-
-        ) {
-
-            Auth.requireLogin();
-
-        }
-
-    }
-
-);
-
-// ===============================
-// LOGOUT BUTTON
-// ===============================
-
-const logoutBtn = document.getElementById(
-
-// ===============================
-// RHOCKSTAR CONNECT
-// auth.js
-// ===============================
-
-"use strict";
-
-class Auth {
-
-    // ---------------------------
-    // Register
-    // ---------------------------
-    static register(user) {
-
-        const users = StorageManager.getArray(STORAGE_KEYS.USERS);
 
         const exists = users.find(u =>
+
             u.email.toLowerCase() === user.email.toLowerCase() ||
+
             u.username.toLowerCase() === user.username.toLowerCase()
+
         );
 
         if (exists) {
@@ -318,15 +37,40 @@ class Auth {
             );
 
             return false;
+
         }
 
-        user.id = AppUtils.generateId();
-        user.createdAt = new Date().toISOString();
-        user.updatedAt = new Date().toISOString();
-        user.verified = false;
-        user.online = false;
+        const newUser = {
 
-        users.push(user);
+            id: AppUtils.generateId(),
+
+            fullName: user.fullName,
+
+            username: user.username,
+
+            email: user.email,
+
+            password: user.password,
+
+            avatar: "images/default-avatar.png",
+
+            cover: "images/default-cover.jpg",
+
+            verified: false,
+
+            online: false,
+
+            createdAt: new Date().toISOString(),
+
+            updatedAt: new Date().toISOString(),
+
+            lastLogin: null,
+
+            profileCompleted: false
+
+        };
+
+        users.push(newUser);
 
         StorageManager.save(
             STORAGE_KEYS.USERS,
@@ -334,11 +78,13 @@ class Auth {
         );
 
         return true;
+
     }
 
-    // ---------------------------
-    // Login
-    // ---------------------------
+    // ===========================
+    // LOGIN
+    // ===========================
+
     static login(loginId, password) {
 
         const users = StorageManager.getArray(
@@ -346,11 +92,17 @@ class Auth {
         );
 
         const user = users.find(u =>
+
             (
                 u.email.toLowerCase() === loginId.toLowerCase() ||
+
                 u.username.toLowerCase() === loginId.toLowerCase()
-            ) &&
+            )
+
+            &&
+
             u.password === password
+
         );
 
         if (!user) {
@@ -361,149 +113,285 @@ class Auth {
             );
 
             return false;
+
         }
 
         user.online = true;
+
         user.lastLogin = new Date().toISOString();
 
-        StorageManager.save(
-            STORAGE_KEYS.USER,
-            user
-        );
+        user.updatedAt = new Date().toISOString();
 
         StorageManager.updateItem(
+
             STORAGE_KEYS.USERS,
+
             user.id,
+
             {
+
                 online: true,
-                lastLogin: user.lastLogin
+
+                lastLogin: user.lastLogin,
+
+                updatedAt: user.updatedAt
+
             }
+
+        );
+
+        StorageManager.save(
+
+            STORAGE_KEYS.USER,
+
+            user
+
         );
 
         return true;
-    }
 
-    // ---------------------------
-    // Logout
-    // ---------------------------
+    }
+        // ===========================
+    // LOGOUT
+    // ===========================
+
     static logout() {
 
         const user = this.currentUser();
 
         if (user) {
 
+            user.online = false;
+
+            user.updatedAt = new Date().toISOString();
+
             StorageManager.updateItem(
+
                 STORAGE_KEYS.USERS,
+
                 user.id,
+
                 {
-                    online: false
+
+                    online: false,
+
+                    updatedAt: user.updatedAt
+
                 }
+
             );
 
         }
 
         StorageManager.remove(
+
             STORAGE_KEYS.USER
+
         );
 
         window.location.href = "login.html";
+
     }
 
-    // ---------------------------
-    // Current User
-    // ---------------------------
+    // ===========================
+    // CURRENT USER
+    // ===========================
+
     static currentUser() {
 
         return StorageManager.get(
+
             STORAGE_KEYS.USER
+
         );
 
     }
 
-    // ---------------------------
-    // Logged In?
-    // ---------------------------
+    // ===========================
+    // IS LOGGED IN
+    // ===========================
+
     static isLoggedIn() {
 
         return this.currentUser() !== null;
 
     }
 
-    // ---------------------------
-    // Update Current User
-    // ---------------------------
+    // ===========================
+    // UPDATE CURRENT USER
+    // ===========================
+
     static updateCurrentUser(data) {
 
-        const user = this.currentUser();
+        const currentUser = this.currentUser();
 
-        if (!user) return;
+        if (!currentUser) return false;
 
-        const updated = {
-            ...user,
+        const updatedUser = {
+
+            ...currentUser,
+
             ...data,
+
             updatedAt: new Date().toISOString()
+
         };
 
         StorageManager.save(
+
             STORAGE_KEYS.USER,
-            updated
+
+            updatedUser
+
         );
 
         StorageManager.updateItem(
+
             STORAGE_KEYS.USERS,
-            updated.id,
-            updated
+
+            updatedUser.id,
+
+            updatedUser
+
         );
+
+        return true;
 
     }
 
-    // ---------------------------
-    // Require Login
-    // ---------------------------
+    // ===========================
+    // CHANGE PASSWORD
+    // ===========================
+
+    static changePassword(
+
+        currentPassword,
+
+        newPassword
+
+    ) {
+
+        const user = this.currentUser();
+
+        if (!user) return false;
+
+        if (user.password !== currentPassword) {
+
+            AppUtils.showToast(
+
+                "Current password is incorrect.",
+
+                "error"
+
+            );
+
+            return false;
+
+        }
+
+        this.updateCurrentUser({
+
+            password: newPassword
+
+        });
+
+        AppUtils.showToast(
+
+            "Password changed successfully.",
+
+            "success"
+
+        );
+
+        return true;
+
+    }
+        // ===========================
+    // DELETE ACCOUNT
+    // ===========================
+
+    static deleteAccount() {
+
+        const user = this.currentUser();
+
+        if (!user) return false;
+
+        StorageManager.deleteItem(
+
+            STORAGE_KEYS.USERS,
+
+            user.id
+
+        );
+
+        StorageManager.remove(
+
+            STORAGE_KEYS.USER
+
+        );
+
+        AppUtils.showToast(
+
+            "Account deleted.",
+
+            "success"
+
+        );
+
+        setTimeout(() => {
+
+            window.location.href = "register.html";
+
+        }, 1000);
+
+        return true;
+
+    }
+
+    // ===========================
+    // REQUIRE LOGIN
+    // ===========================
+
     static requireLogin() {
 
         if (!this.isLoggedIn()) {
 
             window.location.href = "login.html";
 
+            return;
+
         }
 
     }
 
-}
+    // ===========================
+    // GET ALL USERS
+    // ===========================
 
-// ===============================
-// AUTO PROTECT DASHBOARD
-// ===============================
+    static getAllUsers() {
 
-document.addEventListener("DOMContentLoaded", () => {
+        return StorageManager.getArray(
 
-    if (
-        window.location.pathname.includes("dashboard")
-    ) {
+            STORAGE_KEYS.USERS
 
-        Auth.requireLogin();
+        );
 
     }
 
-});
+    // ===========================
+    // FIND USER BY ID
+    // ===========================
 
-// ===============================
-// LOGOUT BUTTON
-// ===============================
+    static findUserById(id) {
 
-const logoutBtn = document.getElementById("logoutBtn");
+        return StorageManager.findItem(
 
-if (logoutBtn) {
+            STORAGE_KEYS.USERS,
 
-    logoutBtn.addEventListener("click", () => {
+            user => user.id === id
 
-        if (confirm("Are you sure you want to logout?")) {
+        );
 
-            Auth.logout();
-
-        }
-
-    });
+    }
 
 }
