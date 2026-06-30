@@ -1408,6 +1408,13 @@
             📷 Change Cover
         </label>
 
+        <input
+            type="file"
+            id="uploadCover"
+            accept="image/*"
+            hidden
+        >
+
     </div>
 
     <!-- PROFILE HEADER -->
@@ -1430,6 +1437,13 @@
             >
                 ✏
             </label>
+
+            <input
+                type="file"
+                id="uploadPic"
+                accept="image/*"
+                hidden
+            >
 
             <span class="verified-badge">
                 ✔
@@ -1663,9 +1677,7 @@
 
     </div>
 
-</div>
-
-      <hr>
+    <hr>
 
     <!-- SKILLS -->
 
@@ -1810,10 +1822,16 @@
 
             <h3>Certificates</h3>
 
+            <input
+    type="file"
+    id="certificateUpload"
+    accept=".pdf,.jpg,.jpeg,.png"
+    hidden
+>
             <button id="uploadCertificateBtn">
                 Upload
             </button>
-
+           
         </div>
 
         <div id="certificateContainer"></div>
@@ -1829,7 +1847,13 @@
         <div class="section-header">
 
             <h3>Portfolio</h3>
-
+                       <input
+         type="file"
+         id="portfolioUpload"
+         multiple
+         accept="image/*,video/*"
+        hidden
+       >
             <button id="uploadPortfolioBtn">
                 Upload Work
             </button>
@@ -1853,10 +1877,16 @@
 
         <h3>Resume</h3>
 
+        <input
+    type="file"
+    id="uploadCV"
+    accept=".pdf,.doc,.docx"
+    hidden
+    >
         <button id="uploadCVBtn">
             Upload CV
         </button>
-
+        
         <button id="replaceCVBtn">
             Replace CV
         </button>
@@ -2396,36 +2426,6 @@
     </div>
 
 </section>
-
-<!-- Hidden Upload Inputs -->
-
-<input
-    type="file"
-    id="portfolioUploadInput"
-    accept="image/*,video/*,.pdf"
-    hidden
->
-
-<input
-    type="file"
-    id="certificateUpload"
-    accept=".pdf,.jpg,.jpeg,.png"
-    hidden
->
-
-<input
-    type="file"
-    id="cvUpload"
-    accept=".pdf,.doc,.docx"
-    hidden
->
-
-<input
-    type="file"
-    id="photoUpload"
-    accept="image/*"
-    hidden
->
 
 <!-- ================= DATING PROFILE ================= -->
 
