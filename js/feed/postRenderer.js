@@ -170,3 +170,177 @@ async function createPost(post, user) {
 `;
 
       }
+// =======================================
+// POST STATS
+// =======================================
+
+function postStats(post) {
+
+    return `
+
+<div class="post-stats">
+
+    <span>
+
+        👍 ${post.likesCount || 0}
+
+    </span>
+
+    <span>
+
+        💬 ${post.commentsCount || 0} Comments
+
+    </span>
+
+    <span>
+
+        🔁 ${post.sharesCount || 0} Shares
+
+    </span>
+
+    <span>
+
+        ⭐ ${post.savesCount || 0} Saves
+
+    </span>
+
+</div>
+
+`;
+
+}
+
+
+// =======================================
+// POST ACTIONS
+// =======================================
+
+function postActions(post) {
+
+    return `
+
+<div class="post-actions">
+
+    <button
+
+        class="like-btn"
+
+        data-post-id="${post.postId}">
+
+        👍 Like
+
+    </button>
+
+    <button
+
+        class="love-btn"
+
+        data-post-id="${post.postId}">
+
+        ❤️ Love
+
+    </button>
+
+    <button
+
+        class="comment-btn"
+
+        data-post-id="${post.postId}">
+
+        💬 Comment
+
+    </button>
+
+    <button
+
+        class="share-btn"
+
+        data-post-id="${post.postId}">
+
+        🔁 Share
+
+    </button>
+
+    <button
+
+        class="bookmark-btn"
+
+        data-post-id="${post.postId}">
+
+        ⭐ Save
+
+    </button>
+
+</div>
+
+`;
+
+}
+
+
+// =======================================
+// COMMENTS
+// =======================================
+
+function commentsBox(post) {
+
+    return `
+
+<div
+
+class="comments-box"
+
+id="comments-${post.postId}">
+
+<div
+
+class="comment-list">
+
+</div>
+
+<div class="comment-input">
+
+<textarea
+
+placeholder="Write a comment..."
+
+data-post-id="${post.postId}">
+
+</textarea>
+
+<button
+
+class="send-comment-btn"
+
+data-post-id="${post.postId}">
+
+Send
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+// =======================================
+// POST FOOTER
+// =======================================
+
+function postFooter(post) {
+
+    return `
+
+${postStats(post)}
+
+${postActions(post)}
+
+${commentsBox(post)}
+
+`;
+
+}
