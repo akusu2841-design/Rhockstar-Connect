@@ -8,7 +8,18 @@
 // ===============================
 // INITIALIZE
 // ===============================
+import {
+    auth,
+    db
+} from "../firebase.js";
 
+import {
+    doc,
+    updateDoc,
+    increment,
+    getDoc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 document.addEventListener("DOMContentLoaded", () => {
 
     initializePostInteractions();
