@@ -50,7 +50,9 @@ function setButtonLoading(button, loading = true) {
         button.disabled = false;
 
         button.innerHTML = button.dataset.original || "Submit";
+
     }
+
 }
 
 
@@ -68,14 +70,19 @@ function setupPasswordToggle(buttonId, inputId) {
     button.addEventListener("click", () => {
 
         if (input.type === "password") {
+
             input.type = "text";
             button.textContent = "🙈";
+
         } else {
+
             input.type = "password";
             button.textContent = "👁";
+
         }
 
     });
+
 }
 
 
@@ -94,6 +101,7 @@ function getPasswordStrength(password) {
     if (/[^A-Za-z0-9]/.test(password)) score++;
 
     return score;
+
 }
 
 
@@ -140,11 +148,14 @@ function setupStrengthBar(inputId, barId) {
                 width = "100%";
                 color = "#00c853";
                 break;
+
         }
 
         bar.style.width = width;
         bar.style.background = color;
+
     });
+
 }
 
 
@@ -153,19 +164,80 @@ function setupStrengthBar(inputId, barId) {
 // =========================
 
 function isValidEmail(email) {
+
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 }
 
 function isValidUsername(username) {
+
     return /^[a-zA-Z0-9_]{3,20}$/.test(username);
+
 }
 
 function isStrongPassword(password) {
+
     return password.length >= 8 &&
         /[A-Z]/.test(password) &&
         /[a-z]/.test(password) &&
         /[0-9]/.test(password) &&
         /[^A-Za-z0-9]/.test(password);
+
+}
+
+
+// =========================
+// DOM HELPERS
+// =========================
+
+// Get element by ID
+function $(id) {
+
+    return document.getElementById(id);
+
+}
+
+// Get all matching elements
+function $$(selector) {
+
+    return document.querySelectorAll(selector);
+
+}
+
+// Show element
+function show(element) {
+
+    if (element) {
+        element.classList.remove("hidden");
+    }
+
+}
+
+// Hide element
+function hide(element) {
+
+    if (element) {
+        element.classList.add("hidden");
+    }
+
+}
+
+// Add active class
+function activate(element) {
+
+    if (element) {
+        element.classList.add("active");
+    }
+
+}
+
+// Remove active class
+function deactivate(element) {
+
+    if (element) {
+        element.classList.remove("active");
+    }
+
 }
 
 
@@ -181,3 +253,11 @@ window.getPasswordStrength = getPasswordStrength;
 window.isValidEmail = isValidEmail;
 window.isValidUsername = isValidUsername;
 window.isStrongPassword = isStrongPassword;
+
+// DOM Helpers
+window.$ = $;
+window.$$ = $$;
+window.show = show;
+window.hide = hide;
+window.activate = activate;
+window.deactivate = deactivate;
