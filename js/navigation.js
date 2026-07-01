@@ -1,161 +1,61 @@
-// ======================================
+// =======================================
 // RHOCKSTAR CONNECT
 // navigation.js
-// ======================================
+// =======================================
+
 export function initNavigation() {
-    console.log("Navigation ready");
 
-    document.querySelectorAll("[data-page]").forEach(btn => {
-        btn.addEventListener("click", () => {
+    console.log("✅ Navigation Ready");
 
-            const page = btn.getAttribute("data-page");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const pages = document.querySelectorAll(".page");
 
-            document.querySelectorAll(".page").forEach(p => {
-                p.classList.remove("active");
-            });
+    if (!navLinks.length || !pages.length) return;
 
-            document.getElementById(page).classList.add("active");
+    function showPage(pageId) {
+
+        pages.forEach(page => {
+
+            page.classList.remove("active");
+
         });
-    });
-}
 
-"use strict";
+        const selectedPage = document.getElementById(pageId);
 
-// =======================
-// ELEMENTS
-// =======================
+        if (selectedPage) {
 
-const pages = document.querySelectorAll(".page");
-const navLinks = document.querySelectorAll(".nav-link");
+            selectedPage.classList.add("active");
 
-const sidebar = document.getElementById("sidebar");
-const sidebarOverlay = document.getElementById("sidebarOverlay");
+        }
 
-const menuToggle = document.getElementById("menuToggle");
-const closeMenu = document.getElementById("closeMenu");
+        navLinks.forEach(link => {
 
-// =======================
-// SHOW PAGE
-// =======================
+            link.classList.remove("active");
 
-function showPage(pageId) {
+            if (link.dataset.page === pageId) {
 
-    pages.forEach(page => {
+                link.classList.add("active");
 
-        page.classList.remove("active");
+            }
 
-    });
-
-    const selectedPage = document.getElementById(pageId);
-
-    if (selectedPage) {
-
-        selectedPage.classList.add("active");
+        });
 
     }
 
     navLinks.forEach(link => {
 
-        link.classList.remove("active");
+        link.addEventListener("click", event => {
 
-        if (link.dataset.page === pageId) {
+            event.preventDefault();
 
-            link.classList.add("active");
+            const pageId = link.dataset.page;
 
-        }
+            showPage(pageId);
 
-    });
-
-}
-
-// =======================
-// NAVIGATION
-// =======================
-
-navLinks.forEach(link => {
-
-    link.addEventListener("click", function (e) {
-
-        e.preventDefault();
-
-        const page = this.dataset.page;
-
-        showPage(page);
-
-        closeSidebar();
+        });
 
     });
-
-});
-
-// =======================
-// SIDEBAR
-// =======================
-
-function openSidebar() {
-
-    if (!sidebar) return;
-
-    sidebar.classList.add("show");
-
-    if (sidebarOverlay) {
-
-        sidebarOverlay.classList.add("show");
-
-    }
-
-}
-
-function closeSidebar() {
-
-    if (!sidebar) return;
-
-    sidebar.classList.remove("show");
-
-    if (sidebarOverlay) {
-
-        sidebarOverlay.classList.remove("show");
-
-    }
-
-}
-
-// =======================
-// MOBILE MENU
-// =======================
-
-if (menuToggle) {
-
-    menuToggle.addEventListener("click", openSidebar);
-
-}
-
-if (closeMenu) {
-
-    closeMenu.addEventListener("click", closeSidebar);
-
-}
-
-if (sidebarOverlay) {
-
-    sidebarOverlay.addEventListener("click", closeSidebar);
-
-}
-
-// =======================
-// DEFAULT PAGE
-// =======================
-
-document.addEventListener("DOMContentLoaded", () => {
 
     showPage("feed");
 
-});
-
-// =======================
-// PUBLIC FUNCTIONS
-// =======================
-
-window.showPage = showPage;
-window.openSidebar = openSidebar;
-window.closeSidebar = closeSidebar;
+}
