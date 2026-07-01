@@ -105,7 +105,7 @@ form?.addEventListener("submit", async (e) => {
         showMessage("Login successful!", "success");
 
         setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "main.html";
         }, 1000);
 
     } catch (error) {
