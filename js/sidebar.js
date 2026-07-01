@@ -2,11 +2,10 @@
 // RHOCKSTAR CONNECT
 // sidebar.js
 // ======================================
-function initSidebar() {
+export function initSidebar() {
     console.log("Sidebar ready");
 }
 
-window.initSidebar = initSidebar;
 document.addEventListener("DOMContentLoaded", () => {
 
     // ============================
