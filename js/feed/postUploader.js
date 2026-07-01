@@ -335,13 +335,7 @@ function buildPost({
 
         uid: user.uid,
 
-        authorName: profile.fullName || "",
-
-        authorUsername: profile.username || "",
-
-        authorPhoto: profile.profilePicture || "",
-
-        authorVerified: profile.verified || false,
+    
 
         text: textSpace.value.trim(),
 
@@ -369,13 +363,13 @@ function buildPost({
 
         ),
 
-        likes: 0,
+        likesCount: 0,
 
-        comments: 0,
+        commentsCount: 0,
 
-        shares: 0,
+        sharesCount: 0,
 
-        saves: 0,
+        savesCount: 0,
 
         edited: false,
 
