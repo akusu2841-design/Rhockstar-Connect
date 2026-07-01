@@ -25,13 +25,13 @@
       <h2>Welcome Back</h2>
       <p class="sub-text">Login to continue to Rhockstar Connect</p>
 
-      <!-- MESSAGE BOX (FOR JS ERRORS/SUCCESS) -->
+      <!-- MESSAGE BOX -->
       <div id="messageBox" class="message-box"></div>
 
       <!-- FORM -->
       <form id="loginForm">
 
-        <!-- USERNAME / EMAIL -->
+        <!-- EMAIL / USERNAME -->
         <div class="form-group">
           <label>Email or Username</label>
           <input
@@ -62,30 +62,28 @@
 
         </div>
 
-        <!-- OPTIONS -->
-      
-
-        </div>
+        <!-- LOGIN OPTIONS -->
         <div class="login-options">
 
-    <label class="terms">
-        <input type="checkbox" id="rememberMe">
-        Remember me
-    </label>
+          <label class="terms">
+            <input type="checkbox" id="rememberMe">
+            Remember me
+          </label>
 
-    <a href="#" id="forgotPassword">
-        Forgot Password?
-    </a>
+          <a href="#" id="forgotPassword">
+            Forgot Password?
+          </a>
 
-</div>
-        <!-- BUTTON -->
+        </div>
+
+        <!-- SUBMIT BUTTON -->
         <button type="submit" id="loginBtn">
           Login
         </button>
 
       </form>
 
-      <!-- FOOTER LINK -->
+      <!-- FOOTER -->
       <p class="login-link">
         Don't have an account?
         <a href="register.html">Create account</a>
@@ -97,9 +95,10 @@
 
   <!-- SCRIPTS -->
   <script src="js/utils.js"></script>
-<script src="js/storage.js"></script>
-<script src="js/auth.js"></script>
-<script type="module" src="js/login.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script type="module" src="js/login.js"></script>
 
 </body>
 </html>
