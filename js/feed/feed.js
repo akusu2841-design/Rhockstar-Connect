@@ -1,3 +1,9 @@
+function initFeed() {
+    console.log("Feed ready");
+}
+
+window.initFeed = initFeed;
+
 // js/main.js (or js/feed.js)
 
 import { loadFeedPosts } from "./feed/feedLoader.js";
