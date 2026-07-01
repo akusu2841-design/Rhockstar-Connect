@@ -153,7 +153,6 @@ async function usernameExists(username) {
 
 }
 
-
 // ======================================
 // EXPORTS
 // ======================================
@@ -169,5 +168,5 @@ export {
     deleteUserProfile,
 
     usernameExists
-
+getEmailByUsername(username)
 };
