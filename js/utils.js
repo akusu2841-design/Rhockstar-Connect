@@ -1,259 +1,183 @@
-// ===========================================
-// UTILS.JS
-// Common Helper Functions
-// ===========================================
+// ======================================
+// RHOCKSTAR CONNECT
+// utils.js
+// Shared UI Helpers (GLOBAL SAFE)
+// ======================================
 
 
-// ===========================================
-// SELECTORS
-// ===========================================
+// =========================
+// MESSAGE BOX
+// =========================
 
-export function $(selector) {
-    return document.querySelector(selector);
-}
+function showMessage(message, type = "info") {
 
-export function $$(selector) {
-    return document.querySelectorAll(selector);
-}
+    const box = document.getElementById("messageBox");
 
-export function byId(id) {
-    return document.getElementById(id);
-}
+    if (!box) return;
 
+    box.textContent = message;
 
-// ===========================================
-// SHOW
-// ===========================================
+    box.className = `message-box ${type}`;
 
-export function show(element) {
+    box.style.display = "block";
 
-    if (!element) return;
+    clearTimeout(box.timer);
 
-    element.classList.remove("hidden");
-
+    box.timer = setTimeout(() => {
+        box.style.display = "none";
+    }, 4000);
 }
 
 
-// ===========================================
-// HIDE
-// ===========================================
+// =========================
+// BUTTON LOADING
+// =========================
 
-export function hide(element) {
-
-    if (!element) return;
-
-    element.classList.add("hidden");
-
-}
-
-
-// ===========================================
-// TOGGLE
-// ===========================================
-
-export function toggle(element) {
-
-    if (!element) return;
-
-    element.classList.toggle("hidden");
-
-}
-
-
-// ===========================================
-// ENABLE BUTTON
-// ===========================================
-
-export function enable(button) {
+function setButtonLoading(button, loading = true) {
 
     if (!button) return;
 
-    button.disabled = false;
+    if (loading) {
 
-}
+        button.dataset.original = button.innerHTML;
 
+        button.disabled = true;
 
-// ===========================================
-// DISABLE BUTTON
-// ===========================================
+        button.innerHTML = "Please wait...";
 
-export function disable(button) {
+    } else {
 
-    if (!button) return;
+        button.disabled = false;
 
-    button.disabled = true;
-
-}
-
-
-// ===========================================
-// SET BUTTON LOADING
-// ===========================================
-
-export function setLoading(button, text = "Loading...") {
-
-    if (!button) return;
-
-    button.dataset.original = button.innerHTML;
-
-    button.disabled = true;
-
-    button.innerHTML = text;
-
-}
-
-
-// ===========================================
-// REMOVE BUTTON LOADING
-// ===========================================
-
-export function stopLoading(button) {
-
-    if (!button) return;
-
-    button.disabled = false;
-
-    if (button.dataset.original) {
-
-        button.innerHTML = button.dataset.original;
-
+        button.innerHTML = button.dataset.original || "Submit";
     }
-
 }
 
 
-// ===========================================
-// TOAST
-// ===========================================
+// =========================
+// PASSWORD TOGGLE
+// =========================
 
-export function toast(message) {
+function setupPasswordToggle(buttonId, inputId) {
 
-    alert(message);
+    const button = document.getElementById(buttonId);
+    const input = document.getElementById(inputId);
 
-}
+    if (!button || !input) return;
 
+    button.addEventListener("click", () => {
 
-// ===========================================
-// FORMAT DATE
-// ===========================================
-
-export function formatDate(date) {
-
-    return new Date(date).toLocaleString();
-
-}
-
-
-// ===========================================
-// CURRENT DATE
-// ===========================================
-
-export function now() {
-
-    return new Date();
-
-}
-
-
-// ===========================================
-// RANDOM ID
-// ===========================================
-
-export function generateId() {
-
-    return crypto.randomUUID();
-
-}
-
-
-// ===========================================
-// TRIM STRING
-// ===========================================
-
-export function clean(text) {
-
-    return text.trim();
-
-}
-
-
-// ===========================================
-// CHECK EMPTY
-// ===========================================
-
-export function isEmpty(text) {
-
-    return clean(text) === "";
-
-}
-
-
-// ===========================================
-// EMAIL VALIDATION
-// ===========================================
-
-export function isEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-}
-
-
-// ===========================================
-// PASSWORD VALIDATION
-// ===========================================
-
-export function strongPassword(password) {
-
-    return password.length >= 6;
-
-}
-
-
-// ===========================================
-// COPY TEXT
-// ===========================================
-
-export async function copy(text) {
-
-    await navigator.clipboard.writeText(text);
-
-}
-
-
-// ===========================================
-// SCROLL TOP
-// ===========================================
-
-export function scrollTopSmooth() {
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
+        if (input.type === "password") {
+            input.type = "text";
+            button.textContent = "🙈";
+        } else {
+            input.type = "password";
+            button.textContent = "👁";
+        }
 
     });
-
 }
 
 
-// ===========================================
-// PREVIEW IMAGE
-// ===========================================
+// =========================
+// PASSWORD STRENGTH
+// =========================
 
-export function previewImage(file, img) {
+function getPasswordStrength(password) {
 
-    if (!file || !img) return;
+    let score = 0;
 
-    const reader = new FileReader();
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
 
-    reader.onload = e => {
-
-        img.src = e.target.result;
-
-    };
-
-    reader.readAsDataURL(file);
-
+    return score;
 }
+
+
+// =========================
+// STRENGTH BAR
+// =========================
+
+function setupStrengthBar(inputId, barId) {
+
+    const input = document.getElementById(inputId);
+    const bar = document.getElementById(barId);
+
+    if (!input || !bar) return;
+
+    input.addEventListener("input", () => {
+
+        const score = getPasswordStrength(input.value);
+
+        let width = "0%";
+        let color = "#ff3b30";
+
+        switch (score) {
+
+            case 1:
+                width = "20%";
+                break;
+
+            case 2:
+                width = "40%";
+                color = "#ff9500";
+                break;
+
+            case 3:
+                width = "60%";
+                color = "#ffd60a";
+                break;
+
+            case 4:
+                width = "80%";
+                color = "#32d74b";
+                break;
+
+            case 5:
+                width = "100%";
+                color = "#00c853";
+                break;
+        }
+
+        bar.style.width = width;
+        bar.style.background = color;
+    });
+}
+
+
+// =========================
+// VALIDATION
+// =========================
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidUsername(username) {
+    return /^[a-zA-Z0-9_]{3,20}$/.test(username);
+}
+
+function isStrongPassword(password) {
+    return password.length >= 8 &&
+        /[A-Z]/.test(password) &&
+        /[a-z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[^A-Za-z0-9]/.test(password);
+}
+
+
+// =========================
+// EXPORT TO GLOBAL (IMPORTANT)
+// =========================
+
+window.showMessage = showMessage;
+window.setButtonLoading = setButtonLoading;
+window.setupPasswordToggle = setupPasswordToggle;
+window.setupStrengthBar = setupStrengthBar;
+window.getPasswordStrength = getPasswordStrength;
+window.isValidEmail = isValidEmail;
+window.isValidUsername = isValidUsername;
+window.isStrongPassword = isStrongPassword;
