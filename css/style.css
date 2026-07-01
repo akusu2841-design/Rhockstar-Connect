@@ -778,18 +778,6 @@ text-align:center;
 }
 
 }
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-.hidden{
-    display:none;
-}
 /* ================= SCROLLBAR ================= */
 
 ::-webkit-scrollbar{
@@ -1387,10 +1375,6 @@ padding:25px;
    DASHBOARD
 ====================================================== */
 
-#dashboard{
-
-display:none;
-
 width:100%;
 
 min-height:100vh;
@@ -1516,9 +1500,7 @@ letter-spacing:1px;
 ====================================================== */
 
 .close-menu{
-
 display:none;
-
 position:absolute;
 
 right:0;
