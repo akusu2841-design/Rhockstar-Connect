@@ -1,14 +1,15 @@
+
 // =====================================
-// Rhockstar Connect
-// app.js
-// Landing Page
+// Rhockstar Connect - MASTER CONTROLLER
 // =====================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("Rhockstar Connect Landing Page Loaded");
+    console.log("🚀 App Started");
 
-    // Smooth scroll for internal links
+    // ===============================
+    // LANDING PAGE SMOOTH SCROLL
+    // ===============================
     document.querySelectorAll('a[href^="#"]').forEach(link => {
 
         link.addEventListener("click", (e) => {
@@ -27,5 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     });
+
+
+    // ===============================
+    // INIT ALL MODULES (GLOBAL FUNCTIONS)
+    // ===============================
+
+    if (typeof initSidebar === "function") initSidebar();
+    if (typeof initNavigation === "function") initNavigation();
+    if (typeof initProfile === "function") initProfile();
+    if (typeof initFeed === "function") initFeed();
 
 });
