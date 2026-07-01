@@ -13,7 +13,6 @@ import {
     updateDoc,
     deleteDoc,
     collection,
-    addDoc,
     getDocs,
     query,
     where,
@@ -139,19 +138,61 @@ async function deleteUserProfile(uid) {
 
 async function usernameExists(username) {
 
-    const q = query(
+    try {
 
-        collection(db, "users"),
+        const q = query(
+            collection(db, "users"),
+            where("username", "==", username)
+        );
 
-        where("username", "==", username)
+        const snapshot = await getDocs(q);
 
-    );
+        return !snapshot.empty;
 
-    const snapshot = await getDocs(q);
+    } catch (error) {
 
-    return !snapshot.empty;
+        console.error(error);
+
+        return false;
+
+    }
 
 }
+
+
+// ======================================
+// GET EMAIL BY USERNAME
+// ======================================
+
+async function getEmailByUsername(username) {
+
+    try {
+
+        const q = query(
+            collection(db, "users"),
+            where("username", "==", username)
+        );
+
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+
+            return null;
+
+        }
+
+        return snapshot.docs[0].data().email;
+
+    } catch (error) {
+
+        console.error(error);
+
+        return null;
+
+    }
+
+}
+
 
 // ======================================
 // EXPORTS
@@ -167,6 +208,8 @@ export {
 
     deleteUserProfile,
 
-    usernameExists
-getEmailByUsername(username)
+    usernameExists,
+
+    getEmailByUsername
+
 };
