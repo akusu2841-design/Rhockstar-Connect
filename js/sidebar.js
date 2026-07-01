@@ -1,16 +1,11 @@
-// ======================================
+// =======================================
 // RHOCKSTAR CONNECT
 // sidebar.js
-// ======================================
+// =======================================
+
 export function initSidebar() {
-    console.log("Sidebar ready");
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    // ============================
-    // DOM ELEMENTS
-    // ============================
+    console.log("✅ Sidebar Ready");
 
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("sidebarOverlay");
@@ -18,117 +13,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.getElementById("menuToggle");
     const closeMenu = document.getElementById("closeMenu");
 
-    const navLinks = document.querySelectorAll(".nav-link");
-    const pages = document.querySelectorAll(".page");
-
-    // ============================
-    // OPEN SIDEBAR
-    // ============================
+    if (!sidebar) return;
 
     function openSidebar() {
 
         sidebar.classList.add("show");
-        overlay.classList.add("show");
+
+        overlay?.classList.add("show");
 
         document.body.style.overflow = "hidden";
 
     }
 
-    // ============================
-    // CLOSE SIDEBAR
-    // ============================
-
     function closeSidebar() {
 
         sidebar.classList.remove("show");
-        overlay.classList.remove("show");
+
+        overlay?.classList.remove("show");
 
         document.body.style.overflow = "";
 
     }
 
-    // ============================
-    // BUTTON EVENTS
-    // ============================
+    menuToggle?.addEventListener("click", openSidebar);
 
-    if (menuToggle) {
+    closeMenu?.addEventListener("click", closeSidebar);
 
-        menuToggle.addEventListener("click", openSidebar);
-
-    }
-
-    if (closeMenu) {
-
-        closeMenu.addEventListener("click", closeSidebar);
-
-    }
-
-    if (overlay) {
-
-        overlay.addEventListener("click", closeSidebar);
-
-    }
-
-    // ============================
-    // PAGE NAVIGATION
-    // ============================
-
-    navLinks.forEach(link => {
-
-        link.addEventListener("click", e => {
-
-            e.preventDefault();
-
-            // Remove active link
-            navLinks.forEach(nav => nav.classList.remove("active"));
-
-            // Activate clicked link
-            link.classList.add("active");
-
-            // Hide all pages
-            pages.forEach(page => {
-
-                page.classList.remove("active");
-
-            });
-
-            // Show selected page
-            const pageId = link.dataset.page;
-
-            const targetPage = document.getElementById(pageId);
-
-            if (targetPage) {
-
-                targetPage.classList.add("active");
-
-            }
-
-            // Close sidebar on mobile
-            if (window.innerWidth <= 992) {
-
-                closeSidebar();
-
-            }
-
-        });
-
-    });
-
-    // ============================
-    // AUTO CLOSE ON RESIZE
-    // ============================
+    overlay?.addEventListener("click", closeSidebar);
 
     window.addEventListener("resize", () => {
 
         if (window.innerWidth > 992) {
 
-            sidebar.classList.remove("show");
-            overlay.classList.remove("show");
-
-            document.body.style.overflow = "";
+            closeSidebar();
 
         }
 
     });
 
-});
+}
