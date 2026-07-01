@@ -1,163 +1,173 @@
-// ===============================
+// ======================================
 // RHOCKSTAR CONNECT
 // login.js
-// ===============================
+// ======================================
 
-"use strict";
+import { loginUser, resetPassword } from "./auth.js";
+import { getEmailByUsername } from "./firestore.js";
+
 
 // ===============================
 // ELEMENTS
 // ===============================
 
-const loginForm = document.getElementById("loginForm");
-
-const messageBox = document.getElementById("messageBox");
-
+const form = document.getElementById("loginForm");
 const loginId = document.getElementById("loginId");
-
 const password = document.getElementById("password");
-
 const rememberMe = document.getElementById("rememberMe");
+const loginBtn = document.getElementById("loginBtn");
+const forgotPassword = document.getElementById("forgotPassword");
 
-const togglePassword = document.getElementById("togglePassword");
 
 // ===============================
-// SHOW / HIDE PASSWORD
+// PASSWORD TOGGLE (from utils.js global)
 // ===============================
 
-togglePassword?.addEventListener("click", () => {
+setupPasswordToggle("togglePassword", "password");
 
-    if (password.type === "password") {
-
-        password.type = "text";
-
-        togglePassword.textContent = "🙈";
-
-    } else {
-
-        password.type = "password";
-
-        togglePassword.textContent = "👁";
-
-    }
-
-});
 
 // ===============================
 // LOGIN
 // ===============================
 
-loginForm?.addEventListener("submit", e => {
+form?.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    if (
+    const id = loginId.value.trim();
+    const pass = password.value;
 
-        !loginId.value.trim() ||
-
-        !password.value.trim()
-
-    ) {
-
-        messageBox.textContent =
-
-            "Please enter your login details.";
-
-        messageBox.style.color = "red";
-
+    if (!id || !pass) {
+        showMessage("Please fill in all fields.", "error");
         return;
-
     }
 
-    const success = Auth.login(
+    setButtonLoading(loginBtn, true);
 
-        loginId.value.trim(),
+    try {
 
-        password.value
+        let email = id;
 
-    );
+        // Check if username or email
+        if (!id.includes("@")) {
 
-    if (!success) {
+            const foundEmail = await getEmailByUsername(id);
 
-        messageBox.textContent =
+            if (!foundEmail) {
+                showMessage("Username not found.", "error");
+                setButtonLoading(loginBtn, false);
+                return;
+            }
 
-            "Invalid email/username or password.";
+            email = foundEmail;
+        }
 
-        messageBox.style.color = "red";
+        const result = await loginUser(email, pass);
 
-        return;
+        if (!result.success) {
 
-    }
+            let message = "Login failed.";
 
-    // Remember Me
-    if (rememberMe?.checked) {
+            switch (result.code) {
 
-        localStorage.setItem(
+                case "auth/user-not-found":
+                    message = "No account found.";
+                    break;
 
-            "rememberLogin",
+                case "auth/wrong-password":
+                    message = "Incorrect password.";
+                    break;
 
-            "true"
+                case "auth/invalid-credential":
+                    message = "Incorrect email/username or password.";
+                    break;
 
-        );
+                case "auth/too-many-requests":
+                    message = "Too many attempts. Try again later.";
+                    break;
 
-    } else {
-
-        localStorage.removeItem(
-
-            "rememberLogin"
-
-        );
-
-    }
-
-    messageBox.textContent =
-
-        "Login successful.";
-
-    messageBox.style.color = "lime";
-
-    setTimeout(() => {
-
-        window.location.href = "index.html";
-
-    }, 800);
-
-});
-
-// ===============================
-// AUTO LOGIN
-// ===============================
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        if (
-
-            Auth.isLoggedIn()
-
-        ) {
-
-            if (
-
-                window.location.pathname.includes(
-
-                    "login"
-
-                )
-
-            ) {
-
-                window.location.href =
-
-                    "index.html";
+                default:
+                    message = result.error || message;
 
             }
 
+            showMessage(message, "error");
+            return;
         }
 
+        // Remember Me
+        if (rememberMe?.checked) {
+            localStorage.setItem("rememberLogin", "true");
+        } else {
+            localStorage.removeItem("rememberLogin");
+        }
+
+        showMessage("Login successful!", "success");
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+
+    } catch (error) {
+        showMessage("Something went wrong. Try again.", "error");
     }
 
-);
+    finally {
+        setButtonLoading(loginBtn, false);
+    }
+
+});
+
+
+// ===============================
+// FORGOT PASSWORD
+// ===============================
+
+forgotPassword?.addEventListener("click", async (e) => {
+
+    e.preventDefault();
+
+    const id = loginId.value.trim();
+
+    if (!id) {
+        showMessage("Enter your email or username first.", "error");
+        return;
+    }
+
+    let email = id;
+
+    if (!id.includes("@")) {
+
+        email = await getEmailByUsername(id);
+
+        if (!email) {
+            showMessage("Username not found.", "error");
+            return;
+        }
+    }
+
+    const result = await resetPassword(email);
+
+    if (result.success) {
+        showMessage("Password reset email sent.", "success");
+    } else {
+        showMessage(result.error || "Failed to send reset email.", "error");
+    }
+
+});
+
+
+// ===============================
+// AUTO REDIRECT IF LOGGED IN
+// ===============================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const remember = localStorage.getItem("rememberLogin");
+
+    if (remember === "true") {
+        // You can later auto-check Firebase auth state here
+        console.log("Remembered session active");
+    }
+
+});
