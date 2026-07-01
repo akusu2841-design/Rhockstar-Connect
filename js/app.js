@@ -1,42 +1,38 @@
+// =======================================
+// RHOCKSTAR CONNECT
+// app.js
+// Master Controller
+// =======================================
 
-// =====================================
-// Rhockstar Connect - MASTER CONTROLLER
-// =====================================
+// Firebase
+import "./firebase.js";
+
+// Navigation
+import { initSidebar } from "./sidebar.js";
+import { initNavigation } from "./navigation.js";
+
+// Feed
+import { initFeed } from "./feed/feedLoader.js";
+import "./feed/postUploader.js";
+import "./feed/postInteractions.js";
+
+// Profile
+import { initProfileLoader } from "./profile/profileLoader.js";
+
+// =======================================
+// START APPLICATION
+// =======================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("🚀 App Started");
+    console.log("🚀 Rhockstar Connect Started");
 
-    // ===============================
-    // LANDING PAGE SMOOTH SCROLL
-    // ===============================
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
+    initSidebar();
 
-        link.addEventListener("click", (e) => {
+    initNavigation();
 
-            const target = document.querySelector(link.getAttribute("href"));
+    initFeed();
 
-            if (!target) return;
-
-            e.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        });
-
-    });
-
-
-    // ===============================
-    // INIT ALL MODULES (GLOBAL FUNCTIONS)
-    // ===============================
-
-    if (typeof initSidebar === "function") initSidebar();
-    if (typeof initNavigation === "function") initNavigation();
-    if (typeof initProfile === "function") initProfile();
-    if (typeof initFeed === "function") initFeed();
+    initProfileLoader();
 
 });
