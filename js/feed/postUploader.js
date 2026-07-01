@@ -339,9 +339,16 @@ function buildPost({
 
         text: textSpace.value.trim(),
 
-        images: imageUrls,
-
-        video: videoUrl,
+        media: [
+    ...imageUrls.map(url => ({
+        type: "image",
+        url
+    })),
+    ...(videoUrl ? [{
+        type: "video",
+        url: videoUrl
+    }] : [])
+],
 
         poll,
 
