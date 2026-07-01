@@ -2,7 +2,24 @@
 // RHOCKSTAR CONNECT
 // navigation.js
 // ======================================
+function initNavigation() {
+    console.log("Navigation ready");
 
+    document.querySelectorAll("[data-page]").forEach(btn => {
+        btn.addEventListener("click", () => {
+
+            const page = btn.getAttribute("data-page");
+
+            document.querySelectorAll(".page").forEach(p => {
+                p.classList.remove("active");
+            });
+
+            document.getElementById(page).classList.add("active");
+        });
+    });
+}
+
+window.initNavigation = initNavigation;
 "use strict";
 
 // =======================
