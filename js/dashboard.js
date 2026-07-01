@@ -1,5 +1,6 @@
 // ================================
-// DASHBOARD
+// RHOCKSTAR CONNECT
+// dashboard.js
 // ================================
 
 import { auth } from "./firebase.js";
@@ -14,21 +15,21 @@ import {
 // ELEMENTS
 // ================================
 
-const dashboard = document.getElementById("dashboard");
+const dashboard = $("dashboard");
 
-const sidebar = document.getElementById("sidebar");
+const sidebar = $("sidebar");
 
-const menuToggle = document.getElementById("menuToggle");
+const menuToggle = $("menuToggle");
 
-const closeMenu = document.getElementById("closeMenu");
+const closeMenu = $("closeMenu");
 
-const overlay = document.getElementById("sidebarOverlay");
+const overlay = $("sidebarOverlay");
 
-const logoutBtn = document.getElementById("logout");
+const logoutBtn = $("logout");
 
-const navLinks = document.querySelectorAll(".nav-link");
+const navLinks = $$(".nav-link");
 
-const pages = document.querySelectorAll(".page");
+const pages = $$(".page");
 
 
 // ================================
@@ -40,14 +41,30 @@ onAuthStateChanged(auth, (user) => {
     if (!user) {
 
         window.location.href = "login.html";
-
         return;
 
     }
 
-    dashboard.classList.remove("hidden");
+    show(dashboard);
+
+    initializeDashboard();
 
 });
+
+
+// ================================
+// INITIALIZE DASHBOARD
+// ================================
+
+function initializeDashboard() {
+
+    setupSidebar();
+
+    setupNavigation();
+
+    setupLogout();
+
+}
 
 
 // ================================
@@ -56,70 +73,104 @@ onAuthStateChanged(auth, (user) => {
 
 function openSidebar() {
 
-    sidebar.classList.add("show");
+    sidebar?.classList.add("show");
 
-    overlay.classList.add("show");
+    overlay?.classList.add("show");
 
 }
 
 function closeSidebar() {
 
-    sidebar.classList.remove("show");
+    sidebar?.classList.remove("show");
 
-    overlay.classList.remove("show");
+    overlay?.classList.remove("show");
 
 }
 
-menuToggle?.addEventListener("click", openSidebar);
+function setupSidebar() {
 
-closeMenu?.addEventListener("click", closeSidebar);
+    menuToggle?.addEventListener("click", openSidebar);
 
-overlay?.addEventListener("click", closeSidebar);
+    closeMenu?.addEventListener("click", closeSidebar);
+
+    overlay?.addEventListener("click", closeSidebar);
+
+}
 
 
 // ================================
-// PAGE SWITCHING
+// NAVIGATION
 // ================================
 
-navLinks.forEach(link => {
+function switchPage(pageId) {
 
-    link.addEventListener("click", e => {
+    pages.forEach(page => {
 
-        e.preventDefault();
-
-        navLinks.forEach(item =>
-            item.classList.remove("active")
-        );
-
-        link.classList.add("active");
-
-        const page = link.dataset.page;
-
-        pages.forEach(section =>
-            section.classList.remove("active")
-        );
-
-        document
-            .getElementById(page)
-            ?.classList.add("active");
-
-        closeSidebar();
+        deactivate(page);
 
     });
 
-});
+    navLinks.forEach(link => {
+
+        deactivate(link);
+
+    });
+
+    activate($(pageId));
+
+    activate(document.querySelector(`[data-page="${pageId}"]`));
+
+    localStorage.setItem("activePage", pageId);
+
+    closeSidebar();
+
+}
+
+function setupNavigation() {
+
+    navLinks.forEach(link => {
+
+        link.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            switchPage(link.dataset.page);
+
+        });
+
+    });
+
+    const lastPage = localStorage.getItem("activePage") || "feed";
+
+    switchPage(lastPage);
+
+}
 
 
 // ================================
 // LOGOUT
 // ================================
 
-logoutBtn?.addEventListener("click", async () => {
+function setupLogout() {
 
-    if (!confirm("Logout now?")) return;
+    logoutBtn?.addEventListener("click", async () => {
 
-    await signOut(auth);
+        const confirmed = confirm("Logout now?");
 
-    window.location.href = "login.html";
+        if (!confirmed) return;
 
-});
+        try {
+
+            await signOut(auth);
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+
+            showMessage(error.message, "error");
+
+        }
+
+    });
+
+}
