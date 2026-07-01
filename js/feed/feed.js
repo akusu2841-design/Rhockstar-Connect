@@ -1,3 +1,11 @@
+// js/main.js (or js/feed.js)
+
+import { loadFeedPosts } from "./feed/feedLoader.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadFeedPosts();
+});
+
 // =======================================
 // RHOCKSTAR CONNECT
 // feed.js
