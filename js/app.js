@@ -1,58 +1,31 @@
 // =====================================
 // Rhockstar Connect
 // app.js
+// Landing Page
 // =====================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Initialize Authentication first
-    if (typeof initAuth === "function") {
-        initAuth();
-    }
+    console.log("Rhockstar Connect Landing Page Loaded");
 
-    // Navigation
-    if (typeof initNavigation === "function") {
-        initNavigation();
-    }
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-    // Dashboard
-    if (typeof initDashboard === "function") {
-        initDashboard();
-    }
+        link.addEventListener("click", (e) => {
 
-    // Feed
-    if (typeof initFeed === "function") {
-        initFeed();
-    }
+            const target = document.querySelector(link.getAttribute("href"));
 
-    // Profile
-    if (typeof initProfile === "function") {
-        initProfile();
-    }
+            if (!target) return;
 
-    // Connections
-    if (typeof initConnections === "function") {
-        initConnections();
-    }
+            e.preventDefault();
 
-    // Messages
-    if (typeof initMessages === "function") {
-        initMessages();
-    }
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
-    // Jobs
-    if (typeof initJobs === "function") {
-        initJobs();
-    }
+        });
 
-    // Notifications
-    if (typeof initNotifications === "function") {
-        initNotifications();
-    }
-
-    // Settings
-    if (typeof initSettings === "function") {
-        initSettings();
-    }
+    });
 
 });
