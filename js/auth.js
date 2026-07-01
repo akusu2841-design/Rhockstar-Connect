@@ -40,9 +40,10 @@ async function registerUser(email, password) {
     } catch (error) {
 
         return {
-            success: false,
-            error: error.message
-        };
+    success: false,
+    code: error.code,
+    error: error.message
+};
 
     }
 
