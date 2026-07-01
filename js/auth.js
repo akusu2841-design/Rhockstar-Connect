@@ -1,200 +1,206 @@
 // ======================================
 // RHOCKSTAR CONNECT
 // auth.js
-// Shared Authentication Functions
+// Firebase Authentication
 // ======================================
 
-// ---------- Message Box ----------
-function showMessage(message, type = "info") {
-    const box = document.getElementById("messageBox");
+import { auth } from "./firebase.js";
 
-    if (!box) return;
-
-    box.textContent = message;
-    box.className = `message-box ${type}`;
-    box.style.display = "block";
-
-    clearTimeout(box.timer);
-
-    box.timer = setTimeout(() => {
-        box.style.display = "none";
-    }, 5000);
-}
-
-window.showMessage = showMessage;
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    sendPasswordResetEmail,
+    sendEmailVerification,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-// ---------- Loading Button ----------
-function setButtonLoading(button, loading = true) {
+// ======================================
+// REGISTER USER
+// ======================================
 
-    if (!button) return;
+async function registerUser(email, password) {
 
-    if (loading) {
-        button.dataset.original = button.innerHTML;
-        button.disabled = true;
-        button.innerHTML = "Please wait...";
-    } else {
-        button.disabled = false;
-        button.innerHTML =
-            button.dataset.original || "Submit";
-    }
-}
+    try {
 
-window.setButtonLoading = setButtonLoading;
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
+        await sendEmailVerification(userCredential.user);
 
-// ---------- Password Visibility ----------
-function setupPasswordToggle(buttonId, inputId) {
+        return {
+            success: true,
+            user: userCredential.user
+        };
 
-    const button = document.getElementById(buttonId);
-    const input = document.getElementById(inputId);
+    } catch (error) {
 
-    if (!button || !input) return;
+        return {
+            success: false,
+            error: error.message
+        };
 
-    button.addEventListener("click", () => {
-
-        if (input.type === "password") {
-            input.type = "text";
-            button.textContent = "🙈";
-        } else {
-            input.type = "password";
-            button.textContent = "👁";
-        }
-
-    });
-
-}
-
-window.setupPasswordToggle = setupPasswordToggle;
-
-
-// ---------- Password Strength ----------
-function getPasswordStrength(password) {
-
-    let score = 0;
-
-    if (password.length >= 8) score++;
-    if (/[A-Z]/.test(password)) score++;
-    if (/[a-z]/.test(password)) score++;
-    if (/[0-9]/.test(password)) score++;
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-
-    return score;
-
-}
-
-window.getPasswordStrength = getPasswordStrength;
-
-
-// ---------- Update Strength Bar ----------
-function setupStrengthBar(inputId, barId) {
-
-    const input = document.getElementById(inputId);
-    const bar = document.getElementById(barId);
-
-    if (!input || !bar) return;
-
-    input.addEventListener("input", () => {
-
-        const score = getPasswordStrength(input.value);
-
-        let width = "0%";
-        let color = "#ff3b30";
-
-        switch (score) {
-
-            case 1:
-                width = "20%";
-                color = "#ff3b30";
-                break;
-
-            case 2:
-                width = "40%";
-                color = "#ff9500";
-                break;
-
-            case 3:
-                width = "60%";
-                color = "#ffd60a";
-                break;
-
-            case 4:
-                width = "80%";
-                color = "#32d74b";
-                break;
-
-            case 5:
-                width = "100%";
-                color = "#00c853";
-                break;
-
-        }
-
-        bar.style.width = width;
-        bar.style.background = color;
-
-    });
-
-}
-
-window.setupStrengthBar = setupStrengthBar;
-
-
-// ---------- Email Validation ----------
-function isValidEmail(email) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-}
-
-window.isValidEmail = isValidEmail;
-
-
-// ---------- Username Validation ----------
-function isValidUsername(username) {
-
-    return /^[a-zA-Z0-9_]{3,20}$/.test(username);
-
-}
-
-window.isValidUsername = isValidUsername;
-
-
-// ---------- Password Validation ----------
-function isStrongPassword(password) {
-
-    return password.length >= 8 &&
-        /[A-Z]/.test(password) &&
-        /[a-z]/.test(password) &&
-        /[0-9]/.test(password) &&
-        /[^A-Za-z0-9]/.test(password);
-
-}
-
-window.isStrongPassword = isStrongPassword;
-
-
-// ---------- Redirect If Logged In ----------
-function redirectIfLoggedIn() {
-
-    const user = localStorage.getItem("currentUser");
-
-    if (user) {
-        window.location.href = "index.html";
     }
 
 }
 
-window.redirectIfLoggedIn = redirectIfLoggedIn;
 
+// ======================================
+// LOGIN USER
+// ======================================
 
-// ---------- Logout ----------
-function logout() {
+async function loginUser(email, password) {
 
-    localStorage.removeItem("currentUser");
+    try {
 
-    window.location.href = "login.html";
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        return {
+            success: true,
+            user: userCredential.user
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
 
 }
 
-window.logout = logout;
+
+// ======================================
+// LOGOUT USER
+// ======================================
+
+async function logoutUser() {
+
+    try {
+
+        await signOut(auth);
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
+
+
+// ======================================
+// RESET PASSWORD
+// ======================================
+
+async function resetPassword(email) {
+
+    try {
+
+        await sendPasswordResetEmail(auth, email);
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
+
+
+// ======================================
+// SEND EMAIL VERIFICATION
+// ======================================
+
+async function verifyCurrentUser() {
+
+    try {
+
+        if (!auth.currentUser) {
+
+            return {
+                success: false,
+                error: "No user is logged in."
+            };
+
+        }
+
+        await sendEmailVerification(auth.currentUser);
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
+
+
+// ======================================
+// CURRENT USER
+// ======================================
+
+function getCurrentUser() {
+
+    return auth.currentUser;
+
+}
+
+
+// ======================================
+// AUTH STATE LISTENER
+// ======================================
+
+function observeAuthState(callback) {
+
+    return onAuthStateChanged(auth, callback);
+
+}
+
+
+// ======================================
+// EXPORTS
+// ======================================
+
+export {
+
+    registerUser,
+    loginUser,
+    logoutUser,
+    resetPassword,
+    verifyCurrentUser,
+    getCurrentUser,
+    observeAuthState
+
+};
