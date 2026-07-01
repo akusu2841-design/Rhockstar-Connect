@@ -1,3 +1,12 @@
+function initProfile() {
+    console.log("Profile ready");
+}
+
+window.initProfile = initProfile;
+
+
+
+
 "use strict";
 
 /*====================================================
