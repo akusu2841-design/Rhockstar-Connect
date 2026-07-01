@@ -1,15 +1,10 @@
-import { auth, db } from "./firebase.js";
+// ======================================
+// RHOCKSTAR CONNECT
+// register.js
+// ======================================
 
-import {
-    createUserWithEmailAndPassword,
-    updateProfile
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-import {
-    doc,
-    setDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { registerUser } from "./auth.js";
+import { createUserProfile, usernameExists } from "./firestore.js";
 
 
 // =========================
@@ -24,12 +19,11 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirmPassword");
 const terms = document.getElementById("terms");
-
 const registerBtn = document.getElementById("registerBtn");
 
 
 // =========================
-// PAGE SETUP
+// UI SETUP (utils.js global)
 // =========================
 
 setupPasswordToggle("togglePassword", "password");
@@ -40,7 +34,7 @@ setupStrengthBar("password", "strengthBar");
 // REGISTER
 // =========================
 
-form.addEventListener("submit", async (e) => {
+form?.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
@@ -50,136 +44,79 @@ form.addEventListener("submit", async (e) => {
     const pass = password.value;
     const confirm = confirmPassword.value;
 
-    if (!name) {
-        return showMessage("Enter your full name.", "error");
-    }
+    // VALIDATION
+    if (!name) return showMessage("Enter your full name.", "error");
 
-    if (!isValidUsername(user)) {
-        return showMessage(
-            "Username must be 3 to 20 characters and contain only letters, numbers and underscores.",
-            "error"
-        );
-    }
+    if (!isValidUsername(user))
+        return showMessage("Invalid username format.", "error");
 
-    if (!isValidEmail(mail)) {
+    if (!isValidEmail(mail))
         return showMessage("Enter a valid email.", "error");
-    }
 
-    if (!isStrongPassword(pass)) {
-        return showMessage(
-            "Password is not strong enough.",
-            "error"
-        );
-    }
+    if (!isStrongPassword(pass))
+        return showMessage("Password is too weak.", "error");
 
-    if (pass !== confirm) {
-        return showMessage(
-            "Passwords do not match.",
-            "error"
-        );
-    }
+    if (pass !== confirm)
+        return showMessage("Passwords do not match.", "error");
 
-    if (!terms.checked) {
-        return showMessage(
-            "Accept the Terms before continuing.",
-            "error"
-        );
-    }
+    if (!terms.checked)
+        return showMessage("You must accept terms.", "error");
 
     try {
 
         setButtonLoading(registerBtn, true);
 
-        // Firebase Auth
-        const result = await createUserWithEmailAndPassword(
-            auth,
-            mail,
-            pass
-        );
+        // CHECK USERNAME
+        if (await usernameExists(user)) {
+            showMessage("Username already taken.", "error");
+            return;
+        }
 
-        // Update profile
-        await updateProfile(result.user, {
-            displayName: name
-        });
+        // CREATE AUTH USER
+        const result = await registerUser(mail, pass);
 
-        // Firestore profile
-        await setDoc(doc(db, "users", result.user.uid), {
+        if (!result.success) {
+            showMessage(result.error || "Registration failed.", "error");
+            return;
+        }
 
-            uid: result.user.uid,
+        const uid = result.user.uid;
 
+        // CREATE FIRESTORE PROFILE
+        await createUserProfile(uid, {
+
+            uid,
             fullName: name,
-
             username: user,
-
             email: mail,
-
             photoURL: "",
-
             coverURL: "",
-
             bio: "",
-
             title: "",
-
             country: "",
-
             location: "",
-
             verified: false,
-
             followers: 0,
-
             following: 0,
-
             connections: 0,
-
-            posts: 0,
-
-            createdAt: serverTimestamp()
+            posts: 0
 
         });
 
-        showMessage(
-            "Account created successfully.",
-            "success"
-        );
+        showMessage("Account created successfully!", "success");
 
         setTimeout(() => {
-
             window.location.href = "login.html";
-
-        }, 1500);
+        }, 1200);
 
     }
 
     catch (error) {
-
-        let message = error.message;
-
-        switch (error.code) {
-
-            case "auth/email-already-in-use":
-                message = "Email already exists.";
-                break;
-
-            case "auth/weak-password":
-                message = "Password is too weak.";
-                break;
-
-            case "auth/invalid-email":
-                message = "Invalid email.";
-                break;
-
-        }
-
-        showMessage(message, "error");
-
+        showMessage("Something went wrong.", "error");
     }
 
     finally {
-
         setButtonLoading(registerBtn, false);
-
     }
 
 });
