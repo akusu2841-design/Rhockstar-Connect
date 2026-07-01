@@ -1,156 +1,125 @@
-// ===============================
-// RHOCKSTAR CONNECT
-// dashboard.js
-// ===============================
+// ================================
+// DASHBOARD
+// ================================
 
-document.addEventListener("DOMContentLoaded", () => {
+import { auth } from "./firebase.js";
 
-    updateDashboardStats();
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-    // Update every second
-    setInterval(updateDashboardStats, 1000);
 
-});
+// ================================
+// ELEMENTS
+// ================================
 
-// ===============================
-// UPDATE DASHBOARD STATS
-// ===============================
+const dashboard = document.getElementById("dashboard");
 
-function updateDashboardStats() {
+const sidebar = document.getElementById("sidebar");
 
-    updatePosts();
+const menuToggle = document.getElementById("menuToggle");
 
-    updateJobs();
+const closeMenu = document.getElementById("closeMenu");
 
-    updateConnections();
+const overlay = document.getElementById("sidebarOverlay");
 
-    updateSavedJobs();
+const logoutBtn = document.getElementById("logout");
 
-    updateApplications();
+const navLinks = document.querySelectorAll(".nav-link");
 
-    updateNotifications();
+const pages = document.querySelectorAll(".page");
 
-}
 
-// ===============================
-// POSTS
-// ===============================
+// ================================
+// AUTH CHECK
+// ================================
 
-function updatePosts() {
+onAuthStateChanged(auth, (user) => {
 
-    const posts =
-        document.querySelectorAll(".post-card").length;
+    if (!user) {
 
-    setText("myPosts", posts);
+        window.location.href = "login.html";
 
-    setText("totalPosts", posts);
-
-}
-
-// ===============================
-// JOBS
-// ===============================
-
-function updateJobs() {
-
-    const jobs =
-        document.querySelectorAll(".job-card").length;
-
-    setText("totalJobs", jobs);
-
-}
-
-// ===============================
-// CONNECTIONS
-// ===============================
-
-function updateConnections() {
-
-    const connections =
-        document.querySelectorAll(
-            "#connections .remove-btn"
-        ).length;
-
-    setText("myConnections", connections);
-
-    setText("settingsConnections", connections);
-
-    setText("totalConnections", connections);
-
-}
-
-// ===============================
-// SAVED JOBS
-// ===============================
-
-function updateSavedJobs() {
-
-    const saved =
-        document.querySelectorAll(
-            ".saveBtn:disabled"
-        ).length;
-
-    setText("savedJobsCount", saved);
-
-}
-
-// ===============================
-// APPLICATIONS
-// ===============================
-
-function updateApplications() {
-
-    const applied =
-        document.querySelectorAll(
-            ".applyBtn:disabled"
-        ).length;
-
-    setText("applicationsCount", applied);
-
-}
-
-// ===============================
-// NOTIFICATIONS
-// ===============================
-
-function updateNotifications() {
-
-    const total =
-        document.querySelectorAll(
-            ".notification-card"
-        ).length;
-
-    const unread =
-        document.querySelectorAll(
-            ".notification-card.unread"
-        ).length;
-
-    setText("totalNotifications", total);
-
-    setText("unreadNotifications", unread);
-
-}
-
-// ===============================
-// HELPER FUNCTION
-// ===============================
-
-function setText(id, value) {
-
-    const element =
-        document.getElementById(id);
-
-    if (element) {
-
-        element.textContent = value;
+        return;
 
     }
 
+    dashboard.classList.remove("hidden");
+
+});
+
+
+// ================================
+// SIDEBAR
+// ================================
+
+function openSidebar() {
+
+    sidebar.classList.add("show");
+
+    overlay.classList.add("show");
+
 }
 
-// ===============================
-// REFRESH STATS
-// (Can be called by other JS files)
-// ===============================
+function closeSidebar() {
 
-window.refreshDashboard = updateDashboardStats;
+    sidebar.classList.remove("show");
+
+    overlay.classList.remove("show");
+
+}
+
+menuToggle?.addEventListener("click", openSidebar);
+
+closeMenu?.addEventListener("click", closeSidebar);
+
+overlay?.addEventListener("click", closeSidebar);
+
+
+// ================================
+// PAGE SWITCHING
+// ================================
+
+navLinks.forEach(link => {
+
+    link.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        navLinks.forEach(item =>
+            item.classList.remove("active")
+        );
+
+        link.classList.add("active");
+
+        const page = link.dataset.page;
+
+        pages.forEach(section =>
+            section.classList.remove("active")
+        );
+
+        document
+            .getElementById(page)
+            ?.classList.add("active");
+
+        closeSidebar();
+
+    });
+
+});
+
+
+// ================================
+// LOGOUT
+// ================================
+
+logoutBtn?.addEventListener("click", async () => {
+
+    if (!confirm("Logout now?")) return;
+
+    await signOut(auth);
+
+    window.location.href = "login.html";
+
+});
