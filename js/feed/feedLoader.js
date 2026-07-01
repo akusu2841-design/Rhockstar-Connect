@@ -1,119 +1,83 @@
-// =======================================
+// ======================================
 // RHOCKSTAR CONNECT
-// feedLoader.js
-// Loads Feed Posts
-// =======================================
+// FEED LOADER (REAL-TIME POSTS)
+// ======================================
 
+import {
+    collection,
+    query,
+    orderBy,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// ===============================
-// ELEMENTS
-// ===============================
-
-const feedContainer = $("feedContainer");
-
-
-// ===============================
-// INITIALIZE
-// ===============================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initializeFeedLoader();
-
-});
-
+import { db } from "../firebase.js";
 
 // ===============================
-// START
+// LOAD POSTS IN REAL TIME
 // ===============================
 
-function initializeFeedLoader() {
+export function loadFeedPosts() {
 
-    loadPosts();
-
-}
-
-
-// ===============================
-// LOAD POSTS
-// ===============================
-
-async function loadPosts() {
-
-    try {
-
-        showLoading();
-
-        // ===================================
-        // FIREBASE FETCH COMES LATER
-        // ===================================
-
-        console.log("Loading posts...");
-
-        hideLoading();
-
-    } catch (error) {
-
-        console.error(error);
-
-        showMessage("Unable to load posts.", "error");
-
-    }
-
-}
-
-
-// ===============================
-// RENDER POSTS
-// ===============================
-
-function renderPosts(posts) {
+    const feedContainer = document.getElementById("feedContainer");
 
     if (!feedContainer) return;
 
-    feedContainer.innerHTML = "";
+    const postsRef = collection(db, "posts");
+    const postsQuery = query(postsRef, orderBy("createdAt", "desc"));
 
-    posts.forEach(post => {
+    onSnapshot(postsQuery, (snapshot) => {
 
-        feedContainer.appendChild(createPostCard(post));
+        // Clear old hardcoded posts
+        feedContainer.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+
+            const post = doc.data();
+
+            const postElement = createPostElement(post);
+            feedContainer.appendChild(postElement);
+
+        });
 
     });
 
 }
 
-
 // ===============================
-// CREATE POST CARD
+// CREATE POST UI
 // ===============================
 
-function createPostCard(post) {
+function createPostElement(post) {
 
-    const card = document.createElement("article");
+    const div = document.createElement("div");
+    div.classList.add("post");
 
-    card.className = "feed-post";
+    div.innerHTML = `
+        <div class="post-header">
+            <img src="${post.userPhoto || 'images/default-avatar.png'}" />
+            <div>
+                <h4>${post.username || "Unknown User"}</h4>
+                <small>${formatTime(post.createdAt)}</small>
+            </div>
+        </div>
 
-    card.innerHTML = `
-        <h4>${post.author || "Unknown User"}</h4>
-        <p>${post.text}</p>
+        <div class="post-content">
+            <p>${post.text || ""}</p>
+
+            ${post.image ? `<img src="${post.image}" class="post-image"/>` : ""}
+        </div>
     `;
 
-    return card;
-
+    return div;
 }
 
-
 // ===============================
-// LOADING
+// FORMAT TIME
 // ===============================
 
-function showLoading() {
+function formatTime(timestamp) {
+    if (!timestamp) return "just now";
 
-    console.log("Loading...");
-
-}
-
-function hideLoading() {
-
-    console.log("Finished.");
-
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    return date.toLocaleString();
 }
