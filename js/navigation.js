@@ -2,7 +2,7 @@
 // RHOCKSTAR CONNECT
 // navigation.js
 // ======================================
-function initNavigation() {
+export function initNavigation() {
     console.log("Navigation ready");
 
     document.querySelectorAll("[data-page]").forEach(btn => {
@@ -19,7 +19,6 @@ function initNavigation() {
     });
 }
 
-window.initNavigation = initNavigation;
 "use strict";
 
 // =======================
